@@ -8,6 +8,7 @@ ApplicationWindow {
     property string state: "Ready"
     property Component factory
     property alias inspectorSource: inspectorLoader.source
+    property alias selection: selection
     property Item target
 
     width: 1024
@@ -109,14 +110,32 @@ ApplicationWindow {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: if (factory) factory.createObject(parent, {"x": mouseX, "y": mouseY})
+                onClicked: {
+                    if (factory) {
+                        factory.createObject(parent, {"x": mouseX, "y": mouseY})
+                    } else {
+                        target = null
+                    }
+                }
             }
             StageRect {
                 x: 200
                 y: 200
             }
-        }
 
+            SelectionHighlight {
+                id: selection
+                visible: target
+                z:10
+
+                x: mainWindow.target? mainWindow.target.x : 0
+                y: mainWindow.target? mainWindow.target.y : 0
+                width: mainWindow.target? mainWindow.target.width : 0
+                height: mainWindow.target? mainWindow.target.height : 0
+
+            }
+
+        }
         Rectangle {
             width: 200
             height: parent.height
@@ -125,6 +144,13 @@ ApplicationWindow {
             Loader {
                 id: inspectorLoader
             }
+        }
+    }
+
+
+    onTargetChanged: {
+        if (!target) {
+            inspectorSource = ""
         }
     }
 }
