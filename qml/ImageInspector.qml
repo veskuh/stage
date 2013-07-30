@@ -65,12 +65,20 @@ Rectangle {
         }
 
         Label {
-            text: "Source: " + inspector.target.source
+            text: inspector.target? "Source: " + inspector.target.source : "No source"
         }
         Button {
             text: "Change source.."
             onClicked: {
                 inspector.target.dialog.visible = true
+            }
+        }
+        Button {
+            text: "Delete"
+            onClicked: {
+                var element  = inspector.target
+                inspector.target = null
+                element.destroy()
             }
         }
     }

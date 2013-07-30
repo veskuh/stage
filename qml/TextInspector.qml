@@ -69,10 +69,18 @@ Rectangle {
         }
 
         TextField {
-            text: inspector.target.text
+            text: inspector.target? inspector.target.text : ""
             enabled: inspector.target
             onTextChanged: {
-                inspector.target.text = text
+                if (inspector.target) inspector.target.text = text
+            }
+        }
+        Button {
+            text: "Delete"
+            onClicked: {
+                var element  = inspector.target
+                inspector.target = null
+                element.destroy()
             }
         }
     }

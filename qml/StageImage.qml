@@ -7,6 +7,8 @@ Image {
     property bool selected: false
     property alias dialog: fileDialog
 
+    opacity: dragArea.drag.active? 0.5 : 1.0
+
     MouseArea {
         id: dragArea
         anchors.fill: parent
@@ -18,23 +20,18 @@ Image {
         }
     }
 
-
-    opacity: dragArea.drag.active? 0.5 : 1.0
-
     FileDialog {
         id: fileDialog
         title: "Choose image"
-
         selectMultiple: false
+        nameFilters: [ "Image filels (*.jpg *.png)"]
+
         onAccepted: {
             image.source = fileDialog.fileUrl
         }
-        nameFilters: [ "Image filels (*.jpg *.png)"]
     }
-
 
     Component.onCompleted: {
         fileDialog.visible = true
     }
-
 }

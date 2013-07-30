@@ -7,7 +7,7 @@ Rectangle {
     height: 62
 
     property bool selected: false
-    color: dragArea.drag.active? "red": "black"
+    color: "blue"
 
     MouseArea {
         id: dragArea

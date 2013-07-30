@@ -10,7 +10,7 @@ Label {
     width: 100
     height: 62
     text: "Hello World"
-    color: dragArea.drag.active? "red": "black"
+    color: "black"
     opacity: dragArea.drag.active? 0.5 : 1.0
 
     MouseArea {

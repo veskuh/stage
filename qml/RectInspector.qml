@@ -98,10 +98,16 @@ Rectangle {
             minimumValue: 0
             maximumValue: 1.0
             onValueChanged: {
-                inspector.target.color.b = value
+                if (inspector.target) inspector.target.color.b = value
             }
         }
-
-
+        Button {
+            text: "Delete"
+            onClicked: {
+                var element  = inspector.target
+                inspector.target = null
+                element.destroy()
+            }
+        }
     }
 }
