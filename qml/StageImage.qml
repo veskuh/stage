@@ -9,15 +9,12 @@ Image {
 
     opacity: dragArea.drag.active? 0.5 : 1.0
 
-    MouseArea {
+    StageMouseArea {
         id: dragArea
         anchors.fill: parent
         drag.target: parent
-
-        onClicked: {
-            mainWindow.target = image
-            mainWindow.inspectorSource = "ImageInspector.qml"
-        }
+        target: image
+        source: "ImageInspector.qml"
     }
 
     FileDialog {

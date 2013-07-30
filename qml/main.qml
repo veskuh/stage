@@ -10,6 +10,7 @@ ApplicationWindow {
     property alias inspectorSource: inspectorLoader.source
     property alias selection: selection
     property Item target
+    property bool select: !factory
 
     width: 1024
     height: 768
@@ -126,7 +127,6 @@ ApplicationWindow {
             SelectionHighlight {
                 id: selection
                 visible: target
-                z:10
 
                 x: mainWindow.target? mainWindow.target.x : 0
                 y: mainWindow.target? mainWindow.target.y : 0

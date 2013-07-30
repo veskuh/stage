@@ -8,19 +8,13 @@ Rectangle {
 
     property bool selected: false
     color: "blue"
+    opacity: dragArea.drag.active? 0.5 : 1.0
 
-    MouseArea {
+    StageMouseArea {
         id: dragArea
         anchors.fill: parent
         drag.target: parent
-
-        onClicked: {
-            mainWindow.target = rect
-            mainWindow.inspectorSource = "RectInspector.qml"
-        }
+        target: rect
+        source: "RectInspector.qml"
     }
-
-
-    opacity: dragArea.drag.active? 0.5 : 1.0
-
 }

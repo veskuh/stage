@@ -13,14 +13,11 @@ Label {
     color: "black"
     opacity: dragArea.drag.active? 0.5 : 1.0
 
-    MouseArea {
+    StageMouseArea {
         id: dragArea
         anchors.fill: parent
         drag.target: parent
-
-        onClicked: {
-            mainWindow.target = label
-            mainWindow.inspectorSource = "TextInspector.qml"
-        }
+        target: label
+        source: "TextInspector.qml"
     }
 }
