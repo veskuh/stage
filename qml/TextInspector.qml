@@ -4,7 +4,7 @@ import QtQuick.Controls 1.0
 Rectangle {
     id: inspector
     anchors.fill: parent
-
+    color: palette.window
     property Item target: mainWindow.target
 
     Column {

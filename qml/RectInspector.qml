@@ -6,6 +6,8 @@ Rectangle {
     anchors.fill: parent
 
     property Item target: mainWindow.target
+    color: palette.window
+
 
     Column {
         InspectorCommon {

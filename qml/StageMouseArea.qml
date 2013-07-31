@@ -7,8 +7,18 @@ MouseArea {
     enabled: mainWindow.select
 
 
+    property bool dragging: drag.active
+
     onClicked: {
         mainWindow.target = target
         mainWindow.inspectorSource = source
+    }
+
+    onDraggingChanged: {
+        if(dragging) {
+            mainWindow.draggedObject = parent
+        } else {
+            mainWindow.draggedObject = null
+        }
     }
 }

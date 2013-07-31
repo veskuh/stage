@@ -7,14 +7,32 @@ ApplicationWindow {
 
     property string state: "Ready"
     property Component factory
-    property alias inspectorSource: inspectorLoader.source
+    property string inspectorSource
     property alias selection: selection
     property Item target
     property bool select: !factory
+    property alias view: content
+    property Item draggedObject
+    property Item verticalAnchor
+    property Item horizontalAnchor
 
     width: 1024
     height: 768
     title: "Stage"
+
+    ListModel {
+        id: textStyles
+
+        ListElement {
+            name: "Slide Heading"
+            fontSize: 60
+        }
+
+        ListElement {
+            name: "Slide body"
+            fontSize: 35
+        }
+    }
 
     menuBar: MenuBar {
         Menu {
@@ -104,10 +122,22 @@ ApplicationWindow {
     SplitView {
         anchors.fill: parent
         resizing: true
+
+
         Rectangle {
             id: content
             height: 768
             Layout.fillWidth: true
+
+            AnchorLine {
+                vertical: true
+                location: content.width/2
+            }
+
+            AnchorLine {
+                vertical: false
+                location: content.height/2
+            }
 
             MouseArea {
                 anchors.fill: parent
@@ -136,15 +166,64 @@ ApplicationWindow {
             }
 
         }
-        Rectangle {
-            width: 200
-            height: parent.height
-            color: palette.window
 
-            Loader {
-                id: inspectorLoader
+        Component {
+            id: inspector
+            Rectangle {
+                width: 200
+                height: parent.height
+                color: palette.window
+
+                Loader {
+                    source: mainWindow.inspectorSource
+                }
             }
         }
+
+        Component {
+            id: styles
+
+            Rectangle {
+                width:200
+                height:200
+
+                color: palette.window
+
+            }
+        }
+
+        Component {
+            id: slides
+
+            Rectangle {
+                width:200
+                height:200
+
+                color: palette.window
+
+            }
+        }
+
+
+        TabView {
+            width: 300
+
+            Tab {
+                title: "Inspector"
+                source: mainWindow.inspectorSource
+            }
+
+            Tab {
+                title: "Styles"
+                source: "StylesTab.qml"
+            }
+
+            Tab {
+                title: "Slides"
+                source: "SlidesTab.qml"
+            }
+        }
+
     }
 
 
