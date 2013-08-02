@@ -14,6 +14,7 @@ MouseArea {
 
     onDraggingChanged: {
         if(dragging) {
+            parent.anchorLinesEnabled = false
             mainWindow.draggedObject = parent
         } else {
             var anchor, dc
@@ -44,6 +45,7 @@ MouseArea {
                 }
             }
             mainWindow.draggedObject = null
+            parent.anchorLinesEnabled = true
         }
     }
 }
