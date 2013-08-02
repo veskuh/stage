@@ -1,20 +1,14 @@
 import QtQuick 2.0
 
-Rectangle {
-    id: rect
-
+StageBase {
+    inspectorSource: "RectInspector.qml"
+    property alias color: rect.color
     width: 100
     height: 62
 
-    property bool selected: false
-    color: "blue"
-    opacity: dragArea.drag.active? 0.5 : 1.0
-
-    StageMouseArea {
-        id: dragArea
+    Rectangle {
+        id: rect
         anchors.fill: parent
-        drag.target: parent
-        target: rect
-        source: "RectInspector.qml"
+        color: "blue"
     }
 }

@@ -1,21 +1,13 @@
 import QtQuick 2.0
 import QtQuick.Dialogs 1.0
 
-Image {
-    id: image
 
-    property bool selected: false
+StageBase {
     property alias dialog: fileDialog
 
-    opacity: dragArea.drag.active? 0.5 : 1.0
-
-    StageMouseArea {
-        id: dragArea
-        anchors.fill: parent
-        drag.target: parent
-        target: image
-        source: "ImageInspector.qml"
-    }
+    width: image.width
+    height: image.height
+    inspectorSource: "ImageInspector.qml"
 
     FileDialog {
         id: fileDialog
@@ -28,6 +20,9 @@ Image {
         }
     }
 
+    Image {
+        id: image
+    }
     Component.onCompleted: {
         fileDialog.visible = true
     }

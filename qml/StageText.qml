@@ -1,23 +1,17 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 
-Label {
-    id: label
-
-    property string inspectorSource: "TextInspector.qml"
-    property bool selected: false
-
+StageBase {
+    inspectorSource: "TextInspector.qml"
+    property alias text: label.text
+    property alias color: label.color
     width: 100
     height: 62
-    text: "Hello World"
-    color: "black"
-    opacity: dragArea.drag.active? 0.5 : 1.0
 
-    StageMouseArea {
-        id: dragArea
+    Label {
+        id:label
         anchors.fill: parent
-        drag.target: parent
-        target: label
-        source: "TextInspector.qml"
+        text: "Hello World"
+        color: "black"
     }
 }
