@@ -55,7 +55,7 @@ Rectangle {
             minimumValue: 0
             maximumValue: 1.0
             onValueChanged: {
-                inspector.target.color.g = value
+                if (inspector.target) inspector.target.color.g = value
             }
         }
         Label {
