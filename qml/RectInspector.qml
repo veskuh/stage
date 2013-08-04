@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 import QtQuick 2.0
 import QtQuick.Controls 1.0
+import QtQuick.Dialogs 1.0
 
 Rectangle {
     id: inspector
@@ -69,6 +70,26 @@ Rectangle {
             onValueChanged: {
                 if (inspector.target) inspector.target.color.b = value
             }
+        }
+        Rectangle {
+            width:32
+            height:32
+            color: inspector.target? inspector.target.color: "white"
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    colorDialog.visible = true
+                }
+
+            }
+        }
+    }
+
+    ColorDialog {
+        id: colorDialog
+        title: "Choose a color"
+        onAccepted: {
+            inspector.target.color = color
         }
     }
 }
