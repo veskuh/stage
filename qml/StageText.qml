@@ -24,13 +24,14 @@ StageBase {
     inspectorSource: "TextInspector.qml"
     property alias text: label.text
     property alias color: label.color
-    width: 100
-    height: 62
+    width: label.implicitWidth
+    height: label.implicitHeight
 
     Label {
         id:label
         anchors.fill: parent
         text: "Hello World"
         color: "black"
+        font.pixelSize: 36
     }
 }
