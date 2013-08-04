@@ -23,7 +23,7 @@ Item {
     id: base
 
     property alias inspectorSource: dragArea.source
-    property bool selected: false
+    property bool selected: mainWindow.target == base
 
     property bool anchorLinesEnabled: true
     opacity: dragArea.drag.active? 0.5 : 1.0
@@ -71,5 +71,8 @@ Item {
         topLine.destroy()
         bottomLine.destroy()
         horizontalCenterLine.destroy()
+    }
+
+    StageResizeHandle {
     }
 }
