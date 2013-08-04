@@ -117,9 +117,10 @@ ApplicationWindow {
                 }
             }
             ToolButton {
+                id: selectButton
                 text: "Select"
                 checkable: true
-                checked: true
+                checked: !factory
                 exclusiveGroup: activeTool
 
                 onClicked: {
@@ -164,6 +165,7 @@ ApplicationWindow {
                 onClicked: {
                     if (factory) {
                         factory.createObject(parent, {"x": mouseX, "y": mouseY})
+                        factory = null
                     } else {
                         target = null
                     }
