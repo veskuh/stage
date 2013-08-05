@@ -24,8 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+#if defined(Q_OS_MAC)
     QQmlApplicationEngine engine(QString::fromLatin1("%1/../Resources/%2")
                                  .arg(QCoreApplication::applicationDirPath(), "qml/main.qml"));
+#else
+    QQmlApplicationEngine engine(QString::fromLatin1("qml/qml/main.qml"));
+#endif
+
     QObject *topLevel = engine.rootObjects().value(0);
     QQuickWindow *window = qobject_cast<QQuickWindow *>(topLevel);
     if (!window) {
