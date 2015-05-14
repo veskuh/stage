@@ -1,3 +1,4 @@
+QMAKE_MAC_SDK = macosx10.9
 # Add more folders to ship with the application, here
 folder_01.source = qml/
 folder_01.target = qml

@@ -95,6 +95,10 @@ ApplicationWindow {
                 text: "Circle"
                 checkable: true
                 exclusiveGroup: activeTool
+                onClicked: {
+                    factory = Qt.createComponent("StageCircle.qml")
+                    mainWindow.state = "Circle"
+                }
             }
             ToolButton {
                 text: "Text"
