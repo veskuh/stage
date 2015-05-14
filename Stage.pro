@@ -15,7 +15,9 @@ QML_IMPORT_PATH =
 # MOBILITY +=
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    declarativedocument.cpp \
+    documentfile.cpp
 
 # Installation path
 # target.path =
@@ -26,3 +28,7 @@ qtcAddDeployment()
 
 OTHER_FILES += \
     qml/TextInspector.qml
+
+HEADERS += \
+    declarativedocument.h \
+    documentfile.h

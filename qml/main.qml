@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 import QtQuick 2.4
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
+import QtQuick.Dialogs 1.1
+import com.mac.vesku.stage 1.0
 
 ApplicationWindow {
     id: mainWindow
@@ -40,6 +42,10 @@ ApplicationWindow {
     height: 768
     title: "Stage"
 
+    Document {
+        id: document
+    }
+
     ListModel {
         id: textStyles
 
@@ -57,10 +63,10 @@ ApplicationWindow {
     menuBar: MenuBar {
         Menu {
             title: "File"
-            MenuItem { text: "Open..."; shortcut: "Ctrl+O" }
+            MenuItem { text: "Open..."; shortcut: "Ctrl+O"; onTriggered: {openDialog.selectExisting = true; openDialog.open();} }
             MenuSeparator {}
             MenuItem { text: "Close"; shortcut: "Ctrl+W" }
-            MenuItem { text: "Save"; shortcut: "Ctrl+S" }
+            MenuItem { text: "Save"; shortcut: "Ctrl+S"; onTriggered: {openDialog.selectExisting = false; openDialog.open();} }
             MenuItem { text: "Save As.." }
             MenuItem { text: "Export.." }
             MenuSeparator {}
@@ -151,8 +157,18 @@ ApplicationWindow {
 
         Rectangle {
             id: content
+            objectName: "contentRectangle"
             height: 768
             Layout.fillWidth: true
+
+            function addObject(properties)
+            {
+                console.log("Create " + properties.x )
+                if (properties.type === "rect") {
+                    var component = Qt.createComponent("StageRect.qml")
+                    component.createObject(content, properties)
+                }
+            }
 
             AnchorLine {
                 vertical: true
@@ -256,6 +272,21 @@ ApplicationWindow {
     onTargetChanged: {
         if (!target) {
             inspectorSource = ""
+        }
+    }
+
+
+    FileDialog {
+        id: openDialog
+        title: "Choose file"
+        selectMultiple: false
+        nameFilters: [ "json files (*.json)"]
+
+        onAccepted: {
+            if (selectExisting)
+                document.load(openDialog.fileUrl)
+            else
+                document.save(openDialog.fileUrl)
         }
     }
 }

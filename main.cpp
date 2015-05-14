@@ -20,15 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
+#include "declarativedocument.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    QQmlApplicationEngine engine;
+    qmlRegisterType<DeclarativeDocument>("com.mac.vesku.stage", 1, 0, "Document");
 #if defined(Q_OS_MAC)
-    QQmlApplicationEngine engine(QString::fromLatin1("%1/../Resources/%2")
+    engine.load(QString::fromLatin1("%1/../Resources/%2")
                                  .arg(QCoreApplication::applicationDirPath(), "qml/main.qml"));
 #else
-    QQmlApplicationEngine engine(QString::fromLatin1("qml/qml/main.qml"));
+    engine.load(QString::fromLatin1("qml/qml/main.qml"));
 #endif
 
     QObject *topLevel = engine.rootObjects().value(0);
@@ -37,6 +40,7 @@ int main(int argc, char *argv[])
         qWarning("Root has to be a Window");
         return -1;
     }
+
     window->show();
     return app.exec();
 }
