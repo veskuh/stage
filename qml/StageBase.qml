@@ -22,6 +22,7 @@ import QtQuick.Controls 1.2
 
 Item {
     id: base
+    objectName: "StageBase"
 
     property alias inspectorSource: dragArea.source
     property bool selected: mainWindow.target == base

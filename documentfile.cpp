@@ -36,8 +36,6 @@ void DocumentFile::addObject(QVariantMap &properties)
 
 void DocumentFile::save(QUrl url)
 {
-    qDebug() << jsonArray;
-
     QFile file(url.toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
         qWarning("failed to create file for writing");
@@ -45,13 +43,11 @@ void DocumentFile::save(QUrl url)
     }
     QJsonDocument document(jsonArray);
     file.write(document.toJson());
-
 }
 
 QList<QVariantMap> DocumentFile::load(QUrl url)
 {
     QList<QVariantMap> list;
-
     QFile file(url.toLocalFile());
     if (!file.open(QIODevice::ReadOnly)) {
         qWarning("failed to create file for reading");

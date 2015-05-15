@@ -42,9 +42,6 @@ void DeclarativeDocument::save(QUrl url)
         Q_FOREACH (QObject *object, content->children())
         {
             QString className = object->metaObject()->className();
-            if (className.startsWith("Stage"))
-                qDebug() << object->metaObject()->className();
-
             if (className.startsWith("StageRect")) {
                 QVariantMap properties;
                 properties.insert("type", QVariant("rect"));
@@ -72,9 +69,6 @@ void DeclarativeDocument::load(QUrl url)
         QList<QVariantMap> list = DocumentFile::load(url);
         while(!list.isEmpty())
             QMetaObject::invokeMethod(content, "addObject", Q_ARG(QVariant, QVariant::fromValue(list.takeFirst())));
-
-        qDebug() << "object count: " << list.length();
-
     }
 }
 

@@ -37,6 +37,7 @@ ApplicationWindow {
     property Item draggedObject
     property Item verticalAnchor
     property Item horizontalAnchor
+    property url filepath
 
     width: 1024
     height: 768
@@ -63,11 +64,36 @@ ApplicationWindow {
     menuBar: MenuBar {
         Menu {
             title: "File"
-            MenuItem { text: "Open..."; shortcut: "Ctrl+O"; onTriggered: {openDialog.selectExisting = true; openDialog.open();} }
+            MenuItem {
+                text: "Open...";
+                shortcut: "Ctrl+O";
+                onTriggered: {
+                    content.clear()
+                    openDialog.selectExisting = true
+                    openDialog.open()
+                }
+            }
             MenuSeparator {}
             MenuItem { text: "Close"; shortcut: "Ctrl+W" }
-            MenuItem { text: "Save"; shortcut: "Ctrl+S"; onTriggered: {openDialog.selectExisting = false; openDialog.open();} }
-            MenuItem { text: "Save As.." }
+            MenuItem {
+                text: "Save"
+                shortcut: "Ctrl+S"
+                onTriggered: {
+                    if (filepath == "") {
+                        openDialog.selectExisting = false
+                        openDialog.open()
+                    } else {
+                        document.save(filepath)
+                    }
+                }
+            }
+            MenuItem {
+                text: "Save As.."
+                onTriggered: {
+                    openDialog.selectExisting = false
+                    openDialog.open()
+                }
+            }
             MenuItem { text: "Export.." }
             MenuSeparator {}
             MenuItem { text: "Print.."; shortcut: "Ctrl+P" }
@@ -161,12 +187,18 @@ ApplicationWindow {
             height: 768
             Layout.fillWidth: true
 
-            function addObject(properties)
-            {
-                console.log("Create " + properties.x )
+            function addObject(properties) {
                 if (properties.type === "rect") {
                     var component = Qt.createComponent("StageRect.qml")
                     component.createObject(content, properties)
+                }
+            }
+
+            function clear() {
+                for (var child in content.children) {
+                    if (content.children[child].objectName == "StageBase") {
+                        content.children[child].destroy(10)
+                    }
                 }
             }
 
@@ -190,10 +222,6 @@ ApplicationWindow {
                         target = null
                     }
                 }
-            }
-            StageRect {
-                x: 200
-                y: 200
             }
 
             SelectionHighlight {
@@ -275,7 +303,6 @@ ApplicationWindow {
         }
     }
 
-
     FileDialog {
         id: openDialog
         title: "Choose file"
@@ -283,10 +310,13 @@ ApplicationWindow {
         nameFilters: [ "json files (*.json)"]
 
         onAccepted: {
-            if (selectExisting)
-                document.load(openDialog.fileUrl)
-            else
-                document.save(openDialog.fileUrl)
+            filepath = openDialog.fileUrl
+            if (selectExisting) {
+                document.load(filepath)
+
+            } else {
+                document.save(filepath)
+            }
         }
     }
 }
