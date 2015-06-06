@@ -39,8 +39,7 @@ void DeclarativeDocument::save(QUrl url)
 
     QObject *content = obj->findChild<QObject*>("contentRectangle");
     if (content) {
-        Q_FOREACH (QObject *object, content->children())
-        {
+        foreach (QObject *object, content->children()) {
             QString className = object->metaObject()->className();
             if (className.startsWith("StageRect")) {
                 QVariantMap properties;
@@ -67,8 +66,9 @@ void DeclarativeDocument::load(QUrl url)
     QObject *content = obj->findChild<QObject*>("contentRectangle");
     if (content) {
         QList<QVariantMap> list = DocumentFile::load(url);
-        while(!list.isEmpty())
+        while (!list.isEmpty()) {
             QMetaObject::invokeMethod(content, "addObject", Q_ARG(QVariant, QVariant::fromValue(list.takeFirst())));
+        }
     }
 }
 

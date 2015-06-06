@@ -56,8 +56,9 @@ QList<QVariantMap> DocumentFile::load(QUrl url)
     QJsonDocument document = QJsonDocument::fromJson(file.readAll());
 
     foreach (QJsonValue value, document.array()) {
-        if (value.isObject())
+        if (value.isObject()) {
             list.append(value.toObject().toVariantMap());
+        }
     }
     return list;
 }
