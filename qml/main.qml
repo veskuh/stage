@@ -188,9 +188,11 @@ ApplicationWindow {
             Layout.fillWidth: true
 
             function addObject(properties) {
-                if (properties.type === "rect") {
-                    var component = Qt.createComponent("StageRect.qml")
+                var component = Qt.createComponent(properties.type +".qml")
+                if (component.status == Component.Ready) {
                     component.createObject(content, properties)
+                } else {
+                    console.log("Cannot create component for type: " + properties.type)
                 }
             }
 

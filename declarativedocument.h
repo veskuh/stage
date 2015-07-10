@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <QObject>
 #include <QUrl>
+#include <QJsonArray>
 
 class DeclarativeDocument : public QObject
 {
@@ -34,6 +35,11 @@ public:
 signals:
 
 public slots:
+
+
+private:
+    QJsonArray types;
+
 
 };
 

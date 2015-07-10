@@ -27,8 +27,12 @@ include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
 
 OTHER_FILES += \
-    qml/TextInspector.qml
+    qml/TextInspector.qml \
+    types.json
 
 HEADERS += \
     declarativedocument.h \
     documentfile.h
+
+RESOURCES += \
+    resources.qrc

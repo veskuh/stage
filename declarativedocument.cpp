@@ -20,11 +20,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "declarativedocument.h"
 #include <QDebug>
 #include <QVariantMap>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QFile>
 #include "documentfile.h"
 
 DeclarativeDocument::DeclarativeDocument(QObject *parent) :
     QObject(parent)
 {
+    QFile file(":/types.json");
+    if (!file.open(QIODevice::ReadOnly)) {
+        qWarning("failed to create file for reading");
+        return;
+    }
+
+    QJsonDocument document = QJsonDocument::fromJson(file.readAll());
+    types = document.array();
 }
 
 void DeclarativeDocument::save(QUrl url)
@@ -41,14 +53,28 @@ void DeclarativeDocument::save(QUrl url)
     if (content) {
         foreach (QObject *object, content->children()) {
             QString className = object->metaObject()->className();
-            if (className.startsWith("StageRect")) {
-                QVariantMap properties;
-                properties.insert("type", QVariant("rect"));
-                properties.insert("x", object->property("x"));
-                properties.insert("y", object->property("y"));
-                properties.insert("width", object->property("width"));
-                properties.insert("height", object->property("height"));
-                file.addObject(properties);
+            foreach (QJsonValue type, types) {
+                if (type.isObject()) {
+                    QJsonObject typeObject = type.toObject();
+                    QJsonValue value = typeObject.value("type");
+                    if (value.isString()) {
+                        QString typeString = value.toString();
+                        if (className.startsWith(typeString)) {
+                            QVariantMap properties;
+                            properties.insert("type", QVariant(typeString));
+                            QJsonValue propertyArray = typeObject.value("properties");
+                            if (propertyArray.isArray()) {
+                                foreach (QJsonValue property, propertyArray.toArray()) {
+                                    if (property.isString()) {
+                                        QString propertyString = property.toString();
+                                        properties.insert(propertyString, object->property(propertyString.toLatin1().constData()));
+                                    }
+                                }
+                            }
+                            file.addObject(properties);
+                        }
+                    }
+                }
             }
         }
     }

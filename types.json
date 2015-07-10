@@ -1,0 +1,14 @@
+[
+{
+    "type":"StageRect",
+    "properties": ["x","y","width","height"]
+},
+{
+    "type":"StageCircle",
+    "properties": ["x","y","width","height"]
+},
+{
+    "type":"StageText",
+    "properties": ["x","y","width","height","text"]
+}
+]
