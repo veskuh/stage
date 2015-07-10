@@ -1,14 +1,18 @@
 [
 {
     "type":"StageRect",
-    "properties": ["x","y","width","height"]
+    "properties": ["x","y","width","height","color"]
 },
 {
     "type":"StageCircle",
-    "properties": ["x","y","width","height"]
+    "properties": ["x","y","width","height","color"]
 },
 {
     "type":"StageText",
-    "properties": ["x","y","width","height","text"]
+    "properties": ["x","y","width","height","text","color"]
+},
+{
+    "type":"StageImage",
+    "properties": ["x","y","width","height","url"]
 }
 ]

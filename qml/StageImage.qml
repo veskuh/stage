@@ -23,7 +23,7 @@ import QtQuick.Dialogs 1.1
 
 StageBase {
     property alias dialog: fileDialog
-
+    property alias url: image.source
     width: image.width
     height: image.height
     inspectorSource: "ImageInspector.qml"
@@ -43,6 +43,8 @@ StageBase {
         id: image
     }
     Component.onCompleted: {
-        fileDialog.visible = true
+        if (url == "") {
+            fileDialog.visible = true
+        }
     }
 }
