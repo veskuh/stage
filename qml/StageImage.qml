@@ -17,8 +17,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-import QtQuick 2.4
-import QtQuick.Dialogs 1.1
+import QtQuick
+import QtQuick.Dialogs
 
 
 StageBase {
@@ -31,11 +31,11 @@ StageBase {
     FileDialog {
         id: fileDialog
         title: "Choose image"
-        selectMultiple: false
+        fileMode: FileDialog.OpenFile
         nameFilters: [ "Image filels (*.jpg *.png)"]
 
         onAccepted: {
-            image.source = fileDialog.fileUrl
+            image.source = fileDialog.currentFile
         }
     }
 

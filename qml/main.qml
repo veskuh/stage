@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-import QtQuick 2.4
-import QtQuick.Controls 1.2
-import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.1
-import com.mac.vesku.stage 1.0
+import QtQuick
+//import Qt.labs.platform
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuick.Dialogs
+import Qt.labs.platform as Labs
+import com.mac.vesku.stage
 
 ApplicationWindow {
     id: mainWindow
@@ -61,26 +63,29 @@ ApplicationWindow {
         }
     }
 
+
     menuBar: MenuBar {
         Menu {
             title: "File"
             MenuItem {
                 text: "Open...";
-                shortcut: "Ctrl+O";
+            //    shortcut: "Ctrl+O";
                 onTriggered: {
                     content.clear()
-                    openDialog.selectExisting = true
+                    openDialog.fileMode = FileDialog.OpenFile
                     openDialog.open()
                 }
             }
             MenuSeparator {}
-            MenuItem { text: "Close"; shortcut: "Ctrl+W" }
+            MenuItem { text: "Close";
+            //    shortcut: "Ctrl+W"
+            }
             MenuItem {
                 text: "Save"
-                shortcut: "Ctrl+S"
+            //    shortcut: "Ctrl+S"
                 onTriggered: {
                     if (filepath == "") {
-                        openDialog.selectExisting = false
+                        openDialog.fileMode = FileDialog.SaveFile
                         openDialog.open()
                     } else {
                         document.save(filepath)
@@ -96,9 +101,13 @@ ApplicationWindow {
             }
             MenuItem { text: "Export.." }
             MenuSeparator {}
-            MenuItem { text: "Print.."; shortcut: "Ctrl+P" }
+            MenuItem {
+                text: "Print..";
+            //    shortcut: "Ctrl+P"
+            }
 
         }
+        /*
         Menu {
             title: "Edit"
             MenuItem { text: "Undo"; shortcut: "Ctrl+Z" }
@@ -109,15 +118,14 @@ ApplicationWindow {
             MenuSeparator {}
             MenuItem { text: "Select All"; shortcut: "Ctrl+A" }
 
-        }
+        }*/
     }
 
-    toolBar: ToolBar {
+    header: ToolBar {
         RowLayout {
             ToolButton {
                 text: "Rectangle"
                 checkable: true
-                exclusiveGroup: activeTool
                 onClicked: {
                     factory = Qt.createComponent("StageRect.qml")
                     mainWindow.state = "Rectangle"
@@ -126,7 +134,6 @@ ApplicationWindow {
             ToolButton {
                 text: "Circle"
                 checkable: true
-                exclusiveGroup: activeTool
                 onClicked: {
                     factory = Qt.createComponent("StageCircle.qml")
                     mainWindow.state = "Circle"
@@ -135,7 +142,6 @@ ApplicationWindow {
             ToolButton {
                 text: "Text"
                 checkable: true
-                exclusiveGroup: activeTool
 
                 onClicked: {
                     factory = Qt.createComponent("StageText.qml")
@@ -145,7 +151,6 @@ ApplicationWindow {
             ToolButton {
                 text: "Image"
                 checkable: true
-                exclusiveGroup: activeTool
 
                 onClicked: {
                     factory = Qt.createComponent("StageImage.qml")
@@ -157,7 +162,6 @@ ApplicationWindow {
                 text: "Select"
                 checkable: true
                 checked: !factory
-                exclusiveGroup: activeTool
 
                 onClicked: {
                     factory = null
@@ -167,25 +171,22 @@ ApplicationWindow {
         }
     }
 
-    statusBar: StatusBar {
+    footer: ToolBar {
         RowLayout {
             Label { text: mainWindow.state }
         }
     }
 
     SystemPalette {id: palette}
-    ExclusiveGroup {id: activeTool}
 
     SplitView {
         anchors.fill: parent
-        resizing: true
-
 
         Rectangle {
             id: content
             objectName: "contentRectangle"
             height: 768
-            Layout.fillWidth: true
+            SplitView.fillWidth: true
 
             function addObject(properties) {
                 var component = Qt.createComponent(properties.type +".qml")
@@ -236,66 +237,23 @@ ApplicationWindow {
                 height: mainWindow.target? mainWindow.target.height : 0
 
             }
-
         }
 
-        Component {
-            id: inspector
-            Rectangle {
-                width: 200
-                height: parent.height
-                color: palette.window
+        StackLayout {
+            SplitView.preferredWidth: 300
+            Item {
+                id: inspector
+                Rectangle {
+                    width: 300
+                    height: parent.height
+                    color: palette.window
 
-                Loader {
-                    source: mainWindow.inspectorSource
+                    Loader {
+                        source: mainWindow.inspectorSource
+                    }
                 }
             }
         }
-
-        Component {
-            id: styles
-
-            Rectangle {
-                width:200
-                height:200
-
-                color: palette.window
-
-            }
-        }
-
-        Component {
-            id: slides
-
-            Rectangle {
-                width:200
-                height:200
-
-                color: palette.window
-
-            }
-        }
-
-
-        TabView {
-            width: 300
-
-            Tab {
-                title: "Inspector"
-                source: mainWindow.inspectorSource
-            }
-
-            Tab {
-                title: "Styles"
-                source: "StylesTab.qml"
-            }
-
-            Tab {
-                title: "Slides"
-                source: "SlidesTab.qml"
-            }
-        }
-
     }
 
 
@@ -308,12 +266,12 @@ ApplicationWindow {
     FileDialog {
         id: openDialog
         title: "Choose file"
-        selectMultiple: false
+        fileMode: FileDialog.OpenFile
         nameFilters: [ "json files (*.json)"]
 
         onAccepted: {
-            filepath = openDialog.fileUrl
-            if (selectExisting) {
+            filepath = openDialog.currentFile
+            if (fileMode==FileDialog.OpenFile) {
                 document.load(filepath)
 
             } else {

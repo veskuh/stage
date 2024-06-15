@@ -17,9 +17,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-import QtQuick 2.4
-import QtQuick.Controls 1.2
-import QtQuick.Dialogs 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Dialogs
 
 Rectangle {
     id: inspector
@@ -41,8 +41,8 @@ Rectangle {
         Slider {
             value: inspector.target? inspector.target.color.r : 0
             enabled: inspector.target
-            minimumValue: 0
-            maximumValue: 1.0
+            from: 0
+            to: 1.0
             onValueChanged: {
                 if (inspector.target) inspector.target.color.r = value
             }
@@ -53,8 +53,8 @@ Rectangle {
         Slider {
             value: inspector.target? inspector.target.color.g : 0
             enabled: inspector.target
-            minimumValue: 0
-            maximumValue: 1.0
+            from: 0
+            to: 1.0
             onValueChanged: {
                 if (inspector.target) inspector.target.color.g = value
             }
@@ -65,8 +65,8 @@ Rectangle {
         Slider {
             value: inspector.target? inspector.target.color.b : 0
             enabled: inspector.target
-            minimumValue: 0
-            maximumValue: 1.0
+            from: 0
+            to: 1.0
             onValueChanged: {
                 if (inspector.target) inspector.target.color.b = value
             }

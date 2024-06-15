@@ -17,8 +17,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-import QtQuick 2.4
-import QtQuick.Controls 1.2
+import QtQuick
+import QtQuick.Controls
 
 
 Column {
@@ -85,8 +85,8 @@ Column {
     }
 
     Slider {
-        minimumValue: 0
-        maximumValue: 100
+        from: 0
+        to: 100
         stepSize: 1.0
         value: inspector.target? inspector.target.z : 0
         onValueChanged: {
