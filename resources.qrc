@@ -1,5 +1,22 @@
 <RCC>
     <qresource prefix="/">
         <file>types.json</file>
+        <file>qml/AnchorLine.qml</file>
+        <file>qml/CircleInspector.qml</file>
+        <file>qml/ImageInspector.qml</file>
+        <file>qml/InspectorCommon.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/RectInspector.qml</file>
+        <file>qml/SelectionHighlight.qml</file>
+        <file>qml/SlidesTab.qml</file>
+        <file>qml/StageBase.qml</file>
+        <file>qml/StageCircle.qml</file>
+        <file>qml/StageImage.qml</file>
+        <file>qml/StageMouseArea.qml</file>
+        <file>qml/StageRect.qml</file>
+        <file>qml/StageResizeHandle.qml</file>
+        <file>qml/StageText.qml</file>
+        <file>qml/StylesTab.qml</file>
+        <file>qml/TextInspector.qml</file>
     </qresource>
 </RCC>

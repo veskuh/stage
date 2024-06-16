@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     engine.load(QString::fromLatin1("%1/../Resources/%2")
                                  .arg(QCoreApplication::applicationDirPath(), "qml/main.qml"));
 #else
-    engine.load(QString::fromLatin1("qml/qml/main.qml"));
+    engine.load(QString::fromLatin1("qrc:/qml/main.qml"));
 #endif
 
     QObject *topLevel = engine.rootObjects().value(0);
