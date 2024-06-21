@@ -5,7 +5,7 @@
         <file>qml/CircleInspector.qml</file>
         <file>qml/ImageInspector.qml</file>
         <file>qml/InspectorCommon.qml</file>
-        <file>qml/main.qml</file>
+        <file>qml/Stage.qml</file>
         <file>qml/RectInspector.qml</file>
         <file>qml/SelectionHighlight.qml</file>
         <file>qml/SlidesTab.qml</file>

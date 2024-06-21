@@ -27,13 +27,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     QQmlApplicationEngine engine;
     qmlRegisterType<DeclarativeDocument>("com.mac.vesku.stage", 1, 0, "Document");
-#if defined(Q_OS_MAC)
-    engine.load(QString::fromLatin1("%1/../Resources/%2")
-                                 .arg(QCoreApplication::applicationDirPath(), "qml/main.qml"));
-#else
-    engine.load(QString::fromLatin1("qrc:/qml/main.qml"));
-#endif
-
+    engine.load(QString::fromLatin1("qrc:/qml/Stage.qml"));
     QObject *topLevel = engine.rootObjects().value(0);
     QQuickWindow *window = qobject_cast<QQuickWindow *>(topLevel);
     if (!window) {
