@@ -18,16 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include "declarativedocument.h"
-#include <QDebug>
-#include <QVariantMap>
-#include <QJsonDocument>
-#include <QJsonArray>
-#include <QJsonObject>
-#include <QFile>
 #include "documentfile.h"
+#include <QDebug>
+#include <QFile>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QVariantMap>
 
-DeclarativeDocument::DeclarativeDocument(QObject *parent) :
-    QObject(parent)
+DeclarativeDocument::DeclarativeDocument(QObject *parent)
+    : QObject(parent)
 {
     QFile file(":/types.json");
     if (!file.open(QIODevice::ReadOnly)) {
@@ -44,12 +44,12 @@ void DeclarativeDocument::save(QUrl url)
     DocumentFile file;
 
     // Find ApplicationWindow
-    QObject* obj = parent();
+    QObject *obj = parent();
     while (obj->parent()) {
         obj = obj->parent();
     }
 
-    QObject *content = obj->findChild<QObject*>("contentRectangle");
+    QObject *content = obj->findChild<QObject *>("contentRectangle");
     if (content) {
         foreach (QObject *object, content->children()) {
             QString className = object->metaObject()->className();
@@ -67,7 +67,9 @@ void DeclarativeDocument::save(QUrl url)
                                 foreach (QJsonValue property, propertyArray.toArray()) {
                                     if (property.isString()) {
                                         QString propertyString = property.toString();
-                                        properties.insert(propertyString, object->property(propertyString.toLatin1().constData()));
+                                        properties.insert(
+                                            propertyString,
+                                            object->property(propertyString.toLatin1().constData()));
                                     }
                                 }
                             }
@@ -84,17 +86,17 @@ void DeclarativeDocument::save(QUrl url)
 void DeclarativeDocument::load(QUrl url)
 {
     // Find ApplicationWindow
-    QObject* obj = parent();
+    QObject *obj = parent();
     while (obj->parent()) {
         obj = obj->parent();
     }
 
-    QObject *content = obj->findChild<QObject*>("contentRectangle");
+    QObject *content = obj->findChild<QObject *>("contentRectangle");
     if (content) {
         QList<QVariantMap> list = DocumentFile::load(url);
         while (!list.isEmpty()) {
-            QMetaObject::invokeMethod(content, "addObject", Q_ARG(QVariant, QVariant::fromValue(list.takeFirst())));
+            QMetaObject::invokeMethod(
+                content, "addObject", Q_ARG(QVariant, QVariant::fromValue(list.takeFirst())));
         }
     }
 }
-

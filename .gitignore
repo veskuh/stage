@@ -1,0 +1,8 @@
+*.o
+*.stash
+qrc_resources.cpp
+Makefile
+*.user
+moc_*.cpp
+moc_*.h
+Stage

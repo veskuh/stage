@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #ifndef DOCUMENTFILE_H
 #define DOCUMENTFILE_H
-#include <QString>
-#include <QJsonObject>
 #include <QJsonArray>
-#include <QVariantMap>
+#include <QJsonObject>
+#include <QString>
 #include <QUrl>
+#include <QVariantMap>
 
 class DocumentFile
 {

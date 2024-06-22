@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef DECLARATIVEDOCUMENT_H
 #define DECLARATIVEDOCUMENT_H
 
+#include <QJsonArray>
 #include <QObject>
 #include <QUrl>
-#include <QJsonArray>
 
 class DeclarativeDocument : public QObject
 {
@@ -36,11 +36,8 @@ signals:
 
 public slots:
 
-
 private:
     QJsonArray types;
-
-
 };
 
 #endif // DECLARATIVEDOCUMENT_H

@@ -19,15 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "documentfile.h"
 #include <QDebug>
-#include <QJsonObject>
+#include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QJsonObject>
 #include <QJsonValue>
-#include <QFile>
 
-DocumentFile::DocumentFile()
-{
-}
+DocumentFile::DocumentFile() {}
 
 void DocumentFile::addObject(QVariantMap &properties)
 {
@@ -62,4 +60,3 @@ QList<QVariantMap> DocumentFile::load(QUrl url)
     }
     return list;
 }
-

@@ -17,10 +17,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#include "declarativedocument.h"
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
-#include "declarativedocument.h"
 
 int main(int argc, char *argv[])
 {
