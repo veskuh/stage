@@ -1,6 +1,8 @@
 QT+=widgets qml quick
 
-# The .cpp file which was generated for your project. Feel free to hack it.
+
+
+
 SOURCES += \
     declarativedocument.cpp \
     documentfile.cpp \
@@ -12,3 +14,23 @@ HEADERS += \
 
 RESOURCES += \
     resources.qrc
+
+
+macx* {
+    ICON = deploy/macOS/icon.icns
+    RC_FILE = deploy/macOS/icon.icns
+    QMAKE_INFO_PLIST = deploy/macOS/info.plist
+    CONFIG += sdk_no_version_check # To avoid warnings with Big Sur
+}
+
+linux: {
+    TARGET = stage
+
+    target.path = /usr/bin
+    icon.path = /usr/share/pixmaps
+    desktop.path = /usr/share/applications
+    icon.files += deploy/linux/*.png
+    desktop.files += deploy/linux/*.desktop
+
+    INSTALLS += target desktop icon
+}

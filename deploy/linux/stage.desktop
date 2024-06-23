@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Stage
+Comment=Simple presentation program
+Exec=stage
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Development;Qt;
+Icon=stage
