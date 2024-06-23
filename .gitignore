@@ -7,3 +7,4 @@ moc_*.cpp
 moc_*.h
 Stage
 stage
+.vscode

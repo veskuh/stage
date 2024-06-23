@@ -51,9 +51,9 @@ void DeclarativeDocument::save(QUrl url)
 
     QObject *content = obj->findChild<QObject *>("contentRectangle");
     if (content) {
-        foreach (QObject *object, content->children()) {
+        for (QObject* object : content->children()) {
             QString className = object->metaObject()->className();
-            foreach (QJsonValue type, types) {
+            for (QJsonValue type: types) {
                 if (type.isObject()) {
                     QJsonObject typeObject = type.toObject();
                     QJsonValue value = typeObject.value("type");
@@ -64,7 +64,7 @@ void DeclarativeDocument::save(QUrl url)
                             properties.insert("type", QVariant(typeString));
                             QJsonValue propertyArray = typeObject.value("properties");
                             if (propertyArray.isArray()) {
-                                foreach (QJsonValue property, propertyArray.toArray()) {
+                                for (auto property : propertyArray.toArray()) {
                                     if (property.isString()) {
                                         QString propertyString = property.toString();
                                         properties.insert(
