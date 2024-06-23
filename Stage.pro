@@ -4,18 +4,18 @@ QT+=widgets qml quick
 
 
 SOURCES += \
-    declarativedocument.cpp \
-    documentfile.cpp \
-    stage.cpp
+    src/declarativedocument.cpp \
+    src/documentfile.cpp \
+    src/stage.cpp
 
 HEADERS += \
-    declarativedocument.h \
-    documentfile.h
+    src/declarativedocument.h \
+    src/documentfile.h
 
 RESOURCES += \
     resources.qrc
 
-
+# TBD
 macx* {
     ICON = deploy/macOS/icon.icns
     RC_FILE = deploy/macOS/icon.icns
