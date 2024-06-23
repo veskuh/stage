@@ -1,7 +1,8 @@
 QT+=widgets qml quick
 
-
-
+MOC_DIR = moc
+RCC_DIR = qrc
+OBJECTS_DIR = obj
 
 SOURCES += \
     src/declarativedocument.cpp \

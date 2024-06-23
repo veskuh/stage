@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 DeclarativeDocument::DeclarativeDocument(QObject *parent)
     : QObject(parent)
 {
-    QFile file(":/types.json");
+    QFile file(":/assets/types.json");
     if (!file.open(QIODevice::ReadOnly)) {
         qWarning("failed to create file for reading");
         return;
@@ -51,9 +51,9 @@ void DeclarativeDocument::save(QUrl url)
 
     QObject *content = obj->findChild<QObject *>("contentRectangle");
     if (content) {
-        for (QObject* object : content->children()) {
+        for (QObject *object : content->children()) {
             QString className = object->metaObject()->className();
-            for (QJsonValue type: types) {
+            for (QJsonValue type : types) {
                 if (type.isObject()) {
                     QJsonObject typeObject = type.toObject();
                     QJsonValue value = typeObject.value("type");

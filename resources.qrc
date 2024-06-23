@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>types.json</file>
+        <file>assets/types.json</file>
         <file>qml/AnchorLine.qml</file>
         <file>qml/CircleInspector.qml</file>
         <file>qml/ImageInspector.qml</file>
