@@ -69,7 +69,7 @@ ApplicationWindow {
             title: "File"
             MenuItem {
                 text: "Open...";
-            //    shortcut: "Ctrl+O";
+                //    shortcut: "Ctrl+O";
                 onTriggered: {
                     content.clear()
                     openDialog.fileMode = FileDialog.OpenFile
@@ -78,11 +78,11 @@ ApplicationWindow {
             }
             MenuSeparator {}
             MenuItem { text: "Close";
-            //    shortcut: "Ctrl+W"
+                //    shortcut: "Ctrl+W"
             }
             MenuItem {
                 text: "Save"
-            //    shortcut: "Ctrl+S"
+                //    shortcut: "Ctrl+S"
                 onTriggered: {
                     if (filepath == "") {
                         openDialog.fileMode = FileDialog.SaveFile
@@ -103,7 +103,7 @@ ApplicationWindow {
             MenuSeparator {}
             MenuItem {
                 text: "Print..";
-            //    shortcut: "Ctrl+P"
+                //    shortcut: "Ctrl+P"
             }
 
         }
@@ -125,6 +125,7 @@ ApplicationWindow {
         RowLayout {
             ToolButton {
                 text: "Rectangle"
+                checked: mainWindow.state == "Rectangle"
                 checkable: true
                 onClicked: {
                     factory = Qt.createComponent("StageRect.qml")
@@ -134,6 +135,7 @@ ApplicationWindow {
             ToolButton {
                 text: "Circle"
                 checkable: true
+                checked: mainWindow.state == "Circle"
                 onClicked: {
                     factory = Qt.createComponent("StageCircle.qml")
                     mainWindow.state = "Circle"
@@ -142,7 +144,7 @@ ApplicationWindow {
             ToolButton {
                 text: "Text"
                 checkable: true
-
+                checked: mainWindow.state == "Text"
                 onClicked: {
                     factory = Qt.createComponent("StageText.qml")
                     mainWindow.state = "Text"
@@ -151,7 +153,7 @@ ApplicationWindow {
             ToolButton {
                 text: "Image"
                 checkable: true
-
+                checked: mainWindow.state == "Image"
                 onClicked: {
                     factory = Qt.createComponent("StageImage.qml")
                     mainWindow.state = "Image"
@@ -161,7 +163,7 @@ ApplicationWindow {
                 id: selectButton
                 text: "Select"
                 checkable: true
-                checked: !factory
+                checked: factory == null
 
                 onClicked: {
                     factory = null
@@ -221,6 +223,7 @@ ApplicationWindow {
                     if (factory) {
                         factory.createObject(parent, {"x": mouseX, "y": mouseY})
                         factory = null
+                        mainWindow.state = "Select"
                     } else {
                         target = null
                     }
