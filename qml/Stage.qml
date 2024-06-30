@@ -66,23 +66,23 @@ ApplicationWindow {
 
     menuBar: MenuBar {
         Menu {
-            title: "File"
-            MenuItem {
-                text: "Open...";
-                //    shortcut: "Ctrl+O";
+            title: "&File"
+            // This is annoying, shortcut is not properly shown in menu
+            // Probably Qt bug / missing feature
+            Action {
+                text: "&Open"
+                shortcut: StandardKey.Open
                 onTriggered: {
                     content.clear()
                     openDialog.fileMode = FileDialog.OpenFile
                     openDialog.open()
                 }
+
             }
-            MenuSeparator {}
-            MenuItem { text: "Close";
-                //    shortcut: "Ctrl+W"
-            }
-            MenuItem {
-                text: "Save"
-                //    shortcut: "Ctrl+S"
+
+            Action {
+                text: "&Save"
+                shortcut: StandardKey.Save
                 onTriggered: {
                     if (filepath == "") {
                         openDialog.fileMode = FileDialog.SaveFile
@@ -92,18 +92,21 @@ ApplicationWindow {
                     }
                 }
             }
-            MenuItem {
+            Action {
                 text: "Save As.."
                 onTriggered: {
                     openDialog.selectExisting = false
                     openDialog.open()
                 }
             }
-            MenuItem { text: "Export.." }
             MenuSeparator {}
-            MenuItem {
-                text: "Print..";
-                //    shortcut: "Ctrl+P"
+            Action {
+                text: "E&xit"
+                shortcut: StandardKey.Quit
+                onTriggered: {
+                    mainWindow.close()
+                }
+
             }
 
         }
