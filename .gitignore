@@ -8,3 +8,6 @@ moc_*.h
 Stage
 stage
 .vscode
+build
+.qtc_clangd
+.DS_Store
