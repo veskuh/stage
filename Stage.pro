@@ -18,9 +18,9 @@ RESOURCES += \
 
 # TBD
 macx* {
-    ICON = deploy/macOS/icon.icns
-    RC_FILE = deploy/macOS/icon.icns
-    QMAKE_INFO_PLIST = deploy/macOS/info.plist
+    ICON = deploy/mac/stage.icns
+    RC_FILE = deploy/mac/stage.icns
+    QMAKE_INFO_PLIST = deploy/mac/Info.plist
     CONFIG += sdk_no_version_check # To avoid warnings with Big Sur
 }
 
