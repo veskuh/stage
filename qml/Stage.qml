@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 import QtQuick
-//import Qt.labs.platform
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Dialogs
@@ -64,7 +63,64 @@ ApplicationWindow {
     }
 
 
-    menuBar: MenuBar {
+    menuBar: Qt.platform.os == "osx" ? null : qmlMenu
+    Labs.MenuBar {
+        id: macMenu
+
+        Labs.Menu {
+            Labs.MenuItem {
+                text: "About Stage"
+                role: Labs.MenuItem.AboutRole
+                onTriggered: console.log("About")
+            }
+
+            Labs.MenuItem {
+                role: Labs.MenuItem.PreferencesRole
+                text:"Preferences"
+                onTriggered: console.log("Preferences")
+            }
+
+
+            title: "&File"
+            // This is annoying, shortcut is not properly shown in menu
+            // Probably Qt bug / missing feature
+            Labs.MenuItem {
+                text: "&Open"
+                shortcut: StandardKey.Open
+                onTriggered: {
+                    content.clear()
+                    openDialog.fileMode = FileDialog.OpenFile
+                    openDialog.open()
+                }
+
+            }
+
+            Labs.MenuItem {
+                text: "&Save"
+                shortcut: StandardKey.Save
+                onTriggered: {
+                    if (filepath == "") {
+                        openDialog.fileMode = FileDialog.SaveFile
+                        openDialog.open()
+                    } else {
+                        document.save(filepath)
+                    }
+                }
+            }
+            Labs.MenuItem {
+                text: "Save As.."
+                onTriggered: {
+                    openDialog.selectExisting = false
+                    openDialog.open()
+                }
+            }
+        }
+    }
+
+
+
+    MenuBar {
+        id: qmlMenu
         Menu {
             title: "&File"
             // This is annoying, shortcut is not properly shown in menu
@@ -111,18 +167,19 @@ ApplicationWindow {
 
         }
         /*
-        Menu {
-            title: "Edit"
-            MenuItem { text: "Undo"; shortcut: "Ctrl+Z" }
-            MenuSeparator {}
-            MenuItem { text: "Cut" ; shortcut: "Ctrl+X"}
-            MenuItem { text: "Copy"; shortcut: "Ctrl+C" }
-            MenuItem { text: "Paste"; shortcut: "Ctrl+V" }
-            MenuSeparator {}
-            MenuItem { text: "Select All"; shortcut: "Ctrl+A" }
+                                               Menu {
+                                                   title: "Edit"
+                                                   MenuItem { text: "Undo"; shortcut: "Ctrl+Z" }
+                                                   MenuSeparator {}
+                                                   MenuItem { text: "Cut" ; shortcut: "Ctrl+X"}
+                                                   MenuItem { text: "Copy"; shortcut: "Ctrl+C" }
+                                                   MenuItem { text: "Paste"; shortcut: "Ctrl+V" }
+                                                   MenuSeparator {}
+                                                   MenuItem { text: "Select All"; shortcut: "Ctrl+A" }
 
-        }*/
+                                               }*/
     }
+
 
     header: ToolBar {
         RowLayout {

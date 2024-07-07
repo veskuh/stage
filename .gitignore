@@ -11,3 +11,4 @@ stage
 build
 .qtc_clangd
 .DS_Store
+Stage.app
