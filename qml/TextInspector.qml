@@ -36,11 +36,11 @@ Rectangle {
             text: "Text"
         }
 
-        TextField {
-            text: inspector.target? inspector.target.text : ""
-            enabled: inspector.target
+        TextField { 
+            text: enabled ? inspector.target.text : ""
+            enabled: inspector.target && target.inspectorSource == "TextInspector.qml" 
             onTextChanged: {
-                if (inspector.target) inspector.target.text = text
+                if (enabled) inspector.target.text = text
             }
         }
     }
