@@ -2,6 +2,9 @@ QT += core
 CONFIG += console c++17 testcase
 TARGET = AutoTests
 
+RESOURCES += \
+    test_resources.qrc
+
 SOURCES += test_main.cpp \
            filehandling_tests.cpp \
            ../../src/documentfile.cpp

@@ -1,6 +1,6 @@
 *.o
 *.stash
-qrc_resources.cpp
+qrc_*.cpp
 Makefile
 *.user
 moc_*.cpp

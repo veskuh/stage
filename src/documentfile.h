@@ -29,7 +29,7 @@ class DocumentFile
 {
 public:
     DocumentFile();
-    void addObject(QVariantMap &properties);
+    void addObject(const QVariantMap &properties);
     void save(QUrl url);
 
     static QList<QVariantMap> load(QUrl url);
