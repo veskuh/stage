@@ -1,6 +1,6 @@
 *.o
 *.stash
-qrc_resources.cpp
+qrc_*.cpp
 Makefile
 *.user
 moc_*.cpp
@@ -16,3 +16,9 @@ builddir/
 .flatpak-builder/
 repo/
 *.flatpak
+target_wrapper.sh
+AutoTests
+coverage_report/
+*.gcda
+*.gcno
+coverage*.info

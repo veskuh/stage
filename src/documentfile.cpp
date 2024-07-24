@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 DocumentFile::DocumentFile() {}
 
-void DocumentFile::addObject(QVariantMap &properties)
+void DocumentFile::addObject(const QVariantMap &properties)
 {
     jsonArray.append(QJsonObject::fromVariantMap(properties));
 }
@@ -41,6 +41,8 @@ void DocumentFile::save(QUrl url)
     }
     QJsonDocument document(jsonArray);
     file.write(document.toJson());
+
+    //tbd Check if I need to clear the JsonArray
 }
 
 QList<QVariantMap> DocumentFile::load(QUrl url)
