@@ -12,3 +12,7 @@ build
 .qtc_clangd
 .DS_Store
 Stage.app
+builddir/
+.flatpak-builder/
+repo/
+*.flatpak

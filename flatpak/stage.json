@@ -1,0 +1,30 @@
+{
+    "app-id": "net.veskuh.stage",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "6.7",
+    "sdk": "org.kde.Sdk",
+    "command": "stage",
+    "finish-args": [
+      "--share=ipc",
+      "--socket=x11",
+      "--socket=wayland",
+      "--filesystem=host",
+      "--device=dri"
+  ],
+    "modules": [
+      {
+        "name": "stage",
+        "buildsystem": "qmake",
+        "config-opts": [
+          "FLATPAK_BUILD=1"
+        ],
+        "sources": [
+          {
+            "type": "dir",
+            "path": "../"
+          }
+        ]
+      }
+    ]
+  }
+  

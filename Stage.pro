@@ -27,11 +27,30 @@ macx* {
 linux: {
     TARGET = stage
 
-    target.path = /usr/bin
-    icon.path = /usr/share/pixmaps
-    desktop.path = /usr/share/applications
+    # Define default prefix
+    prefix = "/usr"
+
+    contains(FLATPAK_BUILD, 1) {
+       prefix = "/app"
+        message("Flatpak build detected, prefix set to: $$prefix")
+    } else {
+        message("Regular build detected, prefix set to: $$prefix")
+    }
+
+    # Define installation paths
+    target.path = $$prefix/bin
+    desktop.path = $$prefix/share/applications
+    icon.path = $$prefix/share/pixmaps
+
     icon.files += deploy/linux/*.png
     desktop.files += deploy/linux/*.desktop
 
     INSTALLS += target desktop icon
+
+    # Create desktop file from template
+    #desktop.commands = $(INSTALL_ROOT)$(desktop.path)/stage.desktop
+    #desktop.commands = sed 's|Exec=/usr|Exec=$${prefix}/|' deploy/linux/stage.desktop > stage.desktop
+
+
+
 }
