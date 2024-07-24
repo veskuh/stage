@@ -14,3 +14,7 @@ build
 Stage.app
 target_wrapper.sh
 AutoTests
+coverage_report/
+*.gcda
+*.gcno
+coverage*.info
