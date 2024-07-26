@@ -164,8 +164,17 @@ ApplicationWindow {
                 }
 
             }
-
         }
+        // TODO: Edit menu
+        Menu {
+            title: "&Help"
+            Action {
+                text: "About Stage..."
+                onTriggered:
+                    aboutDialog.visible = true
+            }
+        }
+
         /*
                                                Menu {
                                                    title: "Edit"
@@ -341,5 +350,9 @@ ApplicationWindow {
                 document.save(filepath)
             }
         }
+    }
+
+    AboutDialog {
+        id: aboutDialog
     }
 }

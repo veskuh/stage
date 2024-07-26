@@ -18,5 +18,8 @@
         <file>qml/StageText.qml</file>
         <file>qml/StylesTab.qml</file>
         <file>qml/TextInspector.qml</file>
+        <file>qml/AboutDialog.qml</file>
+        <file>assets/stage-logo.png</file>
+        <file>assets/stage.png</file>
     </qresource>
 </RCC>
