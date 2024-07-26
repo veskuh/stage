@@ -28,6 +28,7 @@ Item {
     property bool selected: mainWindow.target == base
 
     property bool anchorLinesEnabled: true
+    property string type: ""
     opacity: dragArea.drag.active? 0.5 : 1.0
 
     StageMouseArea {
