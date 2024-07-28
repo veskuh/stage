@@ -35,7 +35,7 @@ function save() {
 }
 
 function saveAs() {
-    openDialog.selectExisting = false
+    openDialog.fileMode = FileDialog.SaveFile
     openDialog.open()
 }
 
