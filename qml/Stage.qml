@@ -24,6 +24,7 @@ import QtQuick.Layouts
 import QtQuick.Dialogs
 import Qt.labs.platform as Labs
 import com.mac.vesku.stage
+import "../js/menucommands.js" as MenuCommands
 
 ApplicationWindow {
     id: mainWindow
@@ -87,32 +88,18 @@ ApplicationWindow {
             Labs.MenuItem {
                 text: "&Open"
                 shortcut: StandardKey.Open
-                onTriggered: {
-                    content.clear()
-                    openDialog.fileMode = FileDialog.OpenFile
-                    openDialog.open()
-                }
+                onTriggered: MenuCommands.open()
 
             }
 
             Labs.MenuItem {
                 text: "&Save"
                 shortcut: StandardKey.Save
-                onTriggered: {
-                    if (filepath == "") {
-                        openDialog.fileMode = FileDialog.SaveFile
-                        openDialog.open()
-                    } else {
-                        document.save(filepath)
-                    }
-                }
+                onTriggered: MenuCommands.save()
             }
             Labs.MenuItem {
                 text: "Save As.."
-                onTriggered: {
-                    openDialog.selectExisting = false
-                    openDialog.open()
-                }
+                onTriggered: MenuCommands.saveAs()
             }
         }
     }
@@ -128,32 +115,17 @@ ApplicationWindow {
             Action {
                 text: "&Open"
                 shortcut: StandardKey.Open
-                onTriggered: {
-                    content.clear()
-                    openDialog.fileMode = FileDialog.OpenFile
-                    openDialog.open()
-                }
-
+                onTriggered: MenuCommands.open()
             }
 
             Action {
                 text: "&Save"
                 shortcut: StandardKey.Save
-                onTriggered: {
-                    if (filepath == "") {
-                        openDialog.fileMode = FileDialog.SaveFile
-                        openDialog.open()
-                    } else {
-                        document.save(filepath)
-                    }
-                }
+                onTriggered: MenuCommands.save()
             }
             Action {
                 text: "Save As.."
-                onTriggered: {
-                    openDialog.selectExisting = false
-                    openDialog.open()
-                }
+                onTriggered: MenuCommands.saveAs()
             }
             MenuSeparator {}
             Action {
@@ -162,7 +134,6 @@ ApplicationWindow {
                 onTriggered: {
                     mainWindow.close()
                 }
-
             }
         }
         // TODO: Edit menu

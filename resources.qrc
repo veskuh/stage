@@ -21,5 +21,6 @@
         <file>qml/AboutDialog.qml</file>
         <file>assets/stage-logo.png</file>
         <file>assets/stage.png</file>
+        <file>js/menucommands.js</file>
     </qresource>
 </RCC>
