@@ -38,3 +38,9 @@ function saveAs() {
     openDialog.selectExisting = false
     openDialog.open()
 }
+
+function deleteTarget() {
+    var element  = mainWindow.target
+    mainWindow.target = null
+    element.destroy()
+}

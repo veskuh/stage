@@ -136,6 +136,16 @@ ApplicationWindow {
                 }
             }
         }
+
+        Menu {
+            title: "&Edit"
+            Action {
+                text: "Delete"
+                enabled: target
+                onTriggered: MenuCommands.deleteTarget()
+            }
+        }
+
         // TODO: Edit menu
         Menu {
             title: "&Help"
