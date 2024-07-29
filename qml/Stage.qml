@@ -141,6 +141,7 @@ ApplicationWindow {
             title: "&Edit"
             Action {
                 text: "Delete"
+                shortcut: StandardKey.Delete
                 enabled: target
                 onTriggered: MenuCommands.deleteTarget()
             }
