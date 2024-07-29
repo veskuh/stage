@@ -75,11 +75,12 @@ ApplicationWindow {
                 onTriggered: aboutDialog.visible = true
             }
 
+            /* todo
             Labs.MenuItem {
                 role: Labs.MenuItem.PreferencesRole
                 text:"Preferences"
                 onTriggered: console.log("Preferences")
-            }
+            }*/
 
 
             title: "&File"
@@ -100,6 +101,15 @@ ApplicationWindow {
             Labs.MenuItem {
                 text: "Save As.."
                 onTriggered: MenuCommands.saveAs()
+            }
+        }
+        Labs.Menu {
+            title: "Edit"
+            Labs.MenuItem {
+                text: "Delete"
+                enabled: target
+                shortcut: StandardKey.Delete
+                onTriggered: MenuCommands.deleteTarget()
             }
         }
     }
