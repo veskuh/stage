@@ -72,7 +72,7 @@ ApplicationWindow {
             Labs.MenuItem {
                 text: "About Stage"
                 role: Labs.MenuItem.AboutRole
-                onTriggered: console.log("About")
+                onTriggered: aboutDialog.visible = true
             }
 
             Labs.MenuItem {

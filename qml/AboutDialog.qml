@@ -47,6 +47,7 @@ Window {
         }
 
         Text {
+            color: palette.text
             text: "Stage"
             font.pointSize: 20
             font.bold: true
@@ -55,6 +56,7 @@ Window {
         }
 
         Text {
+            color: palette.text
             text: "© 2024 veskuh.net"
             font.pointSize: 12
             horizontalAlignment: Text.AlignHCenter
@@ -62,6 +64,7 @@ Window {
         }
 
         Text {
+            color: palette.text
             text: "This is a simple presentation program. <br> License: GPLv2. <br>Sources: <a href=\"https://github.com/veskuh/stage\">https://github.com/veskuh/stage</a>"
             wrapMode: Text.WordWrap
             font.pointSize: 12
