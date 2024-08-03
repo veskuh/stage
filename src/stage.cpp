@@ -25,6 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    app.setOrganizationName("Stage");
+    app.setOrganizationDomain("veskuh.net");
+    app.setApplicationName("Stage");
+
     QQmlApplicationEngine engine;
     qmlRegisterType<DeclarativeDocument>("com.mac.vesku.stage", 1, 0, "Document");
     engine.load(QString::fromLatin1("qrc:/qml/Stage.qml"));
