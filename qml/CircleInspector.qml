@@ -37,67 +37,11 @@ Rectangle {
             title: "Circle"
         }
 
-
-        Label {
-            text: "R"
-        }
-        Slider {
-            width: inspector.width - 2 * mainWindow.theme.mediumPadding
-            value: inspector.target? inspector.target.color.r : 0
+        ColorPicker {
+            width: inspector.width
+            targetColor: inspector.target.color
             enabled: inspector.target
-            from: 0
-            to: 1.0
-            onValueChanged: {
-                if (inspector.target) inspector.target.color.r = value
-            }
-        }
-        Label {
-            text: "G"
-        }
-        Slider {
-            width: inspector.width - 2 * mainWindow.theme.mediumPadding
-            value: inspector.target? inspector.target.color.g : 0
-            enabled: inspector.target
-            from: 0
-            to: 1.0
-            onValueChanged: {
-                if (inspector.target) inspector.target.color.g = value
-            }
-        }
-        Label {
-            text: "B"
-        }
-        Slider {
-            width: inspector.width - 2 * mainWindow.theme.mediumPadding
-            value: inspector.target? inspector.target.color.b : 0
-            enabled: inspector.target
-            from: 0
-            to: 1.0
-            onValueChanged: {
-                if (inspector.target) inspector.target.color.b = value
-            }
-        }
-        Rectangle {
-            width:32
-            height:32
-            border.width: 1
-            border.color: mainWindow.palette.text
-            color: inspector.target? inspector.target.color: "white"
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    colorDialog.visible = true
-                }
-
-            }
-        }
-    }
-
-    ColorDialog {
-        id: colorDialog
-        title: "Choose a color"
-        onAccepted: {
-            inspector.target.color = color
+            onTargetColorChanged: inspector.target.color = targetColor
         }
     }
 }

@@ -24,5 +24,6 @@
         <file>js/menucommands.js</file>
         <file>qml/Theme.qml</file>
         <file>qml/NumberInput.qml</file>
+        <file>qml/ColorPicker.qml</file>
     </qresource>
 </RCC>
