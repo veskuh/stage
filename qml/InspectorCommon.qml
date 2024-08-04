@@ -22,38 +22,37 @@ import QtQuick.Controls
 
 
 Column {
-
     property string title: ""
+    width: inspector.width
+    spacing: mainWindow.theme.mediumPadding
 
     Label {
         text: title
+        font.bold: true
     }
 
-    Label {
-        text: "X"
-    }
-
-    TextField {
-        text: inspector.target? inspector.target.x : ""
-        validator: IntValidator { bottom: -1024; top: 1024 }
+    NumberInput {
+        width: inspector.width - 2 * mainWindow.theme.mediumPadding
+        labelText: "x:"
         enabled: inspector.target
-        onAccepted: {
-            inspector.target.x = parseInt(text)
+        valueText: inspector.target? inspector.target.x : ""
+
+        onAccepted: (text) =>  {
+            inspector.target.x = text
         }
     }
-    Label {
-        text: "Y"
-    }
 
-    TextField {
-        text: inspector.target? inspector.target.y : ""
-        validator: IntValidator { bottom: -1024; top: 1024 }
+    NumberInput {
+        width: inspector.width - 2 * mainWindow.theme.mediumPadding
+        labelText: "y:"
         enabled: inspector.target
-        onAccepted: {
-            inspector.target.y = parseInt(text)
-        }
+        valueText: inspector.target? inspector.target.y : ""
 
+        onAccepted: (text) =>  {
+            inspector.target.y = text
+        }
     }
+
 
     Label {
         text: "Width"
@@ -85,21 +84,13 @@ Column {
     }
 
     Slider {
+        width: inspector.width - 2 * mainWindow.theme.mediumPadding
         from: 0
         to: 100
         stepSize: 1.0
         value: inspector.target? inspector.target.z : 0
         onValueChanged: {
             if (inspector.target) inspector.target.z = value
-        }
-    }
-
-    Button {
-        text: "Delete"
-        onClicked: {
-            var element  = inspector.target
-            inspector.target = null
-            element.destroy()
         }
     }
 }

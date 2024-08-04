@@ -45,6 +45,10 @@ ApplicationWindow {
     height: 768
     title: "Stage"
 
+    property QtObject theme: Theme {
+
+    }
+
     Settings {
         property alias x: mainWindow.x
         property alias y: mainWindow.y
@@ -320,6 +324,7 @@ ApplicationWindow {
                     color: palette.window
 
                     Loader {
+                        anchors.fill: parent
                         source: mainWindow.inspectorSource
                     }
                 }

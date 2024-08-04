@@ -23,13 +23,17 @@ import QtQuick.Dialogs
 
 Rectangle {
     id: inspector
-    anchors.fill: parent
-
-    property Item target: mainWindow.target
+    width: 300
+    height: mainWindow.height
     color: palette.window
+    property Item target: mainWindow.target
+
 
 
     Column {
+
+        padding: mainWindow.theme.mediumPadding
+        spacing: mainWindow.theme.mediumPadding
         InspectorCommon {
             title: "Rectangle"
         }
@@ -39,6 +43,7 @@ Rectangle {
             text: "R"
         }
         Slider {
+            width: inspector.width - 2 * mainWindow.theme.mediumPadding
             value: inspector.target? inspector.target.color.r : 0
             enabled: inspector.target
             from: 0
@@ -51,6 +56,7 @@ Rectangle {
             text: "G"
         }
         Slider {
+            width: inspector.width - 2 * mainWindow.theme.mediumPadding
             value: inspector.target? inspector.target.color.g : 0
             enabled: inspector.target
             from: 0
@@ -63,6 +69,7 @@ Rectangle {
             text: "B"
         }
         Slider {
+            width: inspector.width - 2 * mainWindow.theme.mediumPadding
             value: inspector.target? inspector.target.color.b : 0
             enabled: inspector.target
             from: 0
@@ -74,6 +81,8 @@ Rectangle {
         Rectangle {
             width:32
             height:32
+            border.width: 1
+            border.color: mainWindow.palette.text
             color: inspector.target? inspector.target.color: "white"
             MouseArea {
                 anchors.fill: parent

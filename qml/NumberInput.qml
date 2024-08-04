@@ -20,31 +20,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 import QtQuick
 import QtQuick.Controls
 
-Rectangle {
-    id: inspector
-    anchors.fill: parent
-    color: palette.window
-    property Item target: mainWindow.target
+Item {
+    id: root
 
-    Column {
-        padding: mainWindow.theme.mediumPadding
-        spacing: mainWindow.theme.mediumPadding
+    height: value.height
+    property alias labelText: label.text
+    property alias enabled: value.enabled
+    property alias valueText: value.text
+    signal accepted(text: string)
 
-        InspectorCommon {
-            title: "Text"
-        }
+    Label {
+        id: label
+        anchors.verticalCenter: value.verticalCenter
+    }
 
-        Label {
-            text: "Text"
-        }
-
-        TextField { 
-            width: inspector.width - 2 * mainWindow.theme.mediumPadding
-            text: enabled ? inspector.target.text : ""
-            enabled: inspector.target && target.inspectorSource == "TextInspector.qml" 
-            onTextChanged: {
-                if (enabled) inspector.target.text = text
-            }
+    TextField {
+        id: value
+        anchors.top: parent.top
+        anchors.right: parent.right
+        width: parent.width - label.width - mainWindow.theme.smallPadding
+        validator: IntValidator { bottom: -1024; top: 1024 }
+        onAccepted: {
+            root.accepted(parseInt(text))
         }
     }
 }

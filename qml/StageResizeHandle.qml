@@ -37,7 +37,7 @@ Item {
     Rectangle {
         id: indicator
 
-        width: 5
+        width: mainWindow.theme.smallPadding
         height: 5
         color: "red"
         anchors.centerIn: parent

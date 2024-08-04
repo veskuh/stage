@@ -28,6 +28,9 @@ Rectangle {
     property Item target: mainWindow.target
 
     Column {
+        padding: mainWindow.theme.mediumPadding
+        spacing: mainWindow.theme.mediumPadding
+
         InspectorCommon {
             title: "Image"
         }
