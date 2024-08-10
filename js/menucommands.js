@@ -44,3 +44,7 @@ function deleteTarget() {
     mainWindow.target = null
     element.destroy()
 }
+
+function deselect() {
+    mainWindow.target = null
+}

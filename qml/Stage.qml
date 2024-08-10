@@ -122,6 +122,14 @@ ApplicationWindow {
                 shortcut: StandardKey.Delete
                 onTriggered: MenuCommands.deleteTarget()
             }
+
+            Labs.MenuSeparator { }
+
+            Labs.MenuItem {
+                text: "Deselect"
+                enabled: target
+                onTriggered: MenuCommands.deselect()
+            }
         }
     }
 
@@ -165,6 +173,11 @@ ApplicationWindow {
                 shortcut: StandardKey.Delete
                 enabled: target
                 onTriggered: MenuCommands.deleteTarget()
+            }
+            Action {
+                text: "Deselect"
+                enabled: target
+                onTriggered: MenuCommands.deselect()
             }
         }
 
