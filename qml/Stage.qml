@@ -131,6 +131,21 @@ ApplicationWindow {
                 onTriggered: MenuCommands.deselect()
             }
         }
+
+        Labs.Menu {
+            title: "Arrange"
+            Labs.MenuItem {
+                text: "Bring forward"
+                enabled: target
+                onTriggered: MenuCommands.forward()
+            }
+            Labs.MenuItem {
+                text: "Send backward"
+                enabled: target
+                onTriggered: MenuCommands.backward()
+            }
+
+        }
     }
 
 
@@ -178,6 +193,20 @@ ApplicationWindow {
                 text: "Deselect"
                 enabled: target
                 onTriggered: MenuCommands.deselect()
+            }
+        }
+
+        Menu {
+            title: "&Arrange"
+            Action {
+                text: "Bring forward"
+                enabled: target
+                onTriggered: MenuCommands.forward()
+            }
+            Action {
+                text: "Send backward"
+                enabled: target
+                onTriggered: MenuCommands.backward()
             }
         }
 

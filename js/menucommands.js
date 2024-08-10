@@ -48,3 +48,11 @@ function deleteTarget() {
 function deselect() {
     mainWindow.target = null
 }
+
+function forward() {
+    mainWindow.target.z += 1
+}
+
+function backward() {
+    mainWindow.target.z -= 1
+}

@@ -68,21 +68,6 @@ Column {
         }
     }
 
-    Label {
-        text: "z:"
-    }
-
-    Slider {
-        width: inspector.width - 2 * mainWindow.theme.mediumPadding
-        from: 0
-        to: 100
-        stepSize: 1.0
-        value: inspector.target? inspector.target.z : 0
-        onValueChanged: {
-            if (inspector.target) inspector.target.z = value
-        }
-    }
-
     SeparatorLine {
         width: inspector.width - 2 * mainWindow.theme.mediumPadding
     }
