@@ -29,10 +29,14 @@ Rectangle {
 
     Column {
         padding: mainWindow.theme.mediumPadding
-        spacing: mainWindow.theme.mediumPadding
+        spacing: mainWindow.theme.mediumPadding * 2
 
         InspectorCommon {
             title: "Image"
+        }
+
+        SeparatorLine {
+            width: inspector.width - 2 * mainWindow.theme.mediumPadding
         }
 
         Label {
@@ -42,14 +46,6 @@ Rectangle {
             text: "Change source.."
             onClicked: {
                 inspector.target.dialog.visible = true
-            }
-        }
-        Button {
-            text: "Delete"
-            onClicked: {
-                var element  = inspector.target
-                inspector.target = null
-                element.destroy()
             }
         }
     }

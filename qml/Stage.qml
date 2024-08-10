@@ -315,11 +315,11 @@ ApplicationWindow {
         }
 
         StackLayout {
-            SplitView.preferredWidth: 300
+            SplitView.preferredWidth: 250
             Item {
                 id: inspector
                 Rectangle {
-                    width: 300
+                    width: 250
                     height: parent.height
                     color: palette.window
 

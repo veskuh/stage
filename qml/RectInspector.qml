@@ -30,9 +30,17 @@ Rectangle {
 
     Column {
         padding: mainWindow.theme.mediumPadding
-        spacing: mainWindow.theme.mediumPadding
+        spacing: mainWindow.theme.mediumPadding * 2
         InspectorCommon {
             title: "Rectangle"
+        }
+
+        SeparatorLine {
+            width: inspector.width - 2 * mainWindow.theme.mediumPadding
+        }
+
+        SectionHeader {
+            text: "Color"
         }
 
         ColorPicker {

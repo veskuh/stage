@@ -25,5 +25,7 @@
         <file>qml/Theme.qml</file>
         <file>qml/NumberInput.qml</file>
         <file>qml/ColorPicker.qml</file>
+        <file>qml/SeparatorLine.qml</file>
+        <file>qml/SectionHeader.qml</file>
     </qresource>
 </RCC>

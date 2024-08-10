@@ -26,10 +26,25 @@ Column {
     width: inspector.width
     spacing: mainWindow.theme.mediumPadding
 
+
+
     Label {
         text: title
+        width: inspector.width - 2 * mainWindow.theme.mediumPadding
+        horizontalAlignment: Text.AlignHCenter
         font.bold: true
     }
+
+    SeparatorLine {
+        width: inspector.width - 2 * mainWindow.theme.mediumPadding
+    }
+
+
+    SectionHeader {
+        text: "Position"
+        width: inspector.width - 2 * mainWindow.theme.mediumPadding
+    }
+
 
     NumberInput {
         width: inspector.width - 2 * mainWindow.theme.mediumPadding
@@ -53,34 +68,8 @@ Column {
         }
     }
 
-
     Label {
-        text: "Width"
-    }
-
-    TextField {
-        text: inspector.target? inspector.target.width : ""
-        validator: IntValidator { bottom: -1024; top: 1024 }
-        enabled: inspector.target
-        onAccepted: {
-            inspector.target.width = parseInt(text)
-        }
-    }
-    Label {
-        text: "Height"
-    }
-
-    TextField {
-        text: inspector.target? inspector.target.height : ""
-        validator: IntValidator { bottom: -1024; top: 1024 }
-        enabled: inspector.target
-        onAccepted: {
-            inspector.target.height = parseInt(text)
-        }
-
-    }
-    Label {
-        text: "Z"
+        text: "z:"
     }
 
     Slider {
@@ -91,6 +80,38 @@ Column {
         value: inspector.target? inspector.target.z : 0
         onValueChanged: {
             if (inspector.target) inspector.target.z = value
+        }
+    }
+
+    SeparatorLine {
+        width: inspector.width - 2 * mainWindow.theme.mediumPadding
+    }
+
+    SectionHeader {
+        text: "Size"
+        width: inspector.width - 2 * mainWindow.theme.mediumPadding
+    }
+
+
+    NumberInput {
+        width: inspector.width - 2 * mainWindow.theme.mediumPadding
+        labelText: "Width:"
+        enabled: inspector.target
+        valueText: inspector.target? inspector.target.y : ""
+
+        onAccepted: (text) =>  {
+            inspector.target.width = text
+        }
+    }
+
+    NumberInput {
+        width: inspector.width - 2 * mainWindow.theme.mediumPadding
+        labelText: "Height:"
+        enabled: inspector.target
+        valueText: inspector.target? inspector.target.height : ""
+
+        onAccepted: (text) =>  {
+            inspector.target.height = text
         }
     }
 }

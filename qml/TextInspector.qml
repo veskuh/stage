@@ -28,13 +28,17 @@ Rectangle {
 
     Column {
         padding: mainWindow.theme.mediumPadding
-        spacing: mainWindow.theme.mediumPadding
+        spacing: mainWindow.theme.mediumPadding * 2
 
         InspectorCommon {
             title: "Text"
         }
 
-        Label {
+        SeparatorLine {
+            width: inspector.width - 2 * mainWindow.theme.mediumPadding
+        }
+
+        SectionHeader {
             text: "Text"
         }
 
