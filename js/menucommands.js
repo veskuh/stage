@@ -45,8 +45,12 @@ function deleteTarget() {
     element.destroy()
 }
 
+function selectAll() {
+    content.selectAll()
+}
+
 function deselect() {
-    mainWindow.target = null
+    content.deselect()
 }
 
 function forward() {
