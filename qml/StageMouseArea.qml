@@ -20,15 +20,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 import QtQuick
 
 MouseArea {
+    id: root
     property Item target
     property string source: ""
     property bool dragging: drag.active
 
     enabled: mainWindow.select
 
-    onClicked: {
-        mainWindow.target = target
-        mainWindow.inspectorSource = source
+    onClicked: (mouse) => {
+        if (mouse.modifiers & Qt.ShiftModifier) {
+            console.log("Shift click")
+            // setup a multiselect
+            // If target changes, check if currently already in multiselection
+            // and add to existing multiselection
+            // Otherwise create a new multiselection with previously selected object and
+            // this one
+            if (mainWindow.target !== target) {
+                var group = content.getGroup()
+                group.add(target)
+                console.log("activate group")
+                mainWindow.target = group
+                mainWindow.inspectorSource = group.inspectorSource
+            } // Just ignore if not different
+
+        } else {
+            mainWindow.target = target
+            mainWindow.inspectorSource = source
+            content.selectionGroup = null
+        }
     }
 
     onDraggingChanged: {

@@ -25,7 +25,9 @@ Item {
     objectName: "StageBase"
 
     property alias inspectorSource: dragArea.source
-    property bool selected: mainWindow.target == base
+
+    property QtObject group
+    property bool selected: mainWindow.target === base || group && group.activeSelection
 
     property bool anchorLinesEnabled: true
     property string type: ""
@@ -77,5 +79,12 @@ Item {
     }
 
     StageResizeHandle {
+    }
+
+    SelectionHighlight {
+        width: parent.width
+        height: parent.height
+
+        visible: selected
     }
 }

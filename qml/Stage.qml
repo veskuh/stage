@@ -32,7 +32,6 @@ ApplicationWindow {
     property string state: "Ready"
     property Component factory
     property string inspectorSource
-    property alias selection: selection
     property Item target
     property bool select: !factory
     property alias view: content
@@ -210,7 +209,6 @@ ApplicationWindow {
             }
         }
 
-        // TODO: Edit menu
         Menu {
             title: "&Help"
             Action {
@@ -219,19 +217,6 @@ ApplicationWindow {
                     aboutDialog.visible = true
             }
         }
-
-        /*
-                                               Menu {
-                                                   title: "Edit"
-                                                   MenuItem { text: "Undo"; shortcut: "Ctrl+Z" }
-                                                   MenuSeparator {}
-                                                   MenuItem { text: "Cut" ; shortcut: "Ctrl+X"}
-                                                   MenuItem { text: "Copy"; shortcut: "Ctrl+C" }
-                                                   MenuItem { text: "Paste"; shortcut: "Ctrl+V" }
-                                                   MenuSeparator {}
-                                                   MenuItem { text: "Select All"; shortcut: "Ctrl+A" }
-
-                                               }*/
     }
 
 
@@ -304,6 +289,8 @@ ApplicationWindow {
             height: 768
             SplitView.fillWidth: true
 
+            property Group selectionGroup
+
             function addObject(properties) {
                 var component = Qt.createComponent(properties.type +".qml")
                 if (component.status == Component.Ready) {
@@ -319,6 +306,23 @@ ApplicationWindow {
                         content.children[child].destroy(10)
                     }
                 }
+            }
+
+            function getGroup() {
+                if (selectionGroup == null) {
+                    var component = Qt.createComponent("Group.qml")
+                    if (component.status == Component.Ready) {
+                        selectionGroup = component.createObject(content, {})
+                    } else {
+                        console.log("Cannot create component for type: " + properties.type)
+                        return null
+                    }
+
+                    if (target) {
+                        selectionGroup.add(target)
+                    }
+                }
+                return selectionGroup
             }
 
             AnchorLine {
@@ -342,17 +346,6 @@ ApplicationWindow {
                         target = null
                     }
                 }
-            }
-
-            SelectionHighlight {
-                id: selection
-                visible: target
-
-                x: mainWindow.target? mainWindow.target.x : 0
-                y: mainWindow.target? mainWindow.target.y : 0
-                width: mainWindow.target? mainWindow.target.width : 0
-                height: mainWindow.target? mainWindow.target.height : 0
-
             }
         }
 

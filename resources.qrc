@@ -27,5 +27,7 @@
         <file>qml/ColorPicker.qml</file>
         <file>qml/SeparatorLine.qml</file>
         <file>qml/SectionHeader.qml</file>
+        <file>qml/Group.qml</file>
+        <file>qml/GroupInspector.qml</file>
     </qresource>
 </RCC>
