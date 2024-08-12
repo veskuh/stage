@@ -116,25 +116,34 @@ ApplicationWindow {
         Labs.Menu {
             title: "Edit"
             Labs.MenuItem {
+               text: "Duplicate"
+               enabled: target
+               // shortcut: StandardKey.Delete
+               onTriggered: MenuCommands.duplicateTarget()
+            }
+
+            Labs.MenuSeparator { }
+
+            Labs.MenuItem {
                 text: "Delete"
                 enabled: target
                 shortcut: StandardKey.Delete
                 onTriggered: MenuCommands.deleteTarget()
             }
 
-            Labs.MenuItem {
-               text: "Duplicate"
-               enabled: target
-               // shortcut: StandardKey.Delete
-               onTriggered: MenuCommands.duplicateTarget()
-           }
-           Labs.MenuSeparator { }
+            Labs.MenuSeparator { }
 
-           Labs.MenuItem {
-               text: "Deselect"
-               enabled: target
-               onTriggered: MenuCommands.deselect()
-           }
+            Labs.MenuItem {
+                text: "Select all"
+                enabled: true
+                onTriggered: MenuCommands.selectAll()
+            }
+
+            Labs.MenuItem {
+                text: "Deselect"
+                enabled: target
+                onTriggered: MenuCommands.deselect()
+            }
         }
 
         Labs.Menu {
@@ -188,10 +197,20 @@ ApplicationWindow {
         Menu {
             title: "&Edit"
             Action {
+                text: "Duplicate"
+                enabled: target
+                onTriggered: MenuCommands.duplicateTarget()
+            }
+            Action {
                 text: "Delete"
                 shortcut: StandardKey.Delete
                 enabled: target
                 onTriggered: MenuCommands.deleteTarget()
+            }
+            Action {
+                text: "Select all"
+                enabled: true
+                onTriggered: MenuCommands.selectAll()
             }
             Action {
                 text: "Deselect"
@@ -313,6 +332,28 @@ ApplicationWindow {
                 }
             }
 
+            function selectAll() {
+                content.deselect()
+                var group = content.getGroup()
+                for (var child in content.children) {
+                    if (content.children[child].objectName == "StageBase") {
+                        console.log("Adding to group")
+                        group.add(content.children[child])
+                    }
+                }
+                mainWindow.target = group
+                mainWindow.inspectorSource = group.inspectorSource
+            }
+
+            function deselect() {
+                if (target && content.selectionGroup) {
+                    if (target.group) target.group.clear()
+                    if (content.selectionGroup) content.selectionGroup.clear()
+                    content.selectionGroup = null
+                } 
+                target = null
+            }
+
             function getGroup() {
                 if (selectionGroup == null) {
                     var component = Qt.createComponent("Group.qml")
@@ -348,7 +389,7 @@ ApplicationWindow {
                         factory = null
                         mainWindow.state = "Select"
                     } else {
-                        target = null
+                        content.deselect()
                     }
                 }
             }

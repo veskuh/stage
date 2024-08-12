@@ -13,10 +13,23 @@ StageBase {
         target.group = root
     }
 
+    function clear() {
+        for(var member in members){
+            if (members[member]!=null) {
+                if (members[member].group === root) {
+                    members[member].group = null
+                }
+            }
+        }
+        member = []
+    }
+
     Component.onDestruction: {
         for(var member in members){
-            members[member].destroy()
-            members[member] = null
+            if (members[member]!=null) {
+                members[member].destroy()
+                members[member] = null
+            }
         }
     }
 }
