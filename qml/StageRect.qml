@@ -33,7 +33,7 @@ StageBase {
 
     function duplicate() {
         console.log("Duplicate")
-        content.addObject({"type":"StageRect","x":10,"y":10,"width":width,"height":height,"color":color})
+        content.addObject({"type":"StageRect","x": x + 10,"y": y + 10,"width":width,"height":height,"color":color})
         mainWindow.target = null
     }
 }

@@ -47,4 +47,9 @@ StageBase {
             fileDialog.visible = true
         }
     }
+
+    function duplicate() {
+        content.addObject({"type":"StageImage","x": x + 10,"y": y + 10,"width":width,"height":height,"url":url})
+        content.deselect()
+    }
 }

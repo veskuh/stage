@@ -24,6 +24,14 @@ StageBase {
         member = []
     }
 
+    function duplicate() {
+        for(var member in members){
+            if (members[member]!=null) {
+               members[member].duplicate()
+            }
+        }
+    }
+
     Component.onDestruction: {
         for(var member in members){
             if (members[member]!=null) {

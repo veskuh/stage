@@ -210,11 +210,13 @@ ApplicationWindow {
             Action {
                 text: "Select all"
                 enabled: true
+                shortcut: StandardKey.SelectAll
                 onTriggered: MenuCommands.selectAll()
             }
             Action {
                 text: "Deselect"
                 enabled: target
+                shortcut: StandardKey.Deselect
                 onTriggered: MenuCommands.deselect()
             }
         }

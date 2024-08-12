@@ -31,4 +31,9 @@ StageBase {
         color: "blue"
         radius: (width + height) / 2
     }
+
+    function duplicate() {
+        content.addObject({"type":"StageCircle","x": x + 10,"y": y + 10,"width":width,"height":height,"color":color})
+        content.deselect()
+    }
 }
