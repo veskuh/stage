@@ -39,8 +39,14 @@ Rectangle {
             width: inspector.width - 2 * mainWindow.theme.mediumPadding
         }
 
+        SectionHeader {
+            text: "Source file"
+        }
+
         Label {
-            text: inspector.target? "Source: " + inspector.target.source : "No source"
+            text: inspector.target? inspector.target.url : "No source"
+            elide: Text.ElideLeft
+            width: inspector.width - 2 * mainWindow.theme.mediumPadding
         }
         Button {
             text: "Change source.."
