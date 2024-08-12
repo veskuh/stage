@@ -30,4 +30,10 @@ StageBase {
         anchors.fill: parent
         color: "blue"
     }
+
+    function duplicate() {
+        console.log("Duplicate")
+        content.addObject({"type":"StageRect","x":10,"y":10,"width":width,"height":height,"color":color})
+        mainWindow.target = null
+    }
 }

@@ -87,4 +87,8 @@ Item {
 
         visible: selected
     }
+
+    function duplicate() {
+        console.log("Warning: duplicate not implemented")
+    }
 }

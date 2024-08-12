@@ -122,13 +122,19 @@ ApplicationWindow {
                 onTriggered: MenuCommands.deleteTarget()
             }
 
-            Labs.MenuSeparator { }
-
             Labs.MenuItem {
-                text: "Deselect"
-                enabled: target
-                onTriggered: MenuCommands.deselect()
-            }
+               text: "Duplicate"
+               enabled: target
+               // shortcut: StandardKey.Delete
+               onTriggered: MenuCommands.duplicateTarget()
+           }
+           Labs.MenuSeparator { }
+
+           Labs.MenuItem {
+               text: "Deselect"
+               enabled: target
+               onTriggered: MenuCommands.deselect()
+           }
         }
 
         Labs.Menu {
@@ -143,7 +149,6 @@ ApplicationWindow {
                 enabled: target
                 onTriggered: MenuCommands.backward()
             }
-
         }
     }
 

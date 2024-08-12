@@ -56,3 +56,8 @@ function forward() {
 function backward() {
     mainWindow.target.z -= 1
 }
+
+function duplicateTarget() {
+    var element  = mainWindow.target
+    target.duplicate()
+}
