@@ -50,5 +50,34 @@ Rectangle {
                 if (enabled) inspector.target.text = text
             }
         }
+
+        NumberInput {
+            labelText: "Font size"
+            width: inspector.width - 2 * mainWindow.theme.mediumPadding
+            enabled: inspector.target
+            valueText: inspector.target? inspector.target.fontSize : ""
+
+            onAccepted: (text) =>  {
+                inspector.target.fontSize = text
+            }
+        }
+
+        CheckBox {
+            checked: inspector.target.bold
+            text:  "Bold"
+            onClicked: inspector.target.bold = !inspector.target.bold
+        }
+
+        CheckBox {
+            checked: inspector.target.italic
+            text:  "Italic"
+            onClicked: inspector.target.italic = !inspector.target.italic
+        }
+
+        CheckBox {
+            checked: inspector.target.underline
+            text:  "Underline"
+            onClicked: inspector.target.underline = !inspector.target.underline
+        }
     }
 }

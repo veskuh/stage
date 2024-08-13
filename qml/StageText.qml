@@ -24,6 +24,11 @@ StageBase {
     inspectorSource: "TextInspector.qml"
     property alias text: label.text
     property alias color: label.color
+    property alias bold: label.font.bold
+    property alias italic: label.font.italic
+    property alias underline: label.font.underline
+    property alias fontSize: label.font.pixelSize
+
     width: label.implicitWidth
     height: label.implicitHeight
 

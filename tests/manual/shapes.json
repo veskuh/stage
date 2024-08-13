@@ -9,10 +9,14 @@
         "z": 0
     },
     {
+        "bold": false,
         "color": "#000000",
+        "fontSize": 36,
         "height": 44,
+        "italic": false,
         "text": "<- Green box 20x100 x:10 y:10",
         "type": "StageText",
+        "underline": false,
         "width": 475.703125,
         "x": 41,
         "y": 10,
@@ -28,10 +32,14 @@
         "z": 0
     },
     {
+        "bold": false,
         "color": "#000000",
+        "fontSize": 36,
         "height": 44,
+        "italic": false,
         "text": "<- Red circle 40x40 x:150 y: 200",
         "type": "StageText",
+        "underline": false,
         "width": 507.1875,
         "x": 223.06640625,
         "y": 200,
@@ -47,10 +55,14 @@
         "z": 0
     },
     {
+        "bold": false,
         "color": "#000000",
+        "fontSize": 36,
         "height": 44,
+        "italic": false,
         "text": "TBD: image",
         "type": "StageText",
+        "underline": false,
         "width": 184.421875,
         "x": 171.2890625,
         "y": 400,
@@ -75,13 +87,31 @@
         "z": 0
     },
     {
+        "bold": false,
         "color": "#000000",
+        "fontSize": 36,
         "height": 43,
+        "italic": false,
         "text": "<- Green box below, Red ball above",
         "type": "StageText",
+        "underline": false,
         "width": 551.34375,
         "x": 223,
         "y": 510,
+        "z": 0
+    },
+    {
+        "bold": true,
+        "color": "#000000",
+        "fontSize": 20,
+        "height": 51.1484375,
+        "italic": true,
+        "text": "Bold italic underline, size 20",
+        "type": "StageText",
+        "underline": true,
+        "width": 438.703125,
+        "x": 45.234375,
+        "y": 304,
         "z": 0
     }
 ]

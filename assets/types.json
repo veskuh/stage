@@ -9,7 +9,7 @@
 },
 {
     "type":"StageText",
-    "properties": ["x","y","z","width","height","text","color"]
+    "properties": ["x","y","z","width","height","text","color","bold","italic","underline","fontSize"]
 },
 {
     "type":"StageImage",
