@@ -46,6 +46,38 @@ Item {
     property AnchorLine topLine
     property AnchorLine bottomLine
     property AnchorLine horizontalCenterLine
+    property bool inDragGroup : mainWindow.draggedObject &&
+                                group &&
+                                mainWindow.draggedObject !== base &&
+                                mainWindow.draggedObject.group == group &&
+                                updateDrag()
+
+    property int deltaX
+    property int deltaY
+    property bool dragStart: false
+
+    onInDragGroupChanged: {
+        if(!inDragGroup) {
+            dragStart = false
+        }
+    }
+
+    function updateDrag() {
+        if (mainWindow.draggedObject) {
+            if(!dragStart) {
+                base.deltaX = base.x - mainWindow.draggedObject.x
+                base.deltaY = y - mainWindow.draggedObject.y
+                dragStart = true
+
+            } else {
+                base.x = (mainWindow.draggedObject.x+base.deltaX)
+                base.y = (mainWindow.draggedObject.y+base.deltaY)
+            }
+            return true
+        }
+        return false
+    }
+
 
     Component.onCompleted: {
         var component = Qt.createComponent("AnchorLine.qml")
