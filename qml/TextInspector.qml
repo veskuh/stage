@@ -28,7 +28,7 @@ Rectangle {
 
     Column {
         padding: mainWindow.theme.mediumPadding
-        spacing: mainWindow.theme.mediumPadding * 2
+        spacing: mainWindow.theme.mediumPadding 
 
         InspectorCommon {
             title: "Text"
@@ -84,6 +84,22 @@ Rectangle {
                     onClicked: inspector.target.underline = !inspector.target.underline
                 }
             }
+        }
+
+        SeparatorLine {
+            width: inspector.width - 2 * mainWindow.theme.mediumPadding
+        }
+
+        SectionHeader {
+            text: "Font color"
+        }
+
+
+        ColorPicker {
+            width: inspector.width
+            targetColor: inspector.target.color
+            enabled: inspector.target
+            onTargetColorChanged: inspector.target.color = targetColor
         }
     }
 }
