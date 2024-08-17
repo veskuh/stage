@@ -247,52 +247,59 @@ ApplicationWindow {
 
 
     header: ToolBar {
+        height: selectButton.height + theme.smallPadding * 2
+
         RowLayout {
-            ToolButton {
-                text: "Rectangle"
+            anchors.verticalCenter: parent.verticalCenter
+
+            StageToolButton {
+                id: selectButton
+                text: "Select"
+                icon.source: theme.selectIcon
+                checked: factory == null
+                onClicked: {
+                    factory = null
+                    mainWindow.state = "Select"
+                }
+            }
+
+            ToolSeparator {}
+
+            StageToolButton {
+                text: "Rectangle" 
                 checked: mainWindow.state == "Rectangle"
-                checkable: true
+                icon.source: theme.rectIcon
+
                 onClicked: {
                     factory = Qt.createComponent("StageRect.qml")
                     mainWindow.state = "Rectangle"
                 }
             }
-            ToolButton {
+            StageToolButton {
                 text: "Circle"
-                checkable: true
                 checked: mainWindow.state == "Circle"
+                icon.source: theme.circleIcon
                 onClicked: {
                     factory = Qt.createComponent("StageCircle.qml")
                     mainWindow.state = "Circle"
                 }
             }
-            ToolButton {
+            StageToolButton {
                 text: "Text"
-                checkable: true
                 checked: mainWindow.state == "Text"
+                icon.source: theme.textIcon
                 onClicked: {
                     factory = Qt.createComponent("StageText.qml")
                     mainWindow.state = "Text"
                 }
             }
-            ToolButton {
+            StageToolButton {
                 text: "Image"
-                checkable: true
                 checked: mainWindow.state == "Image"
+                icon.source: theme.imageIcon
                 onClicked: {
                     factory = Qt.createComponent("StageImage.qml")
                     mainWindow.state = "Image"
-                }
-            }
-            ToolButton {
-                id: selectButton
-                text: "Select"
-                checkable: true
-                checked: factory == null
-
-                onClicked: {
-                    factory = null
-                    mainWindow.state = "Select"
                 }
             }
         }

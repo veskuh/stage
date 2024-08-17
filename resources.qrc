@@ -29,5 +29,6 @@
         <file>qml/SectionHeader.qml</file>
         <file>qml/Group.qml</file>
         <file>qml/GroupInspector.qml</file>
+        <file>qml/StageToolButton.qml</file>
     </qresource>
 </RCC>

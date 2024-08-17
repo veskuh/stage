@@ -113,5 +113,19 @@
         "x": 45.234375,
         "y": 304,
         "z": 0
+    },
+    {
+        "bold": true,
+        "color": "#0000ff",
+        "fontSize": 18,
+        "height": 22,
+        "italic": true,
+        "text": "Blue, bold, italic, underline, 18pt",
+        "type": "StageText",
+        "underline": true,
+        "width": 267.96875,
+        "x": 172.15234375,
+        "y": 118.20703125,
+        "z": 0
     }
 ]
