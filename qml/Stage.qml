@@ -116,10 +116,10 @@ ApplicationWindow {
         Labs.Menu {
             title: "Edit"
             Labs.MenuItem {
-               text: "Duplicate"
-               enabled: target
-               // shortcut: StandardKey.Delete
-               onTriggered: MenuCommands.duplicateTarget()
+                text: "Duplicate"
+                enabled: target
+                // shortcut: StandardKey.Delete
+                onTriggered: MenuCommands.duplicateTarget()
             }
 
             Labs.MenuSeparator { }
@@ -266,7 +266,7 @@ ApplicationWindow {
             ToolSeparator {}
 
             StageToolButton {
-                text: "Rectangle" 
+                text: "Rectangle"
                 checked: mainWindow.state == "Rectangle"
                 icon.source: theme.rectIcon
 
@@ -316,6 +316,7 @@ ApplicationWindow {
     SplitView {
         anchors.fill: parent
 
+
         Rectangle {
             id: content
             objectName: "contentRectangle"
@@ -359,7 +360,7 @@ ApplicationWindow {
                     if (target.group) target.group.clear()
                     if (content.selectionGroup) content.selectionGroup.clear()
                     content.selectionGroup = null
-                } 
+                }
                 target = null
             }
 
@@ -404,20 +405,19 @@ ApplicationWindow {
             }
         }
 
+
         StackLayout {
             SplitView.preferredWidth: 250
-            Item {
-                id: inspector
-                Rectangle {
-                    width: 250
-                    height: parent.height
-                    color: palette.window
+            ScrollView {
+                id: inspectorScrollView
+                Layout.fillHeight: true
+                ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
-                    Loader {
-                        anchors.fill: parent
-                        source: mainWindow.inspectorSource
-                    }
+                Loader {
+                    anchors.fill: parent
+                    source: mainWindow.inspectorSource
                 }
+
             }
         }
     }

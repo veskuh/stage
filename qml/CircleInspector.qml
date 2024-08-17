@@ -23,13 +23,11 @@ import QtQuick.Dialogs
 
 Rectangle {
     id: inspector
-    anchors.fill: parent
-
     property Item target: mainWindow.target
     color: palette.window
 
-
     Column {
+        id: column
         padding: mainWindow.theme.mediumPadding
         spacing: mainWindow.theme.mediumPadding * 2
 
@@ -54,4 +52,5 @@ Rectangle {
             onTargetColorChanged: inspector.target.color = targetColor
         }
     }
+    Component.onCompleted: inspectorScrollView.contentHeight = column.height
 }
