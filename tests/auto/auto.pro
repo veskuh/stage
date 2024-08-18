@@ -1,4 +1,4 @@
-QT += core
+QT += core svg widgets
 CONFIG += console c++17 testcase
 TARGET = AutoTests
 
@@ -7,9 +7,11 @@ RESOURCES += \
 
 SOURCES += test_main.cpp \
            filehandling_tests.cpp \
-           ../../src/documentfile.cpp
+           ../../src/documentfile.cpp \
+           ../../src/svgexport.cpp
 
-HEADERS += ../../src/documentfile.h
+HEADERS += ../../src/documentfile.h \
+           ../../src/svgexport.h
 
 contains(CONFIG, coverage) {
     message("Building with coverage support")

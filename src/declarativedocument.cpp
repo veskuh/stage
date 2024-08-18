@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "declarativedocument.h"
 #include "documentfile.h"
+#include "svgexport.h"
 #include <QDebug>
 #include <QFile>
 #include <QJsonArray>
@@ -82,6 +83,51 @@ void DeclarativeDocument::save(QUrl url)
     }
     file.save(url);
 }
+
+void DeclarativeDocument::exportSvg(QUrl url)
+{
+    SvgExport file(url.toLocalFile());
+
+    // Find ApplicationWindow
+    QObject *obj = parent();
+    while (obj->parent()) {
+        obj = obj->parent();
+    }
+
+    QObject *content = obj->findChild<QObject *>("contentRectangle");
+    if (content) {
+        for (QObject *object : content->children()) {
+            QString className = object->metaObject()->className();
+            for (QJsonValue type : types) {
+                if (type.isObject()) {
+                    QJsonObject typeObject = type.toObject();
+                    QJsonValue value = typeObject.value("type");
+                    if (value.isString()) {
+                        QString typeString = value.toString();
+                        if (className.startsWith(typeString)) {
+                            QVariantMap properties;
+                            properties.insert("type", QVariant(typeString));
+                            QJsonValue propertyArray = typeObject.value("properties");
+                            if (propertyArray.isArray()) {
+                                for (auto property : propertyArray.toArray()) {
+                                    if (property.isString()) {
+                                        QString propertyString = property.toString();
+                                        properties.insert(
+                                            propertyString,
+                                            object->property(propertyString.toLatin1().constData()));
+                                    }
+                                }
+                            }
+                            file.addObject(properties);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    file.save();
+}
+
 
 void DeclarativeDocument::load(QUrl url)
 {

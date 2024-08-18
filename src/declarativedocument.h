@@ -30,6 +30,7 @@ public:
     explicit DeclarativeDocument(QObject *parent = 0);
 
     Q_INVOKABLE void save(QUrl url);
+    Q_INVOKABLE void exportSvg(QUrl url);
     Q_INVOKABLE void load(QUrl url);
 
 signals:

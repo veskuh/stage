@@ -186,6 +186,12 @@ ApplicationWindow {
             }
             MenuSeparator {}
             Action {
+                text: "Export SVG.."
+                onTriggered: MenuCommands.exportSvg()
+            }
+
+            MenuSeparator {}
+            Action {
                 text: "E&xit"
                 shortcut: StandardKey.Quit
                 onTriggered: {
@@ -433,7 +439,8 @@ ApplicationWindow {
         id: openDialog
         title: "Choose file"
         fileMode: FileDialog.OpenFile
-        nameFilters: [ "json files (*.json)"]
+        property bool exportSvg: false
+        nameFilters: exportSvg? [] : [ "json files (*.json)"]
 
         onAccepted: {
             filepath = openDialog.currentFile
@@ -441,7 +448,12 @@ ApplicationWindow {
                 document.load(filepath)
 
             } else {
-                document.save(filepath)
+                if (!exportSvg) {
+                    document.save(filepath)
+                } else {
+                    document.exportSvg(filepath)
+                    exportSvg = false
+                }
             }
         }
     }
