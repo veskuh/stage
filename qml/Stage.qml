@@ -112,6 +112,11 @@ ApplicationWindow {
                 text: "Save As.."
                 onTriggered: MenuCommands.saveAs()
             }
+
+            Labs.MenuItem {
+                text: "Export SVG.."
+                onTriggered: MenuCommands.exportSvg()
+            }
         }
         Labs.Menu {
             title: "Edit"
@@ -440,7 +445,7 @@ ApplicationWindow {
         title: "Choose file"
         fileMode: FileDialog.OpenFile
         property bool exportSvg: false
-        nameFilters: exportSvg? [] : [ "json files (*.json)"]
+        nameFilters: exportSvg? ["svg files (*.svg)"] : [ "json files (*.json)"]
 
         onAccepted: {
             filepath = openDialog.currentFile
