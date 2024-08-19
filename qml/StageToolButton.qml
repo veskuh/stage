@@ -6,5 +6,5 @@ ToolButton {
     checkable: true
     icon.width: 24
     icon.height: 24
-    display: (Qt.platform.os === "osx") ? AbstactButton.TextOnly : AbstractButton.TextUnderIcon
+    display: (Qt.platform.os === "osx") ? AbstractButton.TextOnly : AbstractButton.TextUnderIcon
 }
