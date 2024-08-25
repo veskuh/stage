@@ -256,6 +256,7 @@ ApplicationWindow {
         height: selectButton.height + theme.smallPadding * 2
 
         RowLayout {
+            id: toolRow
             anchors.verticalCenter: parent.verticalCenter
 
             StageToolButton {
@@ -264,6 +265,7 @@ ApplicationWindow {
                 icon.source: theme.selectIcon
                 checked: factory == null
                 onClicked: {
+                    content.deselect()
                     factory = null
                     mainWindow.state = "Select"
                 }
@@ -275,39 +277,33 @@ ApplicationWindow {
                 text: "Rectangle"
                 checked: mainWindow.state == "Rectangle"
                 icon.source: theme.rectIcon
-
-                onClicked: {
-                    factory = Qt.createComponent("StageRect.qml")
-                    mainWindow.state = "Rectangle"
-                }
+                onClicked: toolRow.selectTool("StageRect.qml","Rectangle")
             }
             StageToolButton {
                 text: "Circle"
                 checked: mainWindow.state == "Circle"
                 icon.source: theme.circleIcon
-                onClicked: {
-                    factory = Qt.createComponent("StageCircle.qml")
-                    mainWindow.state = "Circle"
-                }
+                onClicked: toolRow.selectTool("StageCircle.qml", "Circle")
             }
             StageToolButton {
                 text: "Text"
                 checked: mainWindow.state == "Text"
                 icon.source: theme.textIcon
-                onClicked: {
-                    factory = Qt.createComponent("StageText.qml")
-                    mainWindow.state = "Text"
-                }
+                onClicked: toolRow.selectTool("StageText.qml", "Text")
             }
             StageToolButton {
                 text: "Image"
                 checked: mainWindow.state == "Image"
                 icon.source: theme.imageIcon
-                onClicked: {
-                    factory = Qt.createComponent("StageImage.qml")
-                    mainWindow.state = "Image"
-                }
+                onClicked: toolRow.selectTool("StageImage.qml", "Image")
             }
+
+            function selectTool(factoryQmlName, state) {
+                content.deselect()
+                factory = Qt.createComponent(factoryQmlName)
+                mainWindow.state = state
+            }
+
         }
     }
 
