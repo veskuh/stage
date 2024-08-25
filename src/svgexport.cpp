@@ -4,6 +4,7 @@
 #include <QRect>
 #include <QVariantMap>
 #include <QDebug>
+#include <QUrl>
 
 SvgExport::SvgExport(QString path) {
     qDebug() << "exporting to:" << path;
@@ -39,11 +40,21 @@ void SvgExport::addObject(QVariantMap properties) {
         font.setUnderline(properties.value("underline").toBool());
         font.setPixelSize(fontSize);
         painter.setFont(font);
-
         QPen pen = painter.pen();
         pen.setColor(QColor(colorStr));
         painter.setPen(pen);
         painter.drawText(bounds, text);
+    } else if (type == "StageImage") {
+        QString path = properties.value("url").toUrl().toLocalFile();
+        QImage img(path);
+
+        if (img.isNull()) {
+            qWarning() << "Can't load: " << path;
+        } else {
+            painter.drawImage(bounds, img);
+        }
+    } else {
+        qWarning() << "Export of type not implemented: " << type;
     }
 
 }
