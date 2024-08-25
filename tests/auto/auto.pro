@@ -1,6 +1,7 @@
 QT += core
 CONFIG += console c++17 testcase
 TARGET = AutoTests
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 14.0
 
 RESOURCES += \
     test_resources.qrc
@@ -18,7 +19,9 @@ contains(CONFIG, coverage) {
 }
 
 # Use catch2 for auto tests
-PKGCONFIG += catch2
+QT_CONFIG -= no-pkg-config
+CONFIG += link_pkgconfig
+PKGCONFIG += catch2-with-main
 
 # target for coverage
 coverage.commands = ./AutoTests && \
