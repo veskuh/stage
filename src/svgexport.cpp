@@ -18,24 +18,28 @@ SvgExport::SvgExport(QString path) {
 }
 
 void SvgExport::addObject(QVariantMap properties) {
-
-
     QString type = properties.value("type").toString();
+    QRectF bounds = getRect(properties);
+    QString colorStr = properties.value("color").toString();
 
     if (type == "StageRect") {
-        int x,y,z, width, height = 0;
-
-        x = properties.value("x").toInt();
-        y = properties.value("y").toInt();
-        z = properties.value("z").toInt();
-        width = properties.value("width").toInt();
-        height = properties.value("height").toInt();
-
-        QString colorStr = properties.value("color").toString();
-
-        painter.fillRect(x, y, width, height, QColor(colorStr));
+        int z = properties.value("z").toInt();
+        painter.fillRect(bounds, QColor(colorStr));
+    } else if (type == "StageCircle") {
+        int z = properties.value("z").toInt();
+        painter.setBrush(QColor(colorStr));
+        painter.drawEllipse(bounds);
     }
 }
+
+QRectF SvgExport::getRect(QVariantMap properties) {
+    qreal x = properties.value("x").toReal();
+    qreal y = properties.value("y").toReal();
+    qreal width = properties.value("width").toReal();
+    qreal height = properties.value("height").toReal();
+    return QRectF(x, y, width, height);
+}
+
 
 void SvgExport::save() {
 

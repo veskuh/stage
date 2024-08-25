@@ -13,6 +13,13 @@ public:
     void save();
 
 private:
+    /**
+     * @brief getRect get x,y,width, height from propertyMap
+     * @param properties
+     * @return
+     */
+    QRectF getRect(QVariantMap properties);
+
     QSvgGenerator generator;
     QPainter painter;
 };
