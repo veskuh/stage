@@ -29,7 +29,23 @@ void SvgExport::addObject(QVariantMap properties) {
         int z = properties.value("z").toInt();
         painter.setBrush(QColor(colorStr));
         painter.drawEllipse(bounds);
+    } else if (type == "StageText") {
+        int z = properties.value("z").toInt();
+        QString text = properties.value("text").toString();
+        int fontSize = properties.value("fontSize").toInt();
+        QFont font = painter.font();
+        font.setBold(properties.value("bold").toBool());
+        font.setItalic(properties.value("italic").toBool());
+        font.setUnderline(properties.value("underline").toBool());
+        font.setPixelSize(fontSize);
+        painter.setFont(font);
+
+        QPen pen = painter.pen();
+        pen.setColor(QColor(colorStr));
+        painter.setPen(pen);
+        painter.drawText(bounds, text);
     }
+
 }
 
 QRectF SvgExport::getRect(QVariantMap properties) {
