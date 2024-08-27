@@ -15,11 +15,18 @@ QtObject {
     property int mediumFontSize: (Qt.platform.os === "osx") ? 14 : 16
     property int largeFontSize: (Qt.platform.os === "osx") ? 18 : 20
 
+    // Tool symbols, on mac from SF Symbols
+    property string selectSymbol: (Qt.platform.os === "osx") ? "􀮐" : ""
+    property string rectSymbol: (Qt.platform.os === "osx") ? "􀏃" : ""
+    property string circleSymbol: (Qt.platform.os === "osx") ? "􀀀" : ""
+    property string textSymbol: (Qt.platform.os === "osx") ? "􀅶" : ""
+    property string imageSymbol: (Qt.platform.os === "osx") ? "􀏅" : ""
+
     // Tool icons
-    property string selectIcon: "file:///usr/share/icons/breeze/actions/16/select-symbolic.svg"
-    property string rectIcon: "file:///usr/share/icons/breeze/actions/16/draw-rectangle-symbolic.svg"
-    property string circleIcon: "file:///usr/share/icons/breeze/actions/16/draw-circle-symbolic.svg"
-    property string textIcon: "file:///usr/share/icons/breeze/actions/16/draw-text-symbolic.svg"
-    property string imageIcon: "file:///usr/share/icons/breeze/actions/16/insert-image-symbolic.svg"
+    property string selectIcon: (Qt.platform.os === "osx") ? "/assets/empty.png" : "file:///usr/share/icons/breeze/actions/16/select-symbolic.svg"
+    property string rectIcon: (Qt.platform.os === "osx") ? "/assets/empty.png" : "file:///usr/share/icons/breeze/actions/16/draw-rectangle-symbolic.svg"
+    property string circleIcon: (Qt.platform.os === "osx") ? "/assets/empty.png" : "file:///usr/share/icons/breeze/actions/16/draw-circle-symbolic.svg"
+    property string textIcon: (Qt.platform.os === "osx") ? "/assets/empty.png" : "file:///usr/share/icons/breeze/actions/16/draw-text-symbolic.svg"
+    property string imageIcon: (Qt.platform.os === "osx") ? "/assets/empty.png" : "file:///usr/share/icons/breeze/actions/16/insert-image-symbolic.svg"
 }
 

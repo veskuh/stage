@@ -28,6 +28,7 @@ StageBase {
     property alias italic: label.font.italic
     property alias underline: label.font.underline
     property alias fontSize: label.font.pixelSize
+    property alias fontName: label.font.family
 
     width: label.implicitWidth
     height: label.implicitHeight
