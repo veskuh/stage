@@ -58,7 +58,7 @@ Rectangle {
                 width: inspector.width - 2 * mainWindow.theme.mediumPadding
                 text: enabled ? inspector.target.fontName : ""
                 enabled: inspector.target && target.inspectorSource == "TextInspector.qml"
-                onTextChanged: {
+                onAccepted: {
                     if (enabled) inspector.target.fontName = text
                 }
             }
