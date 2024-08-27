@@ -30,5 +30,6 @@
         <file>qml/Group.qml</file>
         <file>qml/GroupInspector.qml</file>
         <file>qml/StageToolButton.qml</file>
+        <file>assets/empty.png</file>
     </qresource>
 </RCC>

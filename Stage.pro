@@ -1,4 +1,4 @@
-QT+=widgets qml quick
+QT+=widgets qml quick svg
 
 MOC_DIR = moc
 RCC_DIR = qrc
@@ -7,11 +7,13 @@ OBJECTS_DIR = obj
 SOURCES += \
     src/declarativedocument.cpp \
     src/documentfile.cpp \
-    src/stage.cpp
+    src/stage.cpp \
+    src/svgexport.cpp
 
 HEADERS += \
     src/declarativedocument.h \
-    src/documentfile.h
+    src/documentfile.h \
+    src/svgexport.h
 
 RESOURCES += \
     resources.qrc

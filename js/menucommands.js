@@ -39,6 +39,13 @@ function saveAs() {
     openDialog.open()
 }
 
+function exportSvg() {
+    openDialog.fileMode = FileDialog.SaveFile
+    openDialog.exportSvg = true
+    openDialog.open()
+}
+
+
 function deleteTarget() {
     var element  = mainWindow.target
     mainWindow.target = null

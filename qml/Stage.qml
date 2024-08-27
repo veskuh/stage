@@ -112,6 +112,11 @@ ApplicationWindow {
                 text: "Save As.."
                 onTriggered: MenuCommands.saveAs()
             }
+
+            Labs.MenuItem {
+                text: "Export SVG.."
+                onTriggered: MenuCommands.exportSvg()
+            }
         }
         Labs.Menu {
             title: "Edit"
@@ -186,6 +191,12 @@ ApplicationWindow {
             }
             MenuSeparator {}
             Action {
+                text: "Export SVG.."
+                onTriggered: MenuCommands.exportSvg()
+            }
+
+            MenuSeparator {}
+            Action {
                 text: "E&xit"
                 shortcut: StandardKey.Quit
                 onTriggered: {
@@ -250,14 +261,17 @@ ApplicationWindow {
         height: selectButton.height + theme.smallPadding * 2
 
         RowLayout {
+            id: toolRow
             anchors.verticalCenter: parent.verticalCenter
 
             StageToolButton {
                 id: selectButton
                 text: "Select"
+                toolSymbol: theme.selectSymbol
                 icon.source: theme.selectIcon
                 checked: factory == null
                 onClicked: {
+                    content.deselect()
                     factory = null
                     mainWindow.state = "Select"
                 }
@@ -267,41 +281,39 @@ ApplicationWindow {
 
             StageToolButton {
                 text: "Rectangle"
+                toolSymbol: theme.rectSymbol
                 checked: mainWindow.state == "Rectangle"
                 icon.source: theme.rectIcon
-
-                onClicked: {
-                    factory = Qt.createComponent("StageRect.qml")
-                    mainWindow.state = "Rectangle"
-                }
+                onClicked: toolRow.selectTool("StageRect.qml","Rectangle")
             }
             StageToolButton {
                 text: "Circle"
+                toolSymbol: theme.circleSymbol
                 checked: mainWindow.state == "Circle"
                 icon.source: theme.circleIcon
-                onClicked: {
-                    factory = Qt.createComponent("StageCircle.qml")
-                    mainWindow.state = "Circle"
-                }
+                onClicked: toolRow.selectTool("StageCircle.qml", "Circle")
             }
             StageToolButton {
                 text: "Text"
+                toolSymbol: theme.textSymbol
                 checked: mainWindow.state == "Text"
                 icon.source: theme.textIcon
-                onClicked: {
-                    factory = Qt.createComponent("StageText.qml")
-                    mainWindow.state = "Text"
-                }
+                onClicked: toolRow.selectTool("StageText.qml", "Text")
             }
             StageToolButton {
                 text: "Image"
+                toolSymbol: theme.imageSymbol
                 checked: mainWindow.state == "Image"
                 icon.source: theme.imageIcon
-                onClicked: {
-                    factory = Qt.createComponent("StageImage.qml")
-                    mainWindow.state = "Image"
-                }
+                onClicked: toolRow.selectTool("StageImage.qml", "Image")
             }
+
+            function selectTool(factoryQmlName, state) {
+                content.deselect()
+                factory = Qt.createComponent(factoryQmlName)
+                mainWindow.state = state
+            }
+
         }
     }
 
@@ -433,7 +445,8 @@ ApplicationWindow {
         id: openDialog
         title: "Choose file"
         fileMode: FileDialog.OpenFile
-        nameFilters: [ "json files (*.json)"]
+        property bool exportSvg: false
+        nameFilters: exportSvg? ["svg files (*.svg)"] : [ "json files (*.json)"]
 
         onAccepted: {
             filepath = openDialog.currentFile
@@ -441,7 +454,12 @@ ApplicationWindow {
                 document.load(filepath)
 
             } else {
-                document.save(filepath)
+                if (!exportSvg) {
+                    document.save(filepath)
+                } else {
+                    document.exportSvg(filepath)
+                    exportSvg = false
+                }
             }
         }
     }

@@ -82,7 +82,7 @@ Column {
         width: inspector.width - 2 * mainWindow.theme.mediumPadding
         labelText: "Width:"
         enabled: inspector.target
-        valueText: inspector.target? inspector.target.y : ""
+        valueText: inspector.target? inspector.target.width : ""
 
         onAccepted: (text) =>  {
             inspector.target.width = text

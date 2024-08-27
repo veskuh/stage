@@ -1,4 +1,4 @@
-QT += core
+QT += core svg widgets
 CONFIG += console c++17 testcase
 TARGET = AutoTests
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 14.0
@@ -8,9 +8,11 @@ RESOURCES += \
 
 SOURCES += test_main.cpp \
            filehandling_tests.cpp \
-           ../../src/documentfile.cpp
+           ../../src/documentfile.cpp \
+           ../../src/svgexport.cpp
 
-HEADERS += ../../src/documentfile.h
+HEADERS += ../../src/documentfile.h \
+           ../../src/svgexport.h
 
 contains(CONFIG, coverage) {
     message("Building with coverage support")

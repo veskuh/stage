@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <catch2/catch_all.hpp>
 #include <QFileInfo>
 #include "../../src/documentfile.h"
+#include "../../src/svgexport.h"
 
 
 TEST_CASE("Initialize", "[DocumentFile]") {
@@ -49,3 +50,31 @@ TEST_CASE("Load and save shapes.json", "[DocumentFile]") {
     tmpFile.remove(); 
 }
 
+TEST_CASE("Export empty SVG", "[SvgExport]") {
+
+    // Empty file
+    SvgExport exporter("test.svg");
+    exporter.save();
+    QFile file("test.svg");
+    REQUIRE(file.exists() == true);
+    file.remove();
+}
+
+TEST_CASE("Export single rect SVG", "[SvgExport]") {
+    // Single Rect
+    SvgExport rectExporter("rect.svg");
+    QVariantMap properties;
+    properties.insert("color", "#0000ff");
+    properties.insert("type", "StageRect");
+    properties.insert("height", 100);
+    properties.insert("width", 200);
+    properties.insert("x", 150);
+    properties.insert("y", 50);
+    properties.insert("z", 0);
+    rectExporter.addObject(properties);
+    rectExporter.save();
+
+    QFile file2 = QFile("rect.svg");
+    REQUIRE(file2.exists() == true);
+    file2.remove();
+}
