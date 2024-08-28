@@ -267,7 +267,6 @@ ApplicationWindow {
             StageToolButton {
                 id: selectButton
                 text: "Select"
-                toolSymbol: theme.selectSymbol
                 icon.source: theme.selectIcon
                 checked: factory == null
                 onClicked: {
@@ -281,28 +280,24 @@ ApplicationWindow {
 
             StageToolButton {
                 text: "Rectangle"
-                toolSymbol: theme.rectSymbol
                 checked: mainWindow.state == "Rectangle"
                 icon.source: theme.rectIcon
                 onClicked: toolRow.selectTool("StageRect.qml","Rectangle")
             }
             StageToolButton {
                 text: "Circle"
-                toolSymbol: theme.circleSymbol
                 checked: mainWindow.state == "Circle"
                 icon.source: theme.circleIcon
                 onClicked: toolRow.selectTool("StageCircle.qml", "Circle")
             }
             StageToolButton {
                 text: "Text"
-                toolSymbol: theme.textSymbol
                 checked: mainWindow.state == "Text"
                 icon.source: theme.textIcon
                 onClicked: toolRow.selectTool("StageText.qml", "Text")
             }
             StageToolButton {
                 text: "Image"
-                toolSymbol: theme.imageSymbol
                 checked: mainWindow.state == "Image"
                 icon.source: theme.imageIcon
                 onClicked: toolRow.selectTool("StageImage.qml", "Image")

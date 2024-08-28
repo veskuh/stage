@@ -23,10 +23,10 @@ QtObject {
     property string imageSymbol: (Qt.platform.os === "osx") ? "􀏅" : ""
 
     // Tool icons
-    property string selectIcon: (Qt.platform.os === "osx") ? "/assets/empty.png" : "file:///usr/share/icons/breeze/actions/16/select-symbolic.svg"
-    property string rectIcon: (Qt.platform.os === "osx") ? "/assets/empty.png" : "file:///usr/share/icons/breeze/actions/16/draw-rectangle-symbolic.svg"
-    property string circleIcon: (Qt.platform.os === "osx") ? "/assets/empty.png" : "file:///usr/share/icons/breeze/actions/16/draw-circle-symbolic.svg"
-    property string textIcon: (Qt.platform.os === "osx") ? "/assets/empty.png" : "file:///usr/share/icons/breeze/actions/16/draw-text-symbolic.svg"
-    property string imageIcon: (Qt.platform.os === "osx") ? "/assets/empty.png" : "file:///usr/share/icons/breeze/actions/16/insert-image-symbolic.svg"
+    property string selectIcon: (Qt.platform.os === "osx") ? "image://macSymbol/cursorarrow.and.square.on.square.dashed" : "file:///usr/share/icons/breeze/actions/16/select-symbolic.svg"
+    property string rectIcon: (Qt.platform.os === "osx") ? "image://macSymbol/square" : "file:///usr/share/icons/breeze/actions/16/draw-rectangle-symbolic.svg"
+    property string circleIcon: (Qt.platform.os === "osx") ? "image://macSymbol/circle" : "file:///usr/share/icons/breeze/actions/16/draw-circle-symbolic.svg"
+    property string textIcon: (Qt.platform.os === "osx") ? "image://macSymbol/character.textbox" : "file:///usr/share/icons/breeze/actions/16/draw-text-symbolic.svg"
+    property string imageIcon: (Qt.platform.os === "osx") ? "image://macSymbol/photo" : "file:///usr/share/icons/breeze/actions/16/insert-image-symbolic.svg"
 }
 

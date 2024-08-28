@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
+#include "macsymbolimageprovider.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -31,6 +33,11 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     qmlRegisterType<DeclarativeDocument>("com.mac.vesku.stage", 1, 0, "Document");
+
+#ifdef Q_OS_MACOS
+    engine.addImageProvider("macSymbol", new MacSymbolImageProvider());
+#endif
+
     engine.load(QString::fromLatin1("qrc:/qml/Stage.qml"));
     QObject *topLevel = engine.rootObjects().value(0);
     QQuickWindow *window = qobject_cast<QQuickWindow *>(topLevel);

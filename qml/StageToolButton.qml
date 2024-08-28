@@ -4,20 +4,8 @@ import QtQuick.Controls
 ToolButton {
     id: button
     checkable: true
-    icon.width: 24
-    icon.height: 24
-    property alias toolSymbol : symbolLabel.text
+    icon.width: 32
+    icon.height: (Qt.platform.os === "osx") ? 26 : 32
 
-    Label {
-        id: symbolLabel
-        font.family: "SF Pro"
-        text: ""
-        visible: Qt.platform.os === "osx"
-        anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: theme.mediumPadding
-        font.pointSize: 18
-    }
-
-    display: AbstractButton.TextUnderIcon
+    display: icon.source != "" ? AbstractButton.TextUnderIcon : AbstactButton.TextOnly
 }

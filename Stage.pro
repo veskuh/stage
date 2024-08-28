@@ -13,6 +13,7 @@ SOURCES += \
 HEADERS += \
     src/declarativedocument.h \
     src/documentfile.h \
+    src/macsymbolimageprovider.h \
     src/svgexport.h
 
 RESOURCES += \
@@ -24,6 +25,8 @@ macx* {
     RC_FILE = deploy/mac/stage.icns
     QMAKE_INFO_PLIST = deploy/mac/Info.plist
     CONFIG += sdk_no_version_check # To avoid warnings with Big Sur
+    SOURCES += src/macsymbolimageprovider.mm
+    LIBS += -framework Cocoa
 }
 
 linux: {
