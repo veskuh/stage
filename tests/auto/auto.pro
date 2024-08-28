@@ -23,7 +23,12 @@ contains(CONFIG, coverage) {
 # Use catch2 for auto tests
 QT_CONFIG -= no-pkg-config
 CONFIG += link_pkgconfig
-PKGCONFIG += catch2-with-main
+macx* {
+    PKGCONFIG += catch2-with-main
+}
+linux {
+    PKGCONFIG += catch2
+}
 
 # target for coverage
 coverage.commands = ./AutoTests && \

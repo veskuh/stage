@@ -17,7 +17,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#ifdef Q_OS_MACOS
 #include <catch2/catch_all.hpp>
+#else
+#include <catch2/catch.hpp>
+#endif
 #include <QFileInfo>
 #include "../../src/documentfile.h"
 #include "../../src/svgexport.h"
