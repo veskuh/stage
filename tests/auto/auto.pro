@@ -1,4 +1,4 @@
-QT += core svg widgets
+QT += core svg widgets gui
 CONFIG += console c++17 testcase
 TARGET = AutoTests
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 14.0

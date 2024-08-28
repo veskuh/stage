@@ -1,0 +1,43 @@
+[
+    {
+        "color": "#0000ff",
+        "height": 62,
+        "type": "StageRect",
+        "width": 100,
+        "x": 105.33203125,
+        "y": 71.2109375,
+        "z": 0
+    },
+    {
+        "color": "#0000ff",
+        "height": 100,
+        "type": "StageCircle",
+        "width": 100,
+        "x": 288.31640625,
+        "y": 96.42578125,
+        "z": 0
+    },
+    {
+        "bold": true,
+        "color": "#000000",
+        "fontSize": 18,
+        "height": 22,
+        "italic": true,
+        "text": "Hello World",
+        "type": "StageText",
+        "underline": true,
+        "width": 104,
+        "x": 129.59375,
+        "y": 239.2578125,
+        "z": 0
+    },
+    {
+        "height": 128,
+        "type": "StageImage",
+        "url": "file:///home/vesku/Develop/stage/assets/stage.png",
+        "width": 128,
+        "x": 206.97265625,
+        "y": 331.30078125,
+        "z": 0
+    }
+]

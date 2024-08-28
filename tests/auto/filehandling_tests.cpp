@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #else
 #include <catch2/catch.hpp>
 #endif
+#include <QGuiApplication>
 #include <QFileInfo>
 #include "../../src/documentfile.h"
 #include "../../src/svgexport.h"
@@ -82,3 +83,26 @@ TEST_CASE("Export single rect SVG", "[SvgExport]") {
     REQUIRE(file2.exists() == true);
     file2.remove();
 }
+
+TEST_CASE("Read shapes.json and export as SVG", "[SvgExport]") {
+    char* argv[] = { 
+    "AutoTests" };
+    int argc = 1;
+    QGuiApplication app(argc, argv);
+    // Single Rect
+    SvgExport exporter("shapes.svg");    
+    DocumentFile file;
+    auto path = QFileInfo("all-shapes.json").absoluteFilePath();
+    auto data = file.load(QUrl::fromLocalFile(path));
+
+    for (const QVariantMap &map : data) {
+        exporter.addObject(map);
+    }
+    exporter.save();
+
+    QFile file2 = QFile("shapes.svg");
+    REQUIRE(file2.exists() == true);
+    file2.remove();
+}
+
+
