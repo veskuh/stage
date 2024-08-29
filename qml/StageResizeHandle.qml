@@ -21,7 +21,7 @@ import QtQuick
 
 Item {
     id: handle
-    visible: parent.selected
+    visible: (parent.selected && parent.visible) && !parent.group
 
     property Item dragTarget
     property real initialWidth

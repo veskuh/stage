@@ -5,6 +5,8 @@ StageBase {
     inspectorSource: "GroupInspector.qml"
     id: root
 
+    visible: false
+
     property list<StageBase> members
     property bool activeSelection: mainWindow.target === root
 
