@@ -279,6 +279,13 @@ ApplicationWindow {
             ToolSeparator {}
 
             StageToolButton {
+                text: "Line"
+                checked: mainWindow.state == "Line"
+                icon.source: theme.lineIcon
+                onClicked: toolRow.selectTool("StageLine.qml","Line")
+            }
+
+            StageToolButton {
                 text: "Rectangle"
                 checked: mainWindow.state == "Rectangle"
                 icon.source: theme.rectIcon

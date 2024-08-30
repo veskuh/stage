@@ -14,5 +14,9 @@
 {
     "type":"StageImage",
     "properties": ["x","y","z","width","height","url"]
+},
+{
+    "type":"StageLine",
+    "properties": ["x","y","z","width","height","color"]
 }
 ]

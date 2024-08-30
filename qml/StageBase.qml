@@ -33,6 +33,8 @@ Item {
     property string type: ""
     opacity: dragArea.drag.active? 0.5 : 1.0
 
+    property alias baseDragAreaEnabled : dragArea.enabled
+
     StageMouseArea {
         id: dragArea
         anchors.fill: parent
@@ -117,7 +119,7 @@ Item {
         width: parent.width
         height: parent.height
 
-        visible: selected
+        visible: selected && dragArea.enabled
     }
 
     function duplicate() {

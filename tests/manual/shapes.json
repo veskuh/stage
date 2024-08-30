@@ -102,11 +102,11 @@
     },
     {
         "bold": true,
-        "color": "#000000",
+        "color": "#959596",
         "fontSize": 20,
         "height": 51.1484375,
         "italic": true,
-        "text": "Bold italic underline, size 20",
+        "text": "Bold italic underline, size 20, grey",
         "type": "StageText",
         "underline": true,
         "width": 438.703125,
@@ -126,6 +126,29 @@
         "width": 267.96875,
         "x": 172.15234375,
         "y": 118.20703125,
+        "z": 0
+    },
+    {
+        "color": "#ff0000",
+        "height": 100,
+        "type": "StageLine",
+        "width": 100,
+        "x": 400,
+        "y": 400,
+        "z": 0
+    },
+    {
+        "bold": false,
+        "color": "#000000",
+        "fontSize": 20,
+        "height": 24,
+        "italic": false,
+        "text": "<- Red line w:100 h:100",
+        "type": "StageText",
+        "underline": false,
+        "width": 196.09375,
+        "x": 450,
+        "y": 422,
         "z": 0
     }
 ]
