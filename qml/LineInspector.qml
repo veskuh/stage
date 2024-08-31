@@ -34,6 +34,7 @@ Rectangle {
         spacing: mainWindow.theme.mediumPadding * 2
         InspectorCommon {
             title: "Line"
+            showSize: false
         }
 
         SeparatorLine {

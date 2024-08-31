@@ -23,10 +23,9 @@ import QtQuick.Controls
 
 Column {
     property string title: ""
+    property bool showSize: true
     width: inspector.width
     spacing: mainWindow.theme.mediumPadding
-
-
 
     Label {
         text: title
@@ -39,12 +38,10 @@ Column {
         width: inspector.width - 2 * mainWindow.theme.mediumPadding
     }
 
-
     SectionHeader {
         text: "Position"
         width: inspector.width - 2 * mainWindow.theme.mediumPadding
     }
-
 
     NumberInput {
         width: inspector.width - 2 * mainWindow.theme.mediumPadding
@@ -69,16 +66,18 @@ Column {
     }
 
     SeparatorLine {
+        visible: showSize
         width: inspector.width - 2 * mainWindow.theme.mediumPadding
     }
 
     SectionHeader {
+        visible: showSize
         text: "Size"
         width: inspector.width - 2 * mainWindow.theme.mediumPadding
     }
 
-
     NumberInput {
+        visible: showSize
         width: inspector.width - 2 * mainWindow.theme.mediumPadding
         labelText: "Width:"
         enabled: inspector.target
@@ -90,6 +89,7 @@ Column {
     }
 
     NumberInput {
+        visible: showSize
         width: inspector.width - 2 * mainWindow.theme.mediumPadding
         labelText: "Height:"
         enabled: inspector.target
