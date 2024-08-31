@@ -53,6 +53,11 @@ void SvgExport::addObject(QVariantMap properties) {
         } else {
             painter.drawImage(bounds, img);
         }
+    } else if (type== "StageLine") {
+        QPen pen = painter.pen();
+        pen.setColor(QColor(colorStr));
+        painter.setPen(pen);
+        painter.drawLine(QPointF(bounds.x(), bounds.y()),QPointF(bounds.x()+bounds.width(), bounds.y()+bounds.height()));
     } else {
         qWarning() << "Export of type not implemented: " << type;
     }
