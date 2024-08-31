@@ -1,0 +1,23 @@
+name: Hello Workflow
+
+# Triggers the workflow on push or pull request events to the main branch
+on:
+#  push:
+#    branches:
+#      - main
+#  pull_request:
+#    branches:
+#      - main
+  # You can also manually trigger the workflow
+  workflow_dispatch:
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Print Hello, World!
+        run: echo "Hello, World!"
