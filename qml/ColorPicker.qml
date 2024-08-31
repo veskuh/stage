@@ -25,6 +25,7 @@ Column {
     id: root
     property color targetColor
     property bool enabled: false
+    property real targetOpacity
 
     Label {
         text: "Red"
@@ -88,6 +89,21 @@ Column {
             root.targetColor = colorDialog.selectedColor
         }
     }
+
+    Label {
+        text: "Opacity"
+    }
+    Slider {
+        width: root.width - 2 * mainWindow.theme.mediumPadding
+        value: root.targetOpacity
+        enabled: root.enabled
+        from: 0
+        to: 1.0
+        onValueChanged: {
+            root.targetOpacity = value
+        }
+    }
+
 }
 
 

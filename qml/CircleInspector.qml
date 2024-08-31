@@ -48,8 +48,10 @@ Rectangle {
         ColorPicker {
             width: inspector.width
             targetColor: inspector.target.color
+            targetOpacity: inspector.target.opacity
             enabled: inspector.target
             onTargetColorChanged: inspector.target.color = targetColor
+            onTargetOpacityChanged: inspector.target.opacity = targetOpacity
         }
     }
     Component.onCompleted: inspectorScrollView.contentHeight = column.height
