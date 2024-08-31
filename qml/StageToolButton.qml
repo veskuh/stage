@@ -7,5 +7,5 @@ ToolButton {
     icon.width: 32
     icon.height: (Qt.platform.os === "osx") ? 26 : 32
 
-    display: icon.source != "" ? AbstractButton.TextUnderIcon : AbstactButton.TextOnly
+    display: icon.source != "" ? AbstractButton.TextUnderIcon : AbstractButton.TextOnly
 }
