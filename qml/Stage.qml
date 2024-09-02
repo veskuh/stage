@@ -164,6 +164,23 @@ ApplicationWindow {
                 onTriggered: MenuCommands.backward()
             }
         }
+        Labs.Menu {
+            title: "View"
+            Labs.MenuItem {
+                text: "Zoom in"
+                onTriggered: MenuCommands.zoomIn()
+            }
+
+            Labs.MenuItem {
+                text: "Zoom out"
+                onTriggered: MenuCommands.zoomOut()
+            }
+
+            Labs.MenuItem {
+                text: "Actual size"
+                onTriggered: MenuCommands.actualSize()
+            }
+        }
     }
 
 
@@ -330,102 +347,117 @@ ApplicationWindow {
     SplitView {
         anchors.fill: parent
 
-
-        Rectangle {
-            id: content
-            objectName: "contentRectangle"
-            height: 768
+        ScrollView {
+            height: mainWindow.height
             SplitView.fillWidth: true
+            contentWidth: content.width * content.scale + theme.largePadding * 2
+            contentHeight: content.height * content.scale + theme.largePadding * 2
 
-            property Group selectionGroup
+            Rectangle {
+                id: content
+                objectName: "contentRectangle"
+                x: theme.largePadding
+                y: theme.largePadding
+                height: 1080
+                width: 1920
+                scale: 0.5
+                anchors.top: parent.top
+                anchors.left: parent.left
+                transformOrigin: "TopLeft"
 
-            function addObject(properties) {
-                var component = Qt.createComponent(properties.type +".qml")
-                if (component.status == Component.Ready) {
-                    component.createObject(content, properties)
-                } else {
-                    console.log("Cannot create component for type: " + properties.type)
-                }
-            }
 
-            function clear() {
-                for (var child in content.children) {
-                    if (content.children[child].objectName == "StageBase") {
-                        content.children[child].destroy(10)
-                    }
-                }
-            }
+                property Group selectionGroup
 
-            function selectAll() {
-                content.deselect()
-                var group = content.getGroup()
-                for (var child in content.children) {
-                    if (content.children[child].objectName == "StageBase") {
-                        console.log("Adding to group")
-                        group.add(content.children[child])
-                    }
-                }
-                mainWindow.target = group
-                mainWindow.inspectorSource = group.inspectorSource
-            }
-
-            function deselect() {
-                if (target && content.selectionGroup) {
-                    if (target.group) target.group.clear()
-                    if (content.selectionGroup) content.selectionGroup.clear()
-                    content.selectionGroup = null
-                }
-                target = null
-            }
-
-            function getGroup() {
-                if (selectionGroup == null) {
-                    var component = Qt.createComponent("Group.qml")
+                function addObject(properties) {
+                    var component = Qt.createComponent(properties.type +".qml")
                     if (component.status == Component.Ready) {
-                        selectionGroup = component.createObject(content, {})
+                        component.createObject(content, properties)
                     } else {
                         console.log("Cannot create component for type: " + properties.type)
-                        return null
-                    }
-
-                    if (target) {
-                        selectionGroup.add(target)
                     }
                 }
-                return selectionGroup
-            }
 
-            AnchorLine {
-                vertical: true
-                location: content.width/2
-            }
+                function clear() {
+                    for (var child in content.children) {
+                        if (content.children[child].objectName == "StageBase") {
+                            content.children[child].destroy(10)
+                        }
+                    }
+                }
 
-            AnchorLine {
-                vertical: false
-                location: content.height/2
-            }
+                function selectAll() {
+                    content.deselect()
+                    var group = content.getGroup()
+                    for (var child in content.children) {
+                        if (content.children[child].objectName == "StageBase") {
+                            console.log("Adding to group")
+                            group.add(content.children[child])
+                        }
+                    }
+                    mainWindow.target = group
+                    mainWindow.inspectorSource = group.inspectorSource
+                }
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    if (factory) {
-                        factory.createObject(parent, {"x": mouseX, "y": mouseY})
-                        factory = null
-                        mainWindow.state = "Select"
-                    } else {
-                        content.deselect()
+                function deselect() {
+                    if (target && content.selectionGroup) {
+                        if (target.group) target.group.clear()
+                        if (content.selectionGroup) content.selectionGroup.clear()
+                        content.selectionGroup = null
+                    }
+                    target = null
+                }
+
+                function getGroup() {
+                    if (selectionGroup == null) {
+                        var component = Qt.createComponent("Group.qml")
+                        if (component.status == Component.Ready) {
+                            selectionGroup = component.createObject(content, {})
+                        } else {
+                            console.log("Cannot create component for type: " + properties.type)
+                            return null
+                        }
+
+                        if (target) {
+                            selectionGroup.add(target)
+                        }
+                    }
+                    return selectionGroup
+                }
+
+                AnchorLine {
+                    vertical: true
+                    location: content.width/2
+                }
+
+                AnchorLine {
+                    vertical: false
+                    location: content.height/2
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        if (factory) {
+                            factory.createObject(parent, {"x": mouseX, "y": mouseY})
+                            factory = null
+                            mainWindow.state = "Select"
+                        } else {
+                            content.deselect()
+                        }
                     }
                 }
             }
         }
 
 
-        StackLayout {
+        Pane {
+            width:300
+            height: mainWindow.height
+
             SplitView.preferredWidth: 250
             ScrollView {
                 id: inspectorScrollView
-                Layout.fillHeight: true
-                ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+                anchors.fill: parent
 
                 Loader {
                     anchors.fill: parent

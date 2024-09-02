@@ -24,7 +24,7 @@ import QtQuick.Dialogs
 Rectangle {
     id: inspector
     width: 300
-    height: column.height
+  //  height: column.height
     color: palette.window
     property Item target: mainWindow.target
 
@@ -53,5 +53,5 @@ Rectangle {
             onTargetOpacityChanged: inspector.target.opacity = targetOpacity
         }
     }
-    Component.onCompleted: inspectorScrollView.contentHeight = height
+    Component.onCompleted: inspectorScrollView.contentHeight = column.height
 }
