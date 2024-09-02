@@ -29,10 +29,61 @@ Rectangle {
 
     Column {
         padding: mainWindow.theme.mediumPadding
-        spacing: mainWindow.theme.mediumPadding * 2
+        spacing: mainWindow.theme.mediumPadding
 
-        InspectorCommon {
-            title: "Group"
+        Label {
+            text: "Group"
+            width: inspector.width - 2 * mainWindow.theme.mediumPadding
+            horizontalAlignment: Text.AlignHCenter
+            font.bold: true
         }
+
+        SeparatorLine {
+            width: inspector.width - 2 * mainWindow.theme.mediumPadding
+        }
+
+        SectionHeader {
+            text: "Items"
+            width: inspector.width - 2 * mainWindow.theme.mediumPadding
+        }
+
+        Repeater {
+            id: list
+            property int lastSelection: -1
+
+            model: ListModel {
+                id: model
+                dynamicRoles: true
+            }
+
+            Label {
+                text: index + " " + name.replace(/\Inspector.qml$/, "").replace("Stage","")
+
+                font.bold: index == list.lastSelection
+
+                MouseArea {
+                    onClicked: {
+                        mainWindow.target = ref
+                        list.lastSelection = index
+                    }
+                    anchors.fill: parent
+                }
+            }
+        }
+    }
+
+    Component.onCompleted: {
+        console.log("1")
+        model.clear()
+        var group = content.getGroup()
+        var members = group.members
+        if (members!=null) {
+            for(var i in members){
+                var member = members[i]
+                var name = member.type != "" ? member.type : member.inspectorSource
+                model.append({"name" : name, "ref": member})
+            }
+        }
+        console.log("Complete")
     }
 }

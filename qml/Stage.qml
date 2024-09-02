@@ -389,7 +389,8 @@ ApplicationWindow {
                     content.deselect()
                     var group = content.getGroup()
                     for (var child in content.children) {
-                        if (content.children[child].objectName == "StageBase") {
+                        var childObject = content.children[child]
+                        if (childObject.type && childObject.type!="Group" && childObject.objectName == "StageBase") {
                             console.log("Adding to group")
                             group.add(content.children[child])
                         }

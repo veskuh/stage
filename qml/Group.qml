@@ -5,6 +5,8 @@ StageBase {
     inspectorSource: "GroupInspector.qml"
     id: root
 
+    type:"Group"
+
     visible: false
 
     property list<StageBase> members
