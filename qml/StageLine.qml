@@ -34,6 +34,7 @@ StageBase {
         ShapePath {
             id: path
             strokeColor: "black"
+            strokeWidth: content.scale < 1 ? 1.0/content.scale : 1.0 // We want 1 as stroke for lines to be visible
             startX: 0; startY: 0;
             PathLine { x: base.width; y: base.height; }
         }
