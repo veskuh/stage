@@ -358,6 +358,12 @@ ApplicationWindow {
         RowLayout {
             Label { text: mainWindow.state }
         }
+
+        RowLayout {
+            anchors.right: parent.right
+            Label { text: content.scale * 100 + "% " }
+        }
+
     }
 
     SystemPalette {id: palette}
