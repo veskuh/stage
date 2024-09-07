@@ -264,6 +264,24 @@ ApplicationWindow {
         }
 
         Menu {
+            title: "View"
+            Action {
+                text: "Zoom in"
+                onTriggered: MenuCommands.zoomIn()
+            }
+
+            Action {
+                text: "Zoom out"
+                onTriggered: MenuCommands.zoomOut()
+            }
+
+            Action {
+                text: "Actual size"
+                onTriggered: MenuCommands.actualSize()
+            }
+        }
+
+        Menu {
             title: "&Help"
             Action {
                 text: "About Stage..."
