@@ -47,7 +47,7 @@ Column {
         width: inspector.width - 2 * mainWindow.theme.mediumPadding
         labelText: "x:"
         enabled: inspector.target
-        valueText: inspector.target? inspector.target.x : ""
+        valueText: inspector.target? inspector.target.x.toFixed(0) : ""
 
         onAccepted: (text) =>  {
             inspector.target.x = text
@@ -58,7 +58,7 @@ Column {
         width: inspector.width - 2 * mainWindow.theme.mediumPadding
         labelText: "y:"
         enabled: inspector.target
-        valueText: inspector.target? inspector.target.y : ""
+        valueText: inspector.target? inspector.target.y.toFixed(0) : ""
 
         onAccepted: (text) =>  {
             inspector.target.y = text
@@ -81,7 +81,7 @@ Column {
         width: inspector.width - 2 * mainWindow.theme.mediumPadding
         labelText: "Width:"
         enabled: inspector.target
-        valueText: inspector.target? inspector.target.width : ""
+        valueText: inspector.target? inspector.target.width.toFixed(0) : ""
 
         onAccepted: (text) =>  {
             inspector.target.width = text
@@ -93,7 +93,7 @@ Column {
         width: inspector.width - 2 * mainWindow.theme.mediumPadding
         labelText: "Height:"
         enabled: inspector.target
-        valueText: inspector.target? inspector.target.height : ""
+        valueText: inspector.target? inspector.target.height.toFixed(0) : ""
 
         onAccepted: (text) =>  {
             inspector.target.height = text
