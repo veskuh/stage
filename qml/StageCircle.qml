@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 import QtQuick
 
 StageBase {
+    type: "StageCircle"
     inspectorSource: "CircleInspector.qml"
     property alias color: rect.color
     width: 100

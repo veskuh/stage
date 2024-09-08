@@ -22,6 +22,7 @@ import QtQuick.Controls
 
 StageBase {
     inspectorSource: "TextInspector.qml"
+    type: "StageText"
     property alias text: label.text
     property alias color: label.color
     property alias bold: label.font.bold

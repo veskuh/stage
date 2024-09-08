@@ -436,7 +436,6 @@ ApplicationWindow {
                     for (var child in content.children) {
                         var childObject = content.children[child]
                         if (childObject.type && childObject.type!="Group" && childObject.objectName == "StageBase") {
-                            console.log("Adding to group")
                             group.add(content.children[child])
                         }
                     }

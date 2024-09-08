@@ -23,11 +23,10 @@ import QtQuick.Shapes
 StageBase {
     id: base
     inspectorSource: "LineInspector.qml"
+    type: "StageLine"
     property alias color: path.strokeColor
-
     width: 100
     height: 62
-
     baseDragAreaEnabled: false
 
     Shape {

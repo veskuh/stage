@@ -24,6 +24,7 @@ import QtQuick.Dialogs
 StageBase {
     property alias dialog: fileDialog
     property alias url: image.source
+    type: "StageImage"
     width: image.width
     height: image.height
     inspectorSource: "ImageInspector.qml"
