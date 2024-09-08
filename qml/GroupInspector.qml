@@ -78,7 +78,6 @@ Rectangle {
     }
 
     Component.onCompleted: {
-        console.log("1")
         model.clear()
         var group = content.getGroup()
         var members = group.members
@@ -89,6 +88,5 @@ Rectangle {
                 model.append({"name" : name, "ref": member})
             }
         }
-        console.log("Complete")
     }
 }
