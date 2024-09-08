@@ -29,7 +29,7 @@ import "../js/menucommands.js" as MenuCommands
 ApplicationWindow {
     id: mainWindow
 
-    property string state: "Ready"
+    property string state: "Select"
     property Component factory
     property string inspectorSource
     property Item target
@@ -431,12 +431,29 @@ ApplicationWindow {
                 }
 
                 function selectAll() {
+                    select(null,true)
+                }
+
+                function select(selectionArea, all=false) {
                     content.deselect()
                     var group = content.getGroup()
                     for (var child in content.children) {
                         var childObject = content.children[child]
                         if (childObject.type && childObject.type!="Group" && childObject.objectName == "StageBase") {
-                            group.add(content.children[child])
+                            if (all) {
+                                group.add(content.children[child])
+                            } else {
+                                var obj = content.children[child]
+                                var area = selectionArea
+                                if (obj.x >= area.x && obj.x <= area.x + area.width
+                                    && obj.y >= area.y && obj.y <= area.y + area.height
+                                    && obj.x + obj.width < area.x + area.width
+                                    && obj.y + obj.height < area.y + area.height
+                                        )
+                                        {
+                                    group.add(content.children[child])
+                                }
+                            }
                         }
                     }
                     mainWindow.target = group
@@ -486,10 +503,44 @@ ApplicationWindow {
                             factory.createObject(parent, {"x": mouseX, "y": mouseY})
                             factory = null
                             mainWindow.state = "Select"
+                        } else if (selectionArea.visible) {
+                            selectionArea.visible = false
                         } else {
                             content.deselect()
                         }
                     }
+                    onPressed: (mouse) => {
+                                   if (mainWindow.state == "Select" && !selectionArea.visible) {
+                                       selectionArea.x = mouse.x
+                                       selectionArea.y = mouse.y
+                                       selectionArea.visible = true
+                                       preventStealing = true
+                                   }
+                               }
+                    onReleased: (mouse) => {
+                                    if (mainWindow.state == "Select" && selectionArea.visible) {
+                                        content.select(selectionArea)
+                                        selectionArea.width = 2
+                                        selectionArea.height = 2
+                                    }
+                                }
+
+                    onPositionChanged: (mouse) => {
+                                           if (selectionArea.visible) {
+                                               selectionArea.width = mouse.x - selectionArea.x
+                                               selectionArea.height = mouse.y - selectionArea.y
+                                           }
+                                       }
+                }
+
+                Rectangle {
+                    id: selectionArea
+                    color: "grey"
+                    opacity: 0.3
+                    visible: false
+                    width: 2
+                    height: 2
+                    z:999
                 }
             }
         }
