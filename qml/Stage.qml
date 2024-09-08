@@ -252,6 +252,26 @@ ApplicationWindow {
         Menu {
             title: "&Arrange"
             Action {
+                text: "Hide"
+                enabled: target && target.visible
+                onTriggered: MenuCommands.setVisible(false)
+            }
+            Action {
+                text: "Unhide"
+                enabled: target && !target.visible
+                onTriggered: MenuCommands.setVisible(true)
+            }
+            Action {
+                text: "Lock"
+                enabled: target && target.enabled
+                onTriggered: MenuCommands.setLocked(true)
+            }
+            Action {
+                text: "Unlock"
+                enabled: target && !target.enabled
+                onTriggered: MenuCommands.setLocked(false)
+            }
+            Action {
                 text: "Bring forward"
                 enabled: target
                 onTriggered: MenuCommands.forward()
@@ -261,6 +281,7 @@ ApplicationWindow {
                 enabled: target
                 onTriggered: MenuCommands.backward()
             }
+
         }
 
         Menu {

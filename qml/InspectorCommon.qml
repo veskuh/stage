@@ -99,4 +99,18 @@ Column {
             inspector.target.height = text
         }
     }
+
+    Column {
+        CheckBox {
+            checked: !inspector.target.visible
+            text: "Hide"
+            onCheckedChanged: inspector.target.visible = !checked
+        }
+
+        CheckBox {
+            checked: !inspector.target.enabled
+            text: "Lock"
+            onCheckedChanged: inspector.target.enabled = !checked
+        }
+    }
 }

@@ -86,3 +86,14 @@ function actualSize() {
     content.scale = 1.0
 }
 
+function setLocked(locked) {
+    mainWindow.target.enabled = !locked
+}
+
+function setVisible(visible) {
+    mainWindow.target.visible = visible
+}
+
+
+
+

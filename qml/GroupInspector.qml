@@ -57,9 +57,9 @@ Rectangle {
             }
 
             Label {
-                text: index + " " + name.replace(/\Inspector.qml$/, "").replace("Stage","")
-
+                text: (index+1) + ". " + lockedSymbol() + name.replace(/\Inspector.qml$/, "").replace("Stage","")
                 font.bold: index == list.lastSelection
+                opacity: ref && ref.visible? 1.0 : 0.5
 
                 MouseArea {
                     onClicked: {
@@ -67,6 +67,11 @@ Rectangle {
                         list.lastSelection = index
                     }
                     anchors.fill: parent
+                }
+
+                function lockedSymbol() {
+                    const lockSymbol = ' \u{1F512} ';
+                    return ref && ref.enabled ? "" : lockSymbol
                 }
             }
         }

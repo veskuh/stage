@@ -48,7 +48,8 @@ Item {
     property AnchorLine topLine
     property AnchorLine bottomLine
     property AnchorLine horizontalCenterLine
-    property bool inDragGroup : mainWindow.draggedObject &&
+    property bool inDragGroup : enabled &&
+                                mainWindow.draggedObject &&
                                 group &&
                                 mainWindow.draggedObject !== base &&
                                 mainWindow.draggedObject.group == group &&

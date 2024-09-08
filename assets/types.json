@@ -1,22 +1,22 @@
 [
 {
     "type":"StageRect",
-    "properties": ["x","y","z","width","height","color","opacity"]
+    "properties": ["x","y","z","width","height","color","opacity","visible","enabled"]
 },
 {
     "type":"StageCircle",
-    "properties": ["x","y","z","width","height","color","opacity"]
+    "properties": ["x","y","z","width","height","color","opacity","visible","enabled"]
 },
 {
     "type":"StageText",
-    "properties": ["x","y","z","width","height","text","color","bold","italic","underline","fontSize","opacity"]
+    "properties": ["x","y","z","width","height","text","color","bold","italic","underline","fontSize","opacity","visible","enabled"]
 },
 {
     "type":"StageImage",
-    "properties": ["x","y","z","width","height","url"]
+    "properties": ["x","y","z","width","height","url","visible","enabled"]
 },
 {
     "type":"StageLine",
-    "properties": ["x","y","z","width","height","color","opacity"]
+    "properties": ["x","y","z","width","height","color","opacity","visible","enabled"]
 }
 ]
