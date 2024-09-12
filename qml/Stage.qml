@@ -154,6 +154,28 @@ ApplicationWindow {
         Labs.Menu {
             title: "Arrange"
             Labs.MenuItem {
+                text: "Hide"
+                enabled: target && target.visible
+                onTriggered: MenuCommands.setVisible(false)
+            }
+            Labs.MenuItem {
+                text: "Unhide"
+                enabled: target && !target.visible
+                onTriggered: MenuCommands.setVisible(true)
+            }
+            Labs.MenuSeparator { }
+            Labs.MenuItem {
+                text: "Lock"
+                enabled: target && target.enabled
+                onTriggered: MenuCommands.setLocked(true)
+            }
+            Labs.MenuItem {
+                text: "Unlock"
+                enabled: target && !target.enabled
+                onTriggered: MenuCommands.setLocked(false)
+            }
+            Labs.MenuSeparator { }
+            Labs.MenuItem {
                 text: "Bring forward"
                 enabled: target
                 onTriggered: MenuCommands.forward()
@@ -446,11 +468,11 @@ ApplicationWindow {
                                 var obj = content.children[child]
                                 var area = selectionArea
                                 if (obj.x >= area.x && obj.x <= area.x + area.width
-                                    && obj.y >= area.y && obj.y <= area.y + area.height
-                                    && obj.x + obj.width < area.x + area.width
-                                    && obj.y + obj.height < area.y + area.height
+                                        && obj.y >= area.y && obj.y <= area.y + area.height
+                                        && obj.x + obj.width < area.x + area.width
+                                        && obj.y + obj.height < area.y + area.height
                                         )
-                                        {
+                                {
                                     group.add(content.children[child])
                                 }
                             }
