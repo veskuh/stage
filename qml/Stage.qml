@@ -141,8 +141,7 @@ ApplicationWindow {
                 text: "Cut"
                 enabled: target
                          && mainWindow.activeFocusItem
-                         && mainWindow.activeFocusItem.selectedText
-                         && mainWindow.activeFocusItem.selectedText != ""
+                         && mainWindow.activeFocusItem.selectedText !== ""
                 shortcut: StandardKey.Cut
                 onTriggered: MenuCommands.cut()
             }
@@ -150,14 +149,13 @@ ApplicationWindow {
                 text: "Copy"
                 enabled: target
                          && mainWindow.activeFocusItem
-                         && mainWindow.activeFocusItem.selectedText
-                         && mainWindow.activeFocusItem.selectedText != ""
+                         && mainWindow.activeFocusItem.selectedText !== ""
                 shortcut: StandardKey.Copy
                 onTriggered: MenuCommands.copy()
             }
             Labs.MenuItem {
                 text: "Paste"
-                enabled: mainWindow.activeFocusItem && mainWindow.activeFocusItem.canPaste
+                enabled: mainWindow.activeFocusItem && mainWindow.activeFocusItem.canPaste === true
                 shortcut: StandardKey.Paste
                 onTriggered: MenuCommands.paste()
             }
