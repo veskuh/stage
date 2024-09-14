@@ -46,6 +46,21 @@ function saveAs() {
     openDialog.open()
 }
 
+function cut() {
+    mainWindow.activeFocusItem.cut()
+}
+
+function copy() {
+    mainWindow.activeFocusItem.copy()
+}
+
+function paste() {
+    if (mainWindow.activeFocusItem && mainWindow.activeFocusItem.canPaste) {
+        mainWindow.activeFocusItem.paste()
+    }
+}
+
+
 function exportSvg() {
     openDialog.fileMode = FileDialog.SaveFile
     openDialog.exportSvg = true

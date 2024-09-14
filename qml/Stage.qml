@@ -138,34 +138,56 @@ ApplicationWindow {
         Labs.Menu {
             title: "Edit"
             Labs.MenuItem {
-                text: "Duplicate"
+                text: "Cut"
                 enabled: target
-                // shortcut: StandardKey.Delete
-                onTriggered: MenuCommands.duplicateTarget()
+                         && mainWindow.activeFocusItem
+                         && mainWindow.activeFocusItem.selectedText
+                         && mainWindow.activeFocusItem.selectedText != ""
+                shortcut: StandardKey.Cut
+                onTriggered: MenuCommands.cut()
             }
-
-            Labs.MenuSeparator { }
-
+            Labs.MenuItem {
+                text: "Copy"
+                enabled: target
+                         && mainWindow.activeFocusItem
+                         && mainWindow.activeFocusItem.selectedText
+                         && mainWindow.activeFocusItem.selectedText != ""
+                shortcut: StandardKey.Copy
+                onTriggered: MenuCommands.copy()
+            }
+            Labs.MenuItem {
+                text: "Paste"
+                enabled: mainWindow.activeFocusItem && mainWindow.activeFocusItem.canPaste
+                shortcut: StandardKey.Paste
+                onTriggered: MenuCommands.paste()
+            }
             Labs.MenuItem {
                 text: "Delete"
                 enabled: target
                 shortcut: StandardKey.Delete
                 onTriggered: MenuCommands.deleteTarget()
             }
-
-            Labs.MenuSeparator { }
-
+            Labs.MenuSeparator {}
             Labs.MenuItem {
-                text: "Select All"
-                enabled: true
-                onTriggered: MenuCommands.selectAll()
+                text: "Duplicate"
+                enabled: target
+                // shortcut: StandardKey.Delete
+                onTriggered: MenuCommands.duplicateTarget()
             }
-
+            Labs.MenuSeparator {}
             Labs.MenuItem {
                 text: "Deselect"
                 enabled: target
+                shortcut: StandardKey.Deselect
                 onTriggered: MenuCommands.deselect()
             }
+            Labs.MenuItem {
+                text: "Select All"
+                enabled: true
+                shortcut: StandardKey.SelectAll
+                onTriggered: MenuCommands.selectAll()
+            }
+
         }
 
         Labs.Menu {

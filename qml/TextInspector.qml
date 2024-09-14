@@ -46,6 +46,7 @@ Rectangle {
             }
 
             TextField { 
+                objectName: "TextInput"
                 width: inspector.width - 2 * mainWindow.theme.mediumPadding
                 text: enabled ? inspector.target.text : ""
                 enabled: inspector.target && target.inspectorSource == "TextInspector.qml" 
