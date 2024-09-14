@@ -47,16 +47,16 @@ function saveAs() {
 }
 
 function cut() {
-    mainWindow.activeFocusItem.cut()
+    mainWindow.editItem.cut()
 }
 
 function copy() {
-    mainWindow.activeFocusItem.copy()
+    mainWindow.editItem.copy()
 }
 
 function paste() {
-    if (mainWindow.activeFocusItem && mainWindow.activeFocusItem.canPaste) {
-        mainWindow.activeFocusItem.paste()
+    if (mainWindow.editItem && mainWindow.editItem.canPaste) {
+        mainWindow.editItem.paste()
     }
 }
 

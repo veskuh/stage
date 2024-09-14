@@ -39,6 +39,8 @@ ApplicationWindow {
     property Item verticalAnchor
     property Item horizontalAnchor
     property url filepath
+    property Item editItem
+
 
     width: 1024
     height: 768
@@ -140,22 +142,22 @@ ApplicationWindow {
             Labs.MenuItem {
                 text: "Cut"
                 enabled: target
-                         && mainWindow.activeFocusItem
-                         && mainWindow.activeFocusItem.selectedText !== ""
+                         && mainWindow.editItem
+                         && mainWindow.editItem.selectedText !== ""
                 shortcut: StandardKey.Cut
                 onTriggered: MenuCommands.cut()
             }
             Labs.MenuItem {
                 text: "Copy"
                 enabled: target
-                         && mainWindow.activeFocusItem
-                         && mainWindow.activeFocusItem.selectedText !== ""
+                         && mainWindow.editItem
+                         && mainWindow.editItem.selectedText !== ""
                 shortcut: StandardKey.Copy
                 onTriggered: MenuCommands.copy()
             }
             Labs.MenuItem {
                 text: "Paste"
-                enabled: mainWindow.activeFocusItem && mainWindow.activeFocusItem.canPaste === true
+                enabled: mainWindow.editItem && mainWindow.editItem.canPaste === true
                 shortcut: StandardKey.Paste
                 onTriggered: MenuCommands.paste()
             }
@@ -249,11 +251,21 @@ ApplicationWindow {
         Menu {
             title: "&File"
             Action {
+                text: "&New"
+                shortcut: StandardKey.New
+                onTriggered: MenuCommands.close()
+            }
+            Action {
                 text: "&Open"
                 shortcut: StandardKey.Open
                 onTriggered: MenuCommands.open()
             }
-
+            MenuSeparator {}
+            Action {
+                text: "&Close"
+                shortcut: StandardKey.Close
+                onTriggered: MenuCommands.close()
+            }
             Action {
                 text: "&Save"
                 shortcut: StandardKey.Save
@@ -281,6 +293,29 @@ ApplicationWindow {
 
         Menu {
             title: "&Edit"
+            Action {
+                text: "Cut"
+                enabled: target
+                         && mainWindow.editItem
+                         && mainWindow.editItem.selectedText !== ""
+                shortcut: StandardKey.Cut
+                onTriggered: MenuCommands.cut()
+            }
+            Action {
+                text: "Copy"
+                enabled: target
+                         && mainWindow.editItem
+                         && mainWindow.editItem.selectedText !== ""
+                shortcut: StandardKey.Copy
+                onTriggered: MenuCommands.copy()
+            }
+            Action {
+                text: "Paste"
+                enabled: mainWindow.editItem && mainWindow.editItem.canPaste === true
+                shortcut: StandardKey.Paste
+                onTriggered: MenuCommands.paste()
+            }
+            MenuSeparator {}
             Action {
                 text: "Duplicate"
                 enabled: target
@@ -653,5 +688,23 @@ ApplicationWindow {
 
     AboutDialog {
         id: aboutDialog
+    }
+
+
+    onActiveFocusItemChanged: {
+        // Mac menu doesn't mess with activefocus similarly as linux
+        if (Qt.platform.os == "osx") {
+            editItem = activeFocusItem
+        } else {
+            var thisItem = activeFocusItem
+            while (thisItem) {
+                if (thisItem.objectName === "Stage") {
+                    // Items that are children of window are proper items
+                    editItem = activeFocusItem
+                    break
+                }
+                thisItem = thisItem.parent
+            }
+        }
     }
 }
