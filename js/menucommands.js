@@ -26,6 +26,12 @@ function open() {
     openDialog.open()
 }
 
+function close() {
+    content.clear()
+    content.scale = 1.0
+    filepath = ""
+}
+
 function save() {
     if (filepath == "") {
         openDialog.fileMode = FileDialog.SaveFile

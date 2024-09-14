@@ -94,13 +94,23 @@ ApplicationWindow {
 
 
             title: "&File"
-            // This is annoying, shortcut is not properly shown in menu
-            // Probably Qt bug / missing feature
+
+            Labs.MenuItem {
+                text: "&New"
+                shortcut: StandardKey.New
+                onTriggered: MenuCommands.close()
+            }
             Labs.MenuItem {
                 text: "&Open"
                 shortcut: StandardKey.Open
                 onTriggered: MenuCommands.open()
+            }
+            Labs.MenuSeparator { }
 
+            Labs.MenuItem {
+                text: "&Close"
+                shortcut: StandardKey.Close
+                onTriggered: MenuCommands.close()
             }
 
             Labs.MenuItem {
@@ -112,6 +122,13 @@ ApplicationWindow {
                 text: "Save As.."
                 onTriggered: MenuCommands.saveAs()
             }
+
+            Labs.MenuItem {
+                text: "&Close"
+                shortcut: StandardKey.Close
+                onTriggered: MenuCommands.close()
+            }
+            Labs.MenuSeparator { }
 
             Labs.MenuItem {
                 text: "Export SVG.."
@@ -139,7 +156,7 @@ ApplicationWindow {
             Labs.MenuSeparator { }
 
             Labs.MenuItem {
-                text: "Select all"
+                text: "Select All"
                 enabled: true
                 onTriggered: MenuCommands.selectAll()
             }
@@ -176,12 +193,12 @@ ApplicationWindow {
             }
             Labs.MenuSeparator { }
             Labs.MenuItem {
-                text: "Bring forward"
+                text: "Bring Forward"
                 enabled: target
                 onTriggered: MenuCommands.forward()
             }
             Labs.MenuItem {
-                text: "Send backward"
+                text: "Send Backward"
                 enabled: target
                 onTriggered: MenuCommands.backward()
             }
@@ -189,12 +206,12 @@ ApplicationWindow {
         Labs.Menu {
             title: "View"
             Labs.MenuItem {
-                text: "Zoom in"
+                text: "Zoom In"
                 onTriggered: MenuCommands.zoomIn()
             }
 
             Labs.MenuItem {
-                text: "Zoom out"
+                text: "Zoom Out"
                 onTriggered: MenuCommands.zoomOut()
             }
 
@@ -211,8 +228,6 @@ ApplicationWindow {
         id: qmlMenu
         Menu {
             title: "&File"
-            // This is annoying, shortcut is not properly shown in menu
-            // Probably Qt bug / missing feature
             Action {
                 text: "&Open"
                 shortcut: StandardKey.Open
