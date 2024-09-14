@@ -472,7 +472,7 @@ ApplicationWindow {
 
                 function addObject(properties) {
                     var component = Qt.createComponent(properties.type +".qml")
-                    if (component.status == Component.Ready) {
+                    if (component.status === Component.Ready) {
                         component.createObject(content, properties)
                     } else {
                         console.log("Cannot create component for type: " + properties.type)
@@ -481,7 +481,7 @@ ApplicationWindow {
 
                 function clear() {
                     for (var child in content.children) {
-                        if (content.children[child].objectName == "StageBase") {
+                        if (content.children[child].objectName === "StageBase") {
                             content.children[child].destroy(10)
                         }
                     }
@@ -496,7 +496,7 @@ ApplicationWindow {
                     var group = content.getGroup()
                     for (var child in content.children) {
                         var childObject = content.children[child]
-                        if (childObject.type && childObject.type!="Group" && childObject.objectName == "StageBase") {
+                        if (childObject.type && childObject.type!=="Group" && childObject.objectName === "StageBase") {
                             if (all) {
                                 group.add(content.children[child])
                             } else {
@@ -529,7 +529,7 @@ ApplicationWindow {
                 function getGroup() {
                     if (selectionGroup == null) {
                         var component = Qt.createComponent("Group.qml")
-                        if (component.status == Component.Ready) {
+                        if (component.status === Component.Ready) {
                             selectionGroup = component.createObject(content, {})
                         } else {
                             console.log("Cannot create component for type: " + properties.type)
