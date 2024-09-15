@@ -33,5 +33,6 @@
         <file>assets/empty.png</file>
         <file>qml/StageLine.qml</file>
         <file>qml/LineInspector.qml</file>
+        <file>js/utils.js</file>
     </qresource>
 </RCC>

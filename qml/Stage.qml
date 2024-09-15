@@ -25,6 +25,7 @@ import QtQuick.Dialogs
 import Qt.labs.platform as Labs
 import com.mac.vesku.stage
 import "../js/menucommands.js" as MenuCommands
+import "../js/utils.js" as Utils
 
 ApplicationWindow {
     id: mainWindow
@@ -141,17 +142,13 @@ ApplicationWindow {
             title: "Edit"
             Labs.MenuItem {
                 text: "Cut"
-                enabled: target
-                         && mainWindow.editItem
-                         && mainWindow.editItem.selectedText !== ""
+                enabled: target && Utils.canCopy(mainWindow.editItem)
                 shortcut: StandardKey.Cut
                 onTriggered: MenuCommands.cut()
             }
             Labs.MenuItem {
                 text: "Copy"
-                enabled: target
-                         && mainWindow.editItem
-                         && mainWindow.editItem.selectedText !== ""
+                enabled: target && Utils.canCopy(mainWindow.editItem)
                 shortcut: StandardKey.Copy
                 onTriggered: MenuCommands.copy()
             }
@@ -689,7 +686,6 @@ ApplicationWindow {
     AboutDialog {
         id: aboutDialog
     }
-
 
     onActiveFocusItemChanged: {
         // Mac menu doesn't mess with activefocus similarly as linux
