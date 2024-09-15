@@ -57,6 +57,8 @@ function copy() {
 function paste() {
     if (mainWindow.editItem && mainWindow.editItem.canPaste) {
         mainWindow.editItem.paste()
+    } else {
+        content.paste()
     }
 }
 

@@ -62,6 +62,10 @@ ApplicationWindow {
         id: document
     }
 
+    Clipboard {
+        id: clipboard
+    }
+
     ListModel {
         id: textStyles
 
@@ -154,7 +158,7 @@ ApplicationWindow {
             }
             Labs.MenuItem {
                 text: "Paste"
-                enabled: mainWindow.editItem && mainWindow.editItem.canPaste === true
+                enabled: clipboard.clipboardText!=""
                 shortcut: StandardKey.Paste
                 onTriggered: MenuCommands.paste()
             }
@@ -574,6 +578,13 @@ ApplicationWindow {
                     }
                     return selectionGroup
                 }
+
+                function paste() {
+                    var text = clipboard.clipboardText
+                    addObject({"type":"StageText","x":50,"y":50,"text":text})
+
+                }
+
 
                 AnchorLine {
                     vertical: true

@@ -5,12 +5,14 @@ RCC_DIR = qrc
 OBJECTS_DIR = obj
 
 SOURCES += \
+    src/declarativeclipboard.cpp \
     src/declarativedocument.cpp \
     src/documentfile.cpp \
     src/stage.cpp \
     src/svgexport.cpp
 
 HEADERS += \
+    src/declarativeclipboard.h \
     src/declarativedocument.h \
     src/documentfile.h \
     src/macsymbolimageprovider.h \
