@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 import QtQuick
 import QtQuick.Controls
+import "../"
 
 Item {
     id: base
@@ -83,7 +84,7 @@ Item {
 
 
     Component.onCompleted: {
-        var component = Qt.createComponent("AnchorLine.qml")
+        var component = Qt.createComponent("../AnchorLine.qml")
         leftLine = component.createObject(mainWindow.view, {"vertical": true,
                                               "location": Qt.binding(function() { return x}),
                                               "enabled": Qt.binding(function() {return anchorLinesEnabled})})

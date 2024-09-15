@@ -24,6 +24,8 @@ import QtQuick.Layouts
 import QtQuick.Dialogs
 import Qt.labs.platform as Labs
 import com.mac.vesku.stage
+import "./objects"
+import "./inspectors"
 import "../js/menucommands.js" as MenuCommands
 import "../js/utils.js" as Utils
 
@@ -461,7 +463,7 @@ ApplicationWindow {
 
             function selectTool(factoryQmlName, state) {
                 content.deselect()
-                factory = Qt.createComponent(factoryQmlName)
+                factory = Qt.createComponent("./objects/"+factoryQmlName)
                 mainWindow.state = state
             }
 
@@ -507,7 +509,7 @@ ApplicationWindow {
                 property Group selectionGroup
 
                 function addObject(properties) {
-                    var component = Qt.createComponent(properties.type +".qml")
+                    var component = Qt.createComponent("./objects/" + properties.type + ".qml")
                     if (component.status === Component.Ready) {
                         component.createObject(content, properties)
                     } else {
@@ -564,7 +566,7 @@ ApplicationWindow {
 
                 function getGroup() {
                     if (selectionGroup == null) {
-                        var component = Qt.createComponent("Group.qml")
+                        var component = Qt.createComponent("objects/Group.qml")
                         if (component.status === Component.Ready) {
                             selectionGroup = component.createObject(content, {})
                         } else {
@@ -656,8 +658,18 @@ ApplicationWindow {
                 anchors.fill: parent
 
                 Loader {
+                    id: loader
                     anchors.fill: parent
-                    source: mainWindow.inspectorSource
+                    source: mainWindow.inspectorSource? "./inspectors/" + mainWindow.inspectorSource : ""
+
+                    onStatusChanged: {
+                        if (loader.status == Loader.Error ) {
+                            console.log("Error in loading" + source)
+                        } else {
+                            console.log("Status" + loader.status)
+                        }
+
+                    }
                 }
 
             }

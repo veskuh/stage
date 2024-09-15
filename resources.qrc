@@ -2,37 +2,37 @@
     <qresource prefix="/">
         <file>assets/types.json</file>
         <file>qml/AnchorLine.qml</file>
-        <file>qml/CircleInspector.qml</file>
-        <file>qml/ImageInspector.qml</file>
-        <file>qml/InspectorCommon.qml</file>
+        <file>qml/inspectors/CircleInspector.qml</file>
+        <file>qml/inspectors/ImageInspector.qml</file>
+        <file>qml/inspectors/InspectorCommon.qml</file>
         <file>qml/Stage.qml</file>
-        <file>qml/RectInspector.qml</file>
+        <file>qml/inspectors/RectInspector.qml</file>
         <file>qml/SelectionHighlight.qml</file>
         <file>qml/SlidesTab.qml</file>
-        <file>qml/StageBase.qml</file>
-        <file>qml/StageCircle.qml</file>
-        <file>qml/StageImage.qml</file>
+        <file>qml/objects/StageBase.qml</file>
+        <file>qml/objects/StageCircle.qml</file>
+        <file>qml/objects/StageImage.qml</file>
         <file>qml/StageMouseArea.qml</file>
-        <file>qml/StageRect.qml</file>
+        <file>qml/objects/StageRect.qml</file>
         <file>qml/StageResizeHandle.qml</file>
-        <file>qml/StageText.qml</file>
+        <file>qml/objects/StageText.qml</file>
         <file>qml/StylesTab.qml</file>
-        <file>qml/TextInspector.qml</file>
+        <file>qml/inspectors/TextInspector.qml</file>
         <file>qml/AboutDialog.qml</file>
         <file>assets/stage-logo.png</file>
         <file>assets/stage.png</file>
         <file>js/menucommands.js</file>
         <file>qml/Theme.qml</file>
-        <file>qml/NumberInput.qml</file>
-        <file>qml/ColorPicker.qml</file>
-        <file>qml/SeparatorLine.qml</file>
-        <file>qml/SectionHeader.qml</file>
-        <file>qml/Group.qml</file>
-        <file>qml/GroupInspector.qml</file>
+        <file>qml/inspectors/NumberInput.qml</file>
+        <file>qml/inspectors/ColorPicker.qml</file>
+        <file>qml/inspectors/SeparatorLine.qml</file>
+        <file>qml/inspectors/SectionHeader.qml</file>
+        <file>qml/objects/Group.qml</file>
+        <file>qml/inspectors/GroupInspector.qml</file>
         <file>qml/StageToolButton.qml</file>
         <file>assets/empty.png</file>
-        <file>qml/StageLine.qml</file>
-        <file>qml/LineInspector.qml</file>
+        <file>qml/objects/StageLine.qml</file>
+        <file>qml/inspectors/LineInspector.qml</file>
         <file>js/utils.js</file>
     </qresource>
 </RCC>

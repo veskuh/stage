@@ -1,5 +1,6 @@
 import QtQuick
 import QtQml
+import "../"
 
 StageBase {
     inspectorSource: "GroupInspector.qml"
