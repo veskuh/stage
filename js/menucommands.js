@@ -29,15 +29,15 @@ function open() {
 function close() {
     content.clear()
     content.scale = 1.0
-    filepath = ""
+    mainWindow.filepath = ""
 }
 
 function save() {
-    if (filepath == "") {
+    if (mainWindow.filepath == "") {
         openDialog.fileMode = FileDialog.SaveFile
         openDialog.open()
     } else {
-        document.save(filepath)
+        document.save(mainWindow.filepath)
     }
 }
 

@@ -34,5 +34,7 @@
         <file>qml/objects/StageLine.qml</file>
         <file>qml/inspectors/LineInspector.qml</file>
         <file>js/utils.js</file>
+        <file>qml/MacMenu.qml</file>
+        <file>qml/QmlMenu.qml</file>
     </qresource>
 </RCC>

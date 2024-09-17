@@ -44,7 +44,6 @@ ApplicationWindow {
     property url filepath
     property Item editItem
 
-
     width: 1024
     height: 768
     title: "Stage"
@@ -68,345 +67,12 @@ ApplicationWindow {
         id: clipboard
     }
 
-    ListModel {
-        id: textStyles
-
-        ListElement {
-            name: "Slide Heading"
-            fontSize: 60
-        }
-
-        ListElement {
-            name: "Slide body"
-            fontSize: 35
-        }
-    }
-
-
     menuBar: Qt.platform.os == "osx" ? null : qmlMenu
-    Labs.MenuBar {
-        id: macMenu
-
-        Labs.Menu {
-            Labs.MenuItem {
-                text: "About Stage"
-                role: Labs.MenuItem.AboutRole
-                onTriggered: aboutDialog.visible = true
-            }
-
-            /* todo
-            Labs.MenuItem {
-                role: Labs.MenuItem.PreferencesRole
-                text:"Preferences"
-                onTriggered: console.log("Preferences")
-            }*/
-
-
-            title: "&File"
-
-            Labs.MenuItem {
-                text: "&New"
-                shortcut: StandardKey.New
-                onTriggered: MenuCommands.close()
-            }
-            Labs.MenuItem {
-                text: "&Open"
-                shortcut: StandardKey.Open
-                onTriggered: MenuCommands.open()
-            }
-            Labs.MenuSeparator { }
-
-            Labs.MenuItem {
-                text: "&Close"
-                shortcut: StandardKey.Close
-                onTriggered: MenuCommands.close()
-            }
-
-            Labs.MenuItem {
-                text: "&Save"
-                shortcut: StandardKey.Save
-                onTriggered: MenuCommands.save()
-            }
-            Labs.MenuItem {
-                text: "Save As.."
-                onTriggered: MenuCommands.saveAs()
-            }
-
-            Labs.MenuItem {
-                text: "&Close"
-                shortcut: StandardKey.Close
-                onTriggered: MenuCommands.close()
-            }
-            Labs.MenuSeparator { }
-
-            Labs.MenuItem {
-                text: "Export SVG.."
-                onTriggered: MenuCommands.exportSvg()
-            }
-        }
-        Labs.Menu {
-            title: "Edit"
-            Labs.MenuItem {
-                text: "Cut"
-                enabled: target && Utils.canCopy(mainWindow.editItem)
-                shortcut: StandardKey.Cut
-                onTriggered: MenuCommands.cut()
-            }
-            Labs.MenuItem {
-                text: "Copy"
-                enabled: target && Utils.canCopy(mainWindow.editItem)
-                shortcut: StandardKey.Copy
-                onTriggered: MenuCommands.copy()
-            }
-            Labs.MenuItem {
-                text: "Paste"
-                enabled: clipboard.clipboardText!=""
-                shortcut: StandardKey.Paste
-                onTriggered: MenuCommands.paste()
-            }
-            Labs.MenuItem {
-                text: "Delete"
-                enabled: target
-                shortcut: StandardKey.Delete
-                onTriggered: MenuCommands.deleteTarget()
-            }
-            Labs.MenuSeparator {}
-            Labs.MenuItem {
-                text: "Duplicate"
-                enabled: target
-                // shortcut: StandardKey.Delete
-                onTriggered: MenuCommands.duplicateTarget()
-            }
-            Labs.MenuSeparator {}
-            Labs.MenuItem {
-                text: "Deselect"
-                enabled: target
-                shortcut: StandardKey.Deselect
-                onTriggered: MenuCommands.deselect()
-            }
-            Labs.MenuItem {
-                text: "Select All"
-                enabled: true
-                shortcut: StandardKey.SelectAll
-                onTriggered: MenuCommands.selectAll()
-            }
-
-        }
-
-        Labs.Menu {
-            title: "Arrange"
-            Labs.MenuItem {
-                text: "Hide"
-                enabled: target && target.visible
-                onTriggered: MenuCommands.setVisible(false)
-            }
-            Labs.MenuItem {
-                text: "Unhide"
-                enabled: target && !target.visible
-                onTriggered: MenuCommands.setVisible(true)
-            }
-            Labs.MenuSeparator { }
-            Labs.MenuItem {
-                text: "Lock"
-                enabled: target && target.enabled
-                onTriggered: MenuCommands.setLocked(true)
-            }
-            Labs.MenuItem {
-                text: "Unlock"
-                enabled: target && !target.enabled
-                onTriggered: MenuCommands.setLocked(false)
-            }
-            Labs.MenuSeparator { }
-            Labs.MenuItem {
-                text: "Bring Forward"
-                enabled: target
-                onTriggered: MenuCommands.forward()
-            }
-            Labs.MenuItem {
-                text: "Send Backward"
-                enabled: target
-                onTriggered: MenuCommands.backward()
-            }
-        }
-        Labs.Menu {
-            title: "View"
-            Labs.MenuItem {
-                text: "Zoom In"
-                onTriggered: MenuCommands.zoomIn()
-            }
-
-            Labs.MenuItem {
-                text: "Zoom Out"
-                onTriggered: MenuCommands.zoomOut()
-            }
-
-            Labs.MenuItem {
-                text: "Actual size"
-                onTriggered: MenuCommands.actualSize()
-            }
-        }
-    }
-
-
-
-    MenuBar {
+    MacMenu {}
+    QmlMenu {
         id: qmlMenu
-        Menu {
-            title: "&File"
-            Action {
-                text: "&New"
-                shortcut: StandardKey.New
-                onTriggered: MenuCommands.close()
-            }
-            Action {
-                text: "&Open"
-                shortcut: StandardKey.Open
-                onTriggered: MenuCommands.open()
-            }
-            MenuSeparator {}
-            Action {
-                text: "&Close"
-                shortcut: StandardKey.Close
-                onTriggered: MenuCommands.close()
-            }
-            Action {
-                text: "&Save"
-                shortcut: StandardKey.Save
-                onTriggered: MenuCommands.save()
-            }
-            Action {
-                text: "Save As.."
-                onTriggered: MenuCommands.saveAs()
-            }
-            MenuSeparator {}
-            Action {
-                text: "Export SVG.."
-                onTriggered: MenuCommands.exportSvg()
-            }
-
-            MenuSeparator {}
-            Action {
-                text: "E&xit"
-                shortcut: StandardKey.Quit
-                onTriggered: {
-                    mainWindow.close()
-                }
-            }
-        }
-
-        Menu {
-            title: "&Edit"
-            Action {
-                text: "Cut"
-                enabled: target
-                         && mainWindow.editItem
-                         && mainWindow.editItem.selectedText !== ""
-                shortcut: StandardKey.Cut
-                onTriggered: MenuCommands.cut()
-            }
-            Action {
-                text: "Copy"
-                enabled: target
-                         && mainWindow.editItem
-                         && mainWindow.editItem.selectedText !== ""
-                shortcut: StandardKey.Copy
-                onTriggered: MenuCommands.copy()
-            }
-            Action {
-                text: "Paste"
-                enabled: mainWindow.editItem && mainWindow.editItem.canPaste === true
-                shortcut: StandardKey.Paste
-                onTriggered: MenuCommands.paste()
-            }
-            MenuSeparator {}
-            Action {
-                text: "Duplicate"
-                enabled: target
-                onTriggered: MenuCommands.duplicateTarget()
-            }
-            Action {
-                text: "Delete"
-                shortcut: StandardKey.Delete
-                enabled: target
-                onTriggered: MenuCommands.deleteTarget()
-            }
-            Action {
-                text: "Select all"
-                enabled: true
-                shortcut: StandardKey.SelectAll
-                onTriggered: MenuCommands.selectAll()
-            }
-            Action {
-                text: "Deselect"
-                enabled: target
-                shortcut: StandardKey.Deselect
-                onTriggered: MenuCommands.deselect()
-            }
-        }
-
-        Menu {
-            title: "&Arrange"
-            Action {
-                text: "Hide"
-                enabled: target && target.visible
-                onTriggered: MenuCommands.setVisible(false)
-            }
-            Action {
-                text: "Unhide"
-                enabled: target && !target.visible
-                onTriggered: MenuCommands.setVisible(true)
-            }
-            Action {
-                text: "Lock"
-                enabled: target && target.enabled
-                onTriggered: MenuCommands.setLocked(true)
-            }
-            Action {
-                text: "Unlock"
-                enabled: target && !target.enabled
-                onTriggered: MenuCommands.setLocked(false)
-            }
-            Action {
-                text: "Bring forward"
-                enabled: target
-                onTriggered: MenuCommands.forward()
-            }
-            Action {
-                text: "Send backward"
-                enabled: target
-                onTriggered: MenuCommands.backward()
-            }
-
-        }
-
-        Menu {
-            title: "View"
-            Action {
-                text: "Zoom in"
-                onTriggered: MenuCommands.zoomIn()
-            }
-
-            Action {
-                text: "Zoom out"
-                onTriggered: MenuCommands.zoomOut()
-            }
-
-            Action {
-                text: "Actual size"
-                onTriggered: MenuCommands.actualSize()
-            }
-        }
-
-        Menu {
-            title: "&Help"
-            Action {
-                text: "About Stage..."
-                onTriggered:
-                    aboutDialog.visible = true
-            }
-        }
+        visible: Qt.platform.os !== "osx"
     }
-
 
     header: ToolBar {
         height: selectButton.height + theme.smallPadding * 2
@@ -665,10 +331,7 @@ ApplicationWindow {
                     onStatusChanged: {
                         if (loader.status == Loader.Error ) {
                             console.log("Error in loading" + source)
-                        } else {
-                            console.log("Status" + loader.status)
                         }
-
                     }
                 }
 
@@ -683,7 +346,7 @@ ApplicationWindow {
         }
     }
 
-    FileDialog {
+    property FileDialog openDialog: FileDialog {
         id: openDialog
         title: "Choose file"
         fileMode: FileDialog.OpenFile
@@ -706,9 +369,7 @@ ApplicationWindow {
         }
     }
 
-    AboutDialog {
-        id: aboutDialog
-    }
+    property AboutDialog aboutDialog: AboutDialog {}
 
     onActiveFocusItemChanged: {
         // Mac menu doesn't mess with activefocus similarly as linux
