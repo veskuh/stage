@@ -326,15 +326,23 @@ ApplicationWindow {
                 Loader {
                     id: loader
                     anchors.fill: parent
-                    source: mainWindow.inspectorSource? "./inspectors/" + mainWindow.inspectorSource : ""
+                    property string sourceUrl: mainWindow.inspectorSource? "./inspectors/" + mainWindow.inspectorSource : ""
+                    property Item currentTarget: mainWindow.target
 
                     onStatusChanged: {
                         if (loader.status == Loader.Error ) {
                             console.log("Error in loading" + source)
                         }
                     }
-                }
 
+                    onSourceUrlChanged: {
+                        setSource(sourceUrl, { "target": currentTarget })
+                    }
+
+                    onCurrentTargetChanged: {
+                        setSource(sourceUrl, { "target": currentTarget })
+                    }
+                }
             }
         }
     }
