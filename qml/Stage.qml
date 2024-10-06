@@ -217,6 +217,14 @@ ApplicationWindow {
                             }
                         }
                     }
+                    if (group.members.length == 1) {
+                        var item = group.members[0]
+                        group.clear()
+
+                        // Since only one member, we'll select the only member directly
+                        group = item
+                    }
+
                     mainWindow.target = group
                     mainWindow.inspectorSource = group.inspectorSource
                 }
