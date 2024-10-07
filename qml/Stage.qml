@@ -279,6 +279,7 @@ ApplicationWindow {
 
                 MouseArea {
                     anchors.fill: parent
+                    preventStealing: true
                     onClicked: {
                         if (factory) {
                             factory.createObject(parent, {"x": mouseX, "y": mouseY})
