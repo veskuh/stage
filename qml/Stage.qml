@@ -131,6 +131,10 @@ ApplicationWindow {
                 content.deselect()
                 factory = Qt.createComponent("./objects/"+factoryQmlName)
                 mainWindow.state = state
+
+                if (state === "Rectangle" || state === "Line") {
+                    content.drawingItem = true
+                }
             }
 
         }
@@ -173,6 +177,7 @@ ApplicationWindow {
 
 
                 property Group selectionGroup
+                property bool drawingItem
 
                 function addObject(properties) {
                     var component = Qt.createComponent("./objects/" + properties.type + ".qml")
@@ -291,6 +296,8 @@ ApplicationWindow {
                                        selectionArea.y = mouse.y
                                        selectionArea.visible = true
                                        preventStealing = true
+                                   } else if (content.drawingItem) {
+                                       target = factory.createObject(parent, {"x": mouseX, "y": mouseY})
                                    }
                                }
                     onReleased: (mouse) => {
@@ -298,15 +305,24 @@ ApplicationWindow {
                                         content.select(selectionArea)
                                         selectionArea.width = 2
                                         selectionArea.height = 2
+                                    } else if (content.drawingItem) {
+                                        factory = null
+                                        mainWindow.state = "Select"
+                                        target = null
                                     }
                                 }
 
                     onPositionChanged: (mouse) => {
                                            if (selectionArea.visible) {
-                                               selectionArea.width = mouse.x - selectionArea.x
-                                               selectionArea.height = mouse.y - selectionArea.y
+                                               updateDimensions(selectionArea, mouse)
+                                           } else if (content.drawingItem && target) {
+                                               updateDimensions(target, mouse)
                                            }
                                        }
+                    function updateDimensions(item, mouse) {
+                        item.width = mouse.x - item.x
+                        item.height = mouse.y -item.y
+                    }
                 }
 
                 Rectangle {
