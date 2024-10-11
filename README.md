@@ -8,7 +8,9 @@ Stage uses Qt6 and Qt Quick Controls. Idea is to use QML almost as much as possi
 
 Status
 ------
-early proof of concept of the editing functionality. The progress is slow as this is a hobby project.
+Basic editing functioanlity starts to be there for simple texts, boxes, circles and linking to external images. This is still far from being actually useful for any purpose, and the progress is slow as this is a hobby project.
+
+![Screenshot 2024-10](/assets/screenshot-2024-10.png?raw=true)
 
 Author
 ------
