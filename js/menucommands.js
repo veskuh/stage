@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 function open() {
     content.clear()
-    content.scale = 1.0
+    content.fitToWindow = true
     openDialog.fileMode = FileDialog.OpenFile
     openDialog.open()
 }
@@ -97,16 +97,23 @@ function duplicateTarget() {
     target.duplicate()
 }
 
+function scaleToFit() {
+    content.fitToWindow = true
+}
+
 function zoomIn() {
-    content.scale = content.scale * 2
+    content.userScale = content.scale * 2
+    content.fitToWindow = false
 }
 
 function zoomOut() {
-    content.scale = content.scale / 2
+    content.userScale = content.scale / 2
+    content.fitToWindow = false
 }
 
 function actualSize() {
-    content.scale = 1.0
+    content.userScale = 1.0
+    content.fitToWindow = false
 }
 
 function setLocked(locked) {

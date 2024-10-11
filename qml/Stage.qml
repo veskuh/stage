@@ -147,7 +147,7 @@ ApplicationWindow {
 
         RowLayout {
             anchors.right: parent.right
-            Label { text: content.scale * 100 + "% " }
+            Label { text: (content.scale * 100).toFixed(0) + " % " }
         }
 
     }
@@ -155,6 +155,7 @@ ApplicationWindow {
     SystemPalette {id: palette}
 
     SplitView {
+        id: editorArea
         anchors.fill: parent
 
         ScrollView {
@@ -170,14 +171,23 @@ ApplicationWindow {
                 y: theme.largePadding
                 height: 1080
                 width: 1920
-                scale: 0.5
                 anchors.top: parent.top
                 anchors.left: parent.left
                 transformOrigin: "TopLeft"
-
+                scale: fitToWindow ? scaleToFit() : userScale
 
                 property Group selectionGroup
                 property bool drawingItem
+                property bool fitToWindow: true
+                property real userScale: 1.0
+
+                function scaleToFit() {
+                    var panelWidth = 300
+                    var verticalPadding = 50
+                    var horizontalScale = (editorArea.width - panelWidth) / content.width
+                    var verticalScale = (editorArea.height - verticalPadding) / content.height
+                    return Math.min(verticalScale, horizontalScale)
+                }
 
                 function addObject(properties) {
                     var component = Qt.createComponent("./objects/" + properties.type + ".qml")

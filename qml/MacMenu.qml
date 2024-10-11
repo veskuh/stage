@@ -168,6 +168,11 @@ Labs.MenuBar {
     Labs.Menu {
         title: "View"
         Labs.MenuItem {
+            text: "Zoom to Fit"
+            onTriggered: MenuCommands.scaleToFit()
+        }
+
+        Labs.MenuItem {
             text: "Zoom In"
             onTriggered: MenuCommands.zoomIn()
         }
