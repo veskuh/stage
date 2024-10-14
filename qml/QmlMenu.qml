@@ -156,6 +156,11 @@ MenuBar {
     Menu {
         title: "View"
         Action {
+            text: "Zoom to Fit"
+            onTriggered: MenuCommands.scaleToFit()
+        }
+
+        Action {
             text: "Zoom in"
             onTriggered: MenuCommands.zoomIn()
         }
