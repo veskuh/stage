@@ -371,6 +371,7 @@ ApplicationWindow {
                     }
 
                     onSourceUrlChanged: {
+                        inspectorScrollView.ScrollBar.vertical.position = 0
                         setSource(sourceUrl, { "target": currentTarget })
                     }
 
