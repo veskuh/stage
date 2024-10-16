@@ -42,7 +42,10 @@ StageBase {
 
     Image {
         id: image
+        scale: Math.min(parent.width / paintedWidth, parent.height / paintedHeight)
+        transformOrigin: "TopLeft"
     }
+
     Component.onCompleted: {
         if (url == "") {
             fileDialog.visible = true
