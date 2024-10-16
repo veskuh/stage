@@ -43,6 +43,7 @@ ApplicationWindow {
     property Item horizontalAnchor
     property url filepath
     property Item editItem
+    property bool presentInWindow
 
     width: 1024
     height: 768
@@ -75,6 +76,7 @@ ApplicationWindow {
     }
 
     header: ToolBar {
+        visible: content.enabled
         height: selectButton.height + theme.smallPadding * 2
 
         RowLayout {
@@ -127,6 +129,14 @@ ApplicationWindow {
                 onClicked: toolRow.selectTool("StageImage.qml", "Image")
             }
 
+            ToolSeparator {}
+
+            StageToolButton {
+                text: "Start"
+                icon.source: theme.playIcon
+                onClicked: mainWindow.showFullScreen()
+            }
+
             function selectTool(factoryQmlName, state) {
                 content.deselect()
                 factory = Qt.createComponent("./objects/"+factoryQmlName)
@@ -141,6 +151,8 @@ ApplicationWindow {
     }
 
     footer: ToolBar {
+        visible: content.enabled
+
         RowLayout {
             Label { text: mainWindow.state }
         }
@@ -161,8 +173,9 @@ ApplicationWindow {
         ScrollView {
             height: mainWindow.height
             SplitView.fillWidth: true
-            contentWidth: content.width * content.scale + theme.largePadding * 2
-            contentHeight: content.height * content.scale + theme.largePadding * 2
+            contentWidth: content.width * content.scale // + theme.largePadding * 2
+            contentHeight: content.height * content.scale // + theme.largePadding * 2
+            ScrollBar.horizontal.policy: content.enabled? ScrollBar.AsNeeded : ScrollBar.AlwaysOff
 
             Rectangle {
                 id: content
@@ -175,6 +188,7 @@ ApplicationWindow {
                 anchors.left: parent.left
                 transformOrigin: "TopLeft"
                 scale: fitToWindow ? scaleToFit() : userScale
+                enabled: !mainWindow.presentInWindow && mainWindow.visibility !== Window.FullScreen
 
                 property Group selectionGroup
                 property bool drawingItem
@@ -182,8 +196,8 @@ ApplicationWindow {
                 property real userScale: 1.0
 
                 function scaleToFit() {
-                    var panelWidth = 300
-                    var verticalPadding = 50
+                    var panelWidth = content.enabled ? 300 : 0
+                    var verticalPadding = content.enabled ? 50 : 0
                     var horizontalScale = (editorArea.width - panelWidth) / content.width
                     var verticalScale = (editorArea.height - verticalPadding) / content.height
                     return Math.min(verticalScale, horizontalScale)
@@ -276,6 +290,12 @@ ApplicationWindow {
 
                 }
 
+                onEnabledChanged: {
+                    if (!content.enabled) {
+                        content.deselect()
+                    }
+                }
+
 
                 AnchorLine {
                     vertical: true
@@ -350,10 +370,10 @@ ApplicationWindow {
 
 
         Pane {
-            width:300
+            width: content.enabled ? 300 : 0
             height: mainWindow.height
 
-            SplitView.preferredWidth: 250
+            SplitView.preferredWidth: content.enabled? 250 : 0
             ScrollView {
                 id: inspectorScrollView
                 anchors.fill: parent

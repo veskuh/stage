@@ -186,5 +186,11 @@ Labs.MenuBar {
             text: "Actual size"
             onTriggered: MenuCommands.actualSize()
         }
+
+        Labs.MenuItem {
+            text: "Present In Window"
+            onTriggered: MenuCommands.togglePresent()
+            checkable: true
+        }
     }
 }

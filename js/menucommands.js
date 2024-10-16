@@ -124,6 +124,10 @@ function setVisible(visible) {
     mainWindow.target.visible = visible
 }
 
+function togglePresent() {
+    mainWindow.presentInWindow = !mainWindow.presentInWindow
+}
+
 
 
 
