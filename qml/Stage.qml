@@ -148,6 +148,33 @@ ApplicationWindow {
             }
 
         }
+
+        RowLayout {
+            id: row
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: 125 - (row.width / 2)
+
+            StageToolButton {
+                text: "Slides"
+                icon.source: theme.slidesIcon
+                checked: !propertyButton.checked
+                onClicked: {
+                    propertyButton.checked = false
+                    loader.setSource("./inspectors/SlidesInspector.qml")
+                }
+            }
+            StageToolButton {
+                id: propertyButton
+                text: "Item"
+                icon.source: theme.inspectorIcon
+                checked: true
+                onClicked: {
+                    propertyButton.checked = true
+                }
+            }
+        }
+
     }
 
     footer: ToolBar {

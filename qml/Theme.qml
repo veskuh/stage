@@ -30,6 +30,10 @@ QtObject {
     property string textIcon: (Qt.platform.os === "osx") ? "image://macSymbol/character.textbox" : "file:///usr/share/icons/breeze/actions/16/draw-text-symbolic.svg"
     property string imageIcon: (Qt.platform.os === "osx") ? "image://macSymbol/photo" : "file:///usr/share/icons/breeze/actions/16/insert-image-symbolic.svg"
     property string playIcon: (Qt.platform.os === "osx") ? "image://macSymbol/play.rectangle" : "file:///usr/share/icons/breeze/actions/16/media-playback-start-symbolic.svg"
+    property string slidesIcon: (Qt.platform.os === "osx") ? "image://macSymbol/rectangle.on.rectangle" : "file:///usr/share/icons/breeze/actions/16/media-playback-start-symbolic.svg"
+    property string inspectorIcon: (Qt.platform.os === "osx") ? "image://macSymbol/slider.horizontal.3" : "file:///usr/share/icons/breeze/actions/16/media-playback-start-symbolic.svg"
+    property string plusIcon: (Qt.platform.os === "osx") ? "image://macSymbol/plus.rectangle" : "file:///usr/share/icons/breeze/actions/16/media-playback-start-symbolic.svg"
+
 
 }
 

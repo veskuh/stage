@@ -16,41 +16,40 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-#ifndef DECLARATIVEDOCUMENT_H
-#define DECLARATIVEDOCUMENT_H
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Dialogs
+import "../"
 
-#include <QJsonArray>
-#include <QObject>
-#include <QUrl>
+Item {
+    id: base
+    height: (1080 / 1920) * width
+    property alias slideTitle: slideNumber.text
+    property bool selected: false
 
-class DeclarativeDocument : public QObject
-{
-    Q_OBJECT
 
-    /* TODO
-     * int currentSlide
-     * int slides
-     * getPreviews() //
-     * updateSlide(int slide)
-     * addSlide()
-     * insertSlide()
-     * deleteSlide(int slide)
-     */
-    // Q_PROPERTY(QString clipboardText READ clipboardText WRITE setClipboardText NOTIFY clipboardTextChanged)
+    Label {
+        id: slideNumber
+    }
 
-public:
-    explicit DeclarativeDocument(QObject *parent = 0);
+    Rectangle {
+        x: theme.largePadding + theme.mediumPadding
+        width: parent.width - x
+        height: (1080 / 1920) * width
+        color: "white"
+        antialiasing: true
+        border.width: base.selected ? 3 : 0
+        border.color: "grey"
 
-    Q_INVOKABLE void save(QUrl url);
-    Q_INVOKABLE void exportSvg(QUrl url);
-    Q_INVOKABLE void load(QUrl url);
+    }
 
-signals:
+    MouseArea {
+        anchors.fill: parent
 
-public slots:
-
-private:
-    QJsonArray types;
-};
-
-#endif // DECLARATIVEDOCUMENT_H
+        onEntered: opacity = 0.5
+        onExited: opacity = 1.0
+        onClicked: {
+            base.selected = !base.selected
+        }
+    }
+}
