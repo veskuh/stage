@@ -1,21 +1,35 @@
 #include "declarativeslidemodel.h"
 #include <QUuid>
 
+
 DeclarativeSlideModel::DeclarativeSlideModel(QObject *parent)
     : QAbstractListModel(parent) {}
 
 void DeclarativeSlideModel::addSlide(const QString &name, const QImage &image) {
-    SlideData slide{name, image, QUuid::createUuid().toString(QUuid::WithoutBraces)};
+    SlideData slide;
+    slide.setName(name);
+    slide.setImage(image);
+
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_slides.append(slide);
     endInsertRows();
 }
 
+void DeclarativeSlideModel::append(SlideData slide) {
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    m_slides.append(slide);
+    endInsertRows();
+}
+
+
 void DeclarativeSlideModel::insertSlide(int index, const QString &name, const QImage &image) {
     if (index < 0 || index > rowCount()) {
         return;  // Invalid index, do nothing
     }
-    SlideData slide{name, image, QUuid::createUuid().toString(QUuid::WithoutBraces)};
+    SlideData slide;
+    slide.setName(name);
+    slide.setImage(image);
+
     beginInsertRows(QModelIndex(), index, index);
     m_slides.insert(index, slide);
     endInsertRows();
@@ -52,9 +66,9 @@ QVariant DeclarativeSlideModel::data(const QModelIndex &index, int role) const {
 
     const SlideData &slide = m_slides[index.row()];
     if (role == NameRole)
-        return slide.name;
+        return slide.name();
     else if (role == ImageIdRole)
-        return slide.imageId;
+        return slide.imageId();
 
     return QVariant();
 }
@@ -68,8 +82,8 @@ QHash<int, QByteArray> DeclarativeSlideModel::roleNames() const  {
 
 QImage DeclarativeSlideModel::getImageById(const QString &id) const {
     for (const SlideData &slide : m_slides) {
-        if (slide.imageId == id) {
-            return slide.image;
+        if (slide.imageId() == id) {
+            return slide.image();
         }
     }
     return QImage();

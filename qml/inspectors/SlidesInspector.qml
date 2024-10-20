@@ -72,7 +72,7 @@ Rectangle {
     ListView {
            width: parent.width
            height: parent.height - 100
-           model: slideModel
+           model: document.slideModel
 
            delegate: Rectangle {
                width: parent.width

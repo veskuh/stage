@@ -20,12 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "declarativedocument.h"
 #include "documentfile.h"
 #include "svgexport.h"
+#include "slidedata.h"
 #include <QDebug>
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QVariantMap>
+
+
 
 DeclarativeDocument::DeclarativeDocument(QObject *parent)
     : QObject(parent)
@@ -139,10 +142,26 @@ void DeclarativeDocument::load(QUrl url)
 
     QObject *content = obj->findChild<QObject *>("contentRectangle");
     if (content) {
-        QList<QVariantMap> list = DocumentFile::load(url);
+        SlideData slide = DocumentFile::load(url);
+        QList<QVariantMap> list = slide.list();
         while (!list.isEmpty()) {
             QMetaObject::invokeMethod(
                 content, "addObject", Q_ARG(QVariant, QVariant::fromValue(list.takeFirst())));
         }
+        if (m_slideModel) {
+            m_slideModel->append(slide);
+            emit slideModelChanged();
+        }
+
     }
+}
+
+void DeclarativeDocument::setSlideModel(DeclarativeSlideModel* model) {
+    m_slideModel = model;
+    emit slideModelChanged();
+}
+
+
+DeclarativeSlideModel* DeclarativeDocument::slideModel() const {
+    return m_slideModel;
 }

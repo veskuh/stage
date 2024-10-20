@@ -23,20 +23,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QObject>
 #include <QUrl>
 
+#include "declarativeslidemodel.h"
+
+
 class DeclarativeDocument : public QObject
 {
     Q_OBJECT
 
     /* TODO
+     * Load image
+     *  - Populate model
+     *
      * int currentSlide
+     * ===
+     * model sets new slide slide active
+     * - render content to QImage and update the Model
+     * - clear content
+     * - draw data to content
+     *
      * int slides
-     * getPreviews() //
+     *
+     * Probably note needed
+     *    getPreviews() //
      * updateSlide(int slide)
      * addSlide()
      * insertSlide()
      * deleteSlide(int slide)
      */
     // Q_PROPERTY(QString clipboardText READ clipboardText WRITE setClipboardText NOTIFY clipboardTextChanged)
+    Q_PROPERTY(DeclarativeSlideModel* slideModel READ slideModel WRITE setSlideModel NOTIFY slideModelChanged)
 
 public:
     explicit DeclarativeDocument(QObject *parent = 0);
@@ -45,12 +60,17 @@ public:
     Q_INVOKABLE void exportSvg(QUrl url);
     Q_INVOKABLE void load(QUrl url);
 
+    Q_INVOKABLE DeclarativeSlideModel* slideModel() const;
+    Q_INVOKABLE void setSlideModel(DeclarativeSlideModel* model);
+
 signals:
+    void slideModelChanged();
 
 public slots:
 
 private:
     QJsonArray types;
+    DeclarativeSlideModel* m_slideModel;
 };
 
 #endif // DECLARATIVEDOCUMENT_H

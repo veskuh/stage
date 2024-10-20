@@ -3,12 +3,8 @@
 #include <QAbstractListModel>
 #ifndef DECLARATIVESLIDEMODEL_H
 #define DECLARATIVESLIDEMODEL_H
+#include "slidedata.h"
 
-struct SlideData {
-    QString name;
-    QImage image;
-    QString imageId;
-};
 
 class DeclarativeSlideModel : public QAbstractListModel {
     Q_OBJECT
@@ -22,6 +18,7 @@ public:
     DeclarativeSlideModel(QObject *parent = nullptr);
 
     Q_INVOKABLE void addSlide(const QString &name, const QImage &image);
+    Q_INVOKABLE void append(const SlideData slide);
     Q_INVOKABLE void insertSlide(int index, const QString &name, const QImage &image);
     Q_INVOKABLE void removeSlide(int index);
     Q_INVOKABLE void moveSlide(int from, int to);

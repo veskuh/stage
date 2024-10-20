@@ -38,16 +38,18 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     qmlRegisterType<DeclarativeDocument>("com.mac.vesku.stage", 1, 0, "Document");
     qmlRegisterType<DeclarativeClipboard>("com.mac.vesku.stage", 1, 0, "Clipboard");
+    qmlRegisterType<DeclarativeSlideModel>("com.mac.vesku.stage", 1, 0, "SlideModel");
 
 
     DeclarativeSlideModel model;
+    /*
     model.addSlide("Slide 1", QImage(":/assets/stage.png"));
     model.addSlide("Slide 2", QImage(":/assets/stage.png"));
-    model.addSlide("Slide 3", QImage(":/assets/stage.png"));
+    model.addSlide("Slide 3", QImage(":/assets/stage.png"));*/
     engine.addImageProvider("slideProvider", new SlidePreviewImageProvider(&model));
 
 
-    engine.rootContext()->setContextProperty("slideModel", &model);
+    engine.rootContext()->setContextProperty("baseSlideModel", &model);
 
 
 #ifdef Q_OS_MACOS

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
+#include "slidedata.h"
 
 DocumentFile::DocumentFile() {}
 
@@ -45,20 +46,23 @@ void DocumentFile::save(QUrl url)
     //tbd Check if I need to clear the JsonArray
 }
 
-QList<QVariantMap> DocumentFile::load(QUrl url)
+SlideData DocumentFile::load(QUrl url)
 {
-    QList<QVariantMap> list;
+    SlideData slide;
+
     QFile file(url.toLocalFile());
     if (!file.open(QIODevice::ReadOnly)) {
         qWarning("failed to create file for reading");
-        return list;
+        return slide;
     }
     QJsonDocument document = QJsonDocument::fromJson(file.readAll());
 
     for (QJsonValue value : document.array()) {
         if (value.isObject()) {
-            list.append(value.toObject().toVariantMap());
+            slide.append(value.toObject().toVariantMap());
         }
     }
-    return list;
+    // TODO render content to image and return it
+    slide.setImage(QImage(":/assets/stage.png"));
+    return slide;
 }

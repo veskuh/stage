@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QString>
 #include <QUrl>
 #include <QVariantMap>
+#include "slidedata.h"
 
 class DocumentFile
 {
@@ -32,7 +33,7 @@ public:
     void addObject(const QVariantMap &properties);
     void save(QUrl url);
 
-    static QList<QVariantMap> load(QUrl url);
+    static SlideData load(QUrl url);
 
 private:
     QJsonArray jsonArray;
