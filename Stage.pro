@@ -7,15 +7,19 @@ OBJECTS_DIR = obj
 SOURCES += \
     src/declarativeclipboard.cpp \
     src/declarativedocument.cpp \
+    src/declarativeslidemodel.cpp \
     src/documentfile.cpp \
+    src/slidepreviewimageprovider.cpp \
     src/stage.cpp \
     src/svgexport.cpp
 
 HEADERS += \
     src/declarativeclipboard.h \
     src/declarativedocument.h \
+    src/declarativeslidemodel.h \
     src/documentfile.h \
     src/macsymbolimageprovider.h \
+    src/slidepreviewimageprovider.h \
     src/svgexport.h
 
 RESOURCES += \

@@ -29,6 +29,7 @@ Rectangle {
     color: palette.window
     property Item target: mainWindow.target
 
+    /*
     Column {
         id: column
         padding: mainWindow.theme.mediumPadding
@@ -67,4 +68,51 @@ Rectangle {
     }
 
     Component.onCompleted: inspectorScrollView.contentHeight = column.height
+    */
+    ListView {
+           width: parent.width
+           height: parent.height - 100
+           model: slideModel
+
+           delegate: Rectangle {
+               width: parent.width
+               height: 100
+
+               Row {
+                   spacing: 10
+
+                   Image {
+                       width: 80
+                       height: 80
+                       source: "image://slideProvider/" + imageId
+                       fillMode: Image.PreserveAspectFit
+                   }
+
+                   Text {
+                       text: slideName
+                       font.pixelSize: 20
+                       verticalAlignment: Text.AlignVCenter
+                   }
+               }
+               color: "transparent"
+
+               // Add a MouseArea to make the item clickable
+                   MouseArea {
+                       anchors.fill: parent
+                       onClicked: {
+                           console.log("Slide clicked: " + slideName)
+                           // You can perform any action here, e.g., select the slide or trigger a function
+                       }
+
+                       // Optional: Visual feedback on hover or press
+                       onPressed: parent.color = "lightgrey"
+                       onReleased: parent.color = "transparent"
+
+                       // You can also add visual feedback for hovered state
+                       onEntered: parent.color = "lightgrey"
+                       onExited: parent.color = "transparent"
+                   }
+           }
+       }
+
 }
