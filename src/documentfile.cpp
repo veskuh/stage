@@ -24,7 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
+#include <QPainter>
+#include <QImage>
 #include "slidedata.h"
+#include "objectrenderer.h"
 
 DocumentFile::DocumentFile() {}
 
@@ -57,12 +60,24 @@ SlideData DocumentFile::load(QUrl url)
     }
     QJsonDocument document = QJsonDocument::fromJson(file.readAll());
 
+
+    // Create a QImage that is the same size as the window
+    QImage image(1920, 1080, QImage::Format_RGB32);
+
+    // Create a QPainter object and pass it the QImage
+    QPainter painter(&image);
+    ObjectRenderer renderer;
+    renderer.setPainter(&painter);
+    renderer.clear();
+
     for (QJsonValue value : document.array()) {
         if (value.isObject()) {
-            slide.append(value.toObject().toVariantMap());
+            QVariantMap object = value.toObject().toVariantMap();
+            renderer.renderObject(object);
+            slide.append(object);
         }
     }
     // TODO render content to image and return it
-    slide.setImage(QImage(":/assets/stage.png"));
+    slide.setImage(image);
     return slide;
 }

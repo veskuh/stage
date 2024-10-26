@@ -7,6 +7,10 @@ ObjectRenderer::ObjectRenderer()
 {
 }
 
+void ObjectRenderer::clear() {
+    m_painter->eraseRect(0,0,1920,1080);
+}
+
 void ObjectRenderer::renderObject(QVariantMap& properties)
 {
     if (m_painter == nullptr) {

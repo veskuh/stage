@@ -10,6 +10,7 @@ public:
     ObjectRenderer();
     void renderObject(QVariantMap& properties);
     void setPainter(QPainter* painter);
+    void clear();
 
 private:
     /**
