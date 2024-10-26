@@ -4,6 +4,7 @@
 #include <QString>
 #include <QSvgGenerator>
 #include <QPainter>
+#include "objectrenderer.h"
 
 class SvgExport
 {
@@ -22,6 +23,7 @@ private:
 
     QSvgGenerator generator;
     QPainter painter;
+    ObjectRenderer renderer;
 };
 
 #endif // SVGEXPORT_H

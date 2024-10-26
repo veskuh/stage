@@ -9,6 +9,7 @@ SOURCES += \
     src/declarativedocument.cpp \
     src/declarativeslidemodel.cpp \
     src/documentfile.cpp \
+    src/objectrenderer.cpp \
     src/slidedata.cpp \
     src/slidepreviewimageprovider.cpp \
     src/stage.cpp \
@@ -20,6 +21,7 @@ HEADERS += \
     src/declarativeslidemodel.h \
     src/documentfile.h \
     src/macsymbolimageprovider.h \
+    src/objectrenderer.h \
     src/slidedata.h \
     src/slidepreviewimageprovider.h \
     src/svgexport.h

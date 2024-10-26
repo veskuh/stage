@@ -25,7 +25,7 @@ import "../"
 Rectangle {
     id: inspector
     width: 300
-  //  height: column.height
+    //  height: column.height
     color: palette.window
     property Item target: mainWindow.target
 
@@ -70,11 +70,18 @@ Rectangle {
     Component.onCompleted: inspectorScrollView.contentHeight = column.height
     */
     ListView {
-           width: parent.width
-           height: parent.height - 100
-           model: document.slideModel
+        id: list
+        width: parent.width
+        height: parent.height - 100
+        model: document.slideModel
 
-           delegate: Rectangle {
+        delegate: SlidePreview {
+            width: list.width
+            source: "image://slideProvider/" + imageId
+            slideTitle: "1"
+
+        }
+        /* Rectangle {
                width: parent.width
                height: 100
 
@@ -112,7 +119,7 @@ Rectangle {
                        onEntered: parent.color = "lightgrey"
                        onExited: parent.color = "transparent"
                    }
-           }
-       }
+           }*/
+    }
 
 }

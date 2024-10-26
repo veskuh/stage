@@ -26,17 +26,32 @@ Item {
     height: (1080 / 1920) * width
     property alias slideTitle: slideNumber.text
     property bool selected: false
-
+    property alias source: image.source
 
     Label {
         id: slideNumber
     }
 
     Rectangle {
+
+        Image {
+            id:image
+            width: base.width
+            height: base.height
+            source: "image://slideProvider/" + imageId
+            fillMode: Image.PreserveAspectFit
+        } /*
+        Label {
+            id: image
+            text: source
+            property string source: ""
+        }*/
+
+
         x: theme.largePadding + theme.mediumPadding
         width: parent.width - x
         height: (1080 / 1920) * width
-        color: "white"
+        color: base.selected? "white" : "gray"
         antialiasing: true
         border.width: base.selected ? 3 : 0
         border.color: "grey"
@@ -50,6 +65,7 @@ Item {
         onExited: opacity = 1.0
         onClicked: {
             base.selected = !base.selected
+            console.log("Got click")
         }
     }
 }
