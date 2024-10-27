@@ -63,6 +63,7 @@ ApplicationWindow {
     Document {
         id: document
         slideModel: baseSlideModel
+
     }
 
     Clipboard {

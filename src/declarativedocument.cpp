@@ -46,6 +46,11 @@ DeclarativeDocument::DeclarativeDocument(QObject *parent)
 void DeclarativeDocument::save(QUrl url)
 {
     DocumentFile file;
+    updateSlideContent(currentSlide);
+    file.save(url, m_slideModel);
+}
+void DeclarativeDocument::updateSlideContent(int index) {
+    SlideData slide;
 
     // Find ApplicationWindow
     QObject *obj = parent();
@@ -77,15 +82,18 @@ void DeclarativeDocument::save(QUrl url)
                                     }
                                 }
                             }
-                            file.addObject(properties);
+                            slide.append(properties);
                         }
                     }
                 }
             }
         }
     }
-    file.save(url);
+
+    m_slideModel->setSlide(index, slide);
 }
+
+
 
 void DeclarativeDocument::exportSvg(QUrl url)
 {
@@ -131,9 +139,17 @@ void DeclarativeDocument::exportSvg(QUrl url)
     file.save();
 }
 
+void DeclarativeDocument::showSlide(int index) {
+    SlideData slide = m_slideModel->getSlide(index);
+    if (currentSlide != -1 ) {
+        updateSlideContent(currentSlide);
+        emit slideModelChanged();
+    }
+    showSlide(slide);
+    currentSlide = index;
+}
 
-void DeclarativeDocument::load(QUrl url)
-{
+void DeclarativeDocument::showSlide(SlideData& slide) {
     // Find ApplicationWindow
     QObject *obj = parent();
     while (obj->parent()) {
@@ -141,24 +157,25 @@ void DeclarativeDocument::load(QUrl url)
     }
 
     QObject *content = obj->findChild<QObject *>("contentRectangle");
-    if (content) {
-        SlideData slide = DocumentFile::load(url);
-        QList<QVariantMap> list = slide.list();
-        while (!list.isEmpty()) {
-            QMetaObject::invokeMethod(
-                content, "addObject", Q_ARG(QVariant, QVariant::fromValue(list.takeFirst())));
-        }
-        if (m_slideModel) {
-            m_slideModel->append(slide);
-            emit slideModelChanged();
-        }
-
+    if (!content)
+        return;
+    QList<QVariantMap> list = slide.list();
+    while (!list.isEmpty()) {
+        QMetaObject::invokeMethod(
+            content, "addObject", Q_ARG(QVariant, QVariant::fromValue(list.takeFirst())));
     }
 }
 
+void DeclarativeDocument::load(QUrl url) {
+    setSlideModel(DocumentFile::load(url));
+    showSlide(0);
+}
+
 void DeclarativeDocument::setSlideModel(DeclarativeSlideModel* model) {
+    DeclarativeSlideModel* tmp = m_slideModel;
     m_slideModel = model;
     emit slideModelChanged();
+    // delete tmp; For some reason setSlideModel gets called again if I delete the old one, TOOD figure out why, QML has ownership maybe?
 }
 
 

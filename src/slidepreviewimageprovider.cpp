@@ -1,9 +1,9 @@
 #include "slidepreviewimageprovider.h"
 #include <QDebug>
 
-SlidePreviewImageProvider::SlidePreviewImageProvider(DeclarativeSlideModel *model)
-    : QQuickImageProvider(QQuickImageProvider::Image),
-    m_slideModel(model) {}
+SlidePreviewImageProvider::SlidePreviewImageProvider()
+    : QQuickImageProvider(QQuickImageProvider::Image)
+    {}
 
 QImage SlidePreviewImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize) {
     QImage image = m_slideModel->getImageById(id);
@@ -15,4 +15,16 @@ QImage SlidePreviewImageProvider::requestImage(const QString &id, QSize *size, c
         return image;
     }
     return QImage();  // Return an empty image if the ID is invalid
+}
+
+DeclarativeSlideModel* SlidePreviewImageProvider::m_slideModel = nullptr;
+
+void SlidePreviewImageProvider::setSlideModel(DeclarativeSlideModel *model)
+{
+    if (model != m_slideModel) {
+        if (m_slideModel) {
+            delete m_slideModel;
+        }
+        m_slideModel = model;
+    }
 }

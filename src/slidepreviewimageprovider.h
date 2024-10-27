@@ -5,12 +5,13 @@
 
 class SlidePreviewImageProvider : public QQuickImageProvider {
 public:
-    SlidePreviewImageProvider(DeclarativeSlideModel *model);
+    SlidePreviewImageProvider();
 
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
+    static void setSlideModel(DeclarativeSlideModel *model);
 
 private:
-    DeclarativeSlideModel *m_slideModel;
+    static DeclarativeSlideModel *m_slideModel;
 };
 
 #endif

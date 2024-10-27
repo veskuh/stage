@@ -25,50 +25,9 @@ import "../"
 Rectangle {
     id: inspector
     width: 300
-    //  height: column.height
     color: palette.window
     property Item target: mainWindow.target
 
-    /*
-    Column {
-        id: column
-        padding: mainWindow.theme.mediumPadding
-        spacing: mainWindow.theme.mediumPadding * 2
-
-        Label {
-            text: "Slides"
-            width: inspector.width - 2 * mainWindow.theme.mediumPadding
-            horizontalAlignment: Text.AlignHCenter
-            font.bold: true
-        }
-
-        SeparatorLine {
-            width: inspector.width - 2 * mainWindow.theme.mediumPadding
-        }
-
-        SlidePreview {
-            width: inspector.width - 2 * mainWindow.theme.mediumPadding
-            slideTitle: "1"
-        }
-
-        SlidePreview {
-            width: inspector.width - 2 * mainWindow.theme.mediumPadding
-            slideTitle: "20"
-
-        }
-
-
-
-        StageToolButton {
-            text: "New Slide"
-            icon.source: theme.plusIcon
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-
-    }
-
-    Component.onCompleted: inspectorScrollView.contentHeight = column.height
-    */
     ListView {
         id: list
         width: parent.width
@@ -78,48 +37,7 @@ Rectangle {
         delegate: SlidePreview {
             width: list.width
             source: "image://slideProvider/" + imageId
-            slideTitle: "1"
-
+            slideTitle: (index+1) + "."
         }
-        /* Rectangle {
-               width: parent.width
-               height: 100
-
-               Row {
-                   spacing: 10
-
-                   Image {
-                       width: 80
-                       height: 80
-                       source: "image://slideProvider/" + imageId
-                       fillMode: Image.PreserveAspectFit
-                   }
-
-                   Text {
-                       text: slideName
-                       font.pixelSize: 20
-                       verticalAlignment: Text.AlignVCenter
-                   }
-               }
-               color: "transparent"
-
-               // Add a MouseArea to make the item clickable
-                   MouseArea {
-                       anchors.fill: parent
-                       onClicked: {
-                           console.log("Slide clicked: " + slideName)
-                           // You can perform any action here, e.g., select the slide or trigger a function
-                       }
-
-                       // Optional: Visual feedback on hover or press
-                       onPressed: parent.color = "lightgrey"
-                       onReleased: parent.color = "transparent"
-
-                       // You can also add visual feedback for hovered state
-                       onEntered: parent.color = "lightgrey"
-                       onExited: parent.color = "transparent"
-                   }
-           }*/
     }
-
 }

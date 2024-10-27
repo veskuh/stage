@@ -88,3 +88,18 @@ QImage DeclarativeSlideModel::getImageById(const QString &id) const {
     }
     return QImage();
 }
+
+SlideData DeclarativeSlideModel::getSlide(int index) {
+    if (m_slides.length() > index && index >= 0)
+        return m_slides.at(index);
+
+    // default
+    return SlideData();
+}
+
+void DeclarativeSlideModel::setSlide(int index, SlideData slide) {
+    if (m_slides.length() > index && index >= 0) {
+        m_slides.replace(index, slide);
+    }
+}
+

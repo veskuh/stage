@@ -25,15 +25,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QUrl>
 #include <QVariantMap>
 #include "slidedata.h"
+#include "declarativeslidemodel.h"
 
 class DocumentFile
 {
 public:
     DocumentFile();
     void addObject(const QVariantMap &properties);
-    void save(QUrl url);
+    void save(QUrl url, DeclarativeSlideModel* slideModel);
 
-    static SlideData load(QUrl url);
+    static DeclarativeSlideModel* load(QUrl url);
 
 private:
     QJsonArray jsonArray;

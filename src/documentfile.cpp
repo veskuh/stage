@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QImage>
 #include "slidedata.h"
 #include "objectrenderer.h"
+#include "slidepreviewimageprovider.h"
 
 DocumentFile::DocumentFile() {}
 
@@ -36,48 +37,71 @@ void DocumentFile::addObject(const QVariantMap &properties)
     jsonArray.append(QJsonObject::fromVariantMap(properties));
 }
 
-void DocumentFile::save(QUrl url)
+void DocumentFile::save(QUrl url, DeclarativeSlideModel* slideModel)
 {
     QFile file(url.toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
         qWarning("failed to create file for writing");
         return;
     }
-    QJsonDocument document(jsonArray);
-    file.write(document.toJson());
 
-    //tbd Check if I need to clear the JsonArray
+    QJsonArray slides;
+
+    int slideCount = slideModel->rowCount();
+    for (int i = 0; i < slideCount; i++ ) {
+        SlideData slide = slideModel->getSlide(i);
+        QJsonArray slideJson;
+        QList<QVariantMap> objectList  = slide.list();
+        for (QVariantMap slideObject : objectList) {
+            slideJson.append(QJsonObject::fromVariantMap(slideObject));
+        }
+        slides.append(slideJson);
+    }
+
+    QJsonDocument document(slides);
+    file.write(document.toJson());
 }
 
-SlideData DocumentFile::load(QUrl url)
+DeclarativeSlideModel* DocumentFile::load(QUrl url)
 {
-    SlideData slide;
+    DeclarativeSlideModel* model = new DeclarativeSlideModel();
+    SlidePreviewImageProvider::setSlideModel(model);
+
 
     QFile file(url.toLocalFile());
     if (!file.open(QIODevice::ReadOnly)) {
         qWarning("failed to create file for reading");
-        return slide;
+        return model;
     }
-    QJsonDocument document = QJsonDocument::fromJson(file.readAll());
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(file.readAll());
 
+    if (!jsonDoc.isArray()) {
+        qWarning("Not a propertly formatted doc");
+        return model;
+    }
+    QJsonArray slideArray = jsonDoc.array();
 
-    // Create a QImage that is the same size as the window
-    QImage image(1920, 1080, QImage::Format_RGB32);
+    for (QJsonValue slideObjects : slideArray) {
 
-    // Create a QPainter object and pass it the QImage
-    QPainter painter(&image);
-    ObjectRenderer renderer;
-    renderer.setPainter(&painter);
-    renderer.clear();
+        SlideData slide;
+        // Create a QImage that is the same size as the window
+        QImage image(1920, 1080, QImage::Format_RGB32);
+        QPainter painter(&image);
+        ObjectRenderer renderer;
+        renderer.setPainter(&painter);
+        renderer.clear();
 
-    for (QJsonValue value : document.array()) {
-        if (value.isObject()) {
-            QVariantMap object = value.toObject().toVariantMap();
-            renderer.renderObject(object);
-            slide.append(object);
+        // For individual slide
+        for (QJsonValue value : slideObjects.toArray()) {
+            // Add all objects to canvas an
+            if (value.isObject()) {
+                QVariantMap object = value.toObject().toVariantMap();
+                renderer.renderObject(object);
+                slide.append(object);
+            }
         }
+        slide.setImage(image);
+        model->append(slide);
     }
-    // TODO render content to image and return it
-    slide.setImage(image);
-    return slide;
+    return model;
 }

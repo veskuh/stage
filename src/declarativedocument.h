@@ -32,19 +32,6 @@ class DeclarativeDocument : public QObject
 
     /* TODO
      * Load image
-     *  - Populate model
-     *
-     * int currentSlide
-     * ===
-     * model sets new slide slide active
-     * - render content to QImage and update the Model
-     * - clear content
-     * - draw data to content
-     *
-     * int slides
-     *
-     * Probably note needed
-     *    getPreviews() //
      * updateSlide(int slide)
      * addSlide()
      * insertSlide()
@@ -62,6 +49,9 @@ public:
 
     Q_INVOKABLE DeclarativeSlideModel* slideModel() const;
     Q_INVOKABLE void setSlideModel(DeclarativeSlideModel* model);
+    Q_INVOKABLE void showSlide(int index);
+
+
 
 signals:
     void slideModelChanged();
@@ -71,6 +61,11 @@ public slots:
 private:
     QJsonArray types;
     DeclarativeSlideModel* m_slideModel;
+
+    void showSlide(SlideData& slide);
+    void updateSlideContent(int index);
+
+    int currentSlide = -1;
 };
 
 #endif // DECLARATIVEDOCUMENT_H

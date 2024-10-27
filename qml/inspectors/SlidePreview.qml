@@ -66,6 +66,9 @@ Item {
         onClicked: {
             base.selected = !base.selected
             console.log("Got click")
+
+            content.clear()
+            document.showSlide(index)
         }
     }
 }

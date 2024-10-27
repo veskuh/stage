@@ -23,6 +23,9 @@ public:
     Q_INVOKABLE void removeSlide(int index);
     Q_INVOKABLE void moveSlide(int from, int to);
 
+    SlideData getSlide(int index);
+    void setSlide(int index, SlideData data);
+
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
