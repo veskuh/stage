@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QVariantMap>
+#include "slidepreviewimageprovider.h"
 
 
 
@@ -41,6 +42,12 @@ DeclarativeDocument::DeclarativeDocument(QObject *parent)
 
     QJsonDocument document = QJsonDocument::fromJson(file.readAll());
     types = document.array();
+
+    m_slideModel = new DeclarativeSlideModel();
+    // Always should have at least one slide
+    QImage img;
+    m_slideModel->addSlide("start slide", img);
+    SlidePreviewImageProvider::setSlideModel(m_slideModel);
 }
 
 void DeclarativeDocument::save(QUrl url)
@@ -139,9 +146,9 @@ void DeclarativeDocument::exportSvg(QUrl url)
     file.save();
 }
 
-void DeclarativeDocument::showSlide(int index) {
+void DeclarativeDocument::showSlide(int index, bool updateCurrent) {
     SlideData slide = m_slideModel->getSlide(index);
-    if (currentSlide != -1 ) {
+    if (updateCurrent) {
         updateSlideContent(currentSlide);
         emit slideModelChanged();
     }
@@ -168,12 +175,13 @@ void DeclarativeDocument::showSlide(SlideData& slide) {
 
 void DeclarativeDocument::load(QUrl url) {
     setSlideModel(DocumentFile::load(url));
-    showSlide(0);
+    showSlide(0, false);
 }
 
 void DeclarativeDocument::setSlideModel(DeclarativeSlideModel* model) {
     DeclarativeSlideModel* tmp = m_slideModel;
     m_slideModel = model;
+    SlidePreviewImageProvider::setSlideModel(m_slideModel);
     emit slideModelChanged();
     // delete tmp; For some reason setSlideModel gets called again if I delete the old one, TOOD figure out why, QML has ownership maybe?
 }

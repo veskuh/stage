@@ -40,18 +40,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<DeclarativeClipboard>("com.mac.vesku.stage", 1, 0, "Clipboard");
     qmlRegisterType<DeclarativeSlideModel>("com.mac.vesku.stage", 1, 0, "SlideModel");
 
-
-    DeclarativeSlideModel* model = new DeclarativeSlideModel();
-    /*
-    model.addSlide("Slide 1", QImage(":/assets/stage.png"));
-    model.addSlide("Slide 2", QImage(":/assets/stage.png"));
-    model.addSlide("Slide 3", QImage(":/assets/stage.png"));*/
-    SlidePreviewImageProvider::setSlideModel(model);
     engine.addImageProvider("slideProvider", new SlidePreviewImageProvider());
-
-
-    engine.rootContext()->setContextProperty("baseSlideModel", model);
-
 
 #ifdef Q_OS_MACOS
     engine.addImageProvider("macSymbol", new MacSymbolImageProvider());

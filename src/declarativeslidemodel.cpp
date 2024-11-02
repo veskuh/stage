@@ -3,7 +3,9 @@
 
 
 DeclarativeSlideModel::DeclarativeSlideModel(QObject *parent)
-    : QAbstractListModel(parent) {}
+    : QAbstractListModel(parent) {
+
+}
 
 void DeclarativeSlideModel::addSlide(const QString &name, const QImage &image) {
     SlideData slide;

@@ -32,7 +32,6 @@ class DeclarativeDocument : public QObject
 
     /* TODO
      * Load image
-     * updateSlide(int slide)
      * addSlide()
      * insertSlide()
      * deleteSlide(int slide)
@@ -49,7 +48,7 @@ public:
 
     Q_INVOKABLE DeclarativeSlideModel* slideModel() const;
     Q_INVOKABLE void setSlideModel(DeclarativeSlideModel* model);
-    Q_INVOKABLE void showSlide(int index);
+    Q_INVOKABLE void showSlide(int index, bool updateCurrent = true);
 
 
 
@@ -65,7 +64,7 @@ private:
     void showSlide(SlideData& slide);
     void updateSlideContent(int index);
 
-    int currentSlide = -1;
+    int currentSlide = 0;
 };
 
 #endif // DECLARATIVEDOCUMENT_H

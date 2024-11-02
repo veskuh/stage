@@ -293,6 +293,23 @@
             "x": 1173.2365145228216,
             "y": 144.5539419087137,
             "z": 0
+        },
+        {
+            "bold": false,
+            "color": "#000000",
+            "enabled": true,
+            "fontSize": 36,
+            "height": 43,
+            "italic": false,
+            "opacity": 1,
+            "text": "Slide 1",
+            "type": "StageText",
+            "underline": false,
+            "visible": true,
+            "width": 103,
+            "x": 1696.859439834025,
+            "y": 1008.4465767634854,
+            "z": 0
         }
     ],
     [
@@ -571,6 +588,23 @@
             "width": 334.234375,
             "x": 223,
             "y": 922,
+            "z": 0
+        },
+        {
+            "bold": false,
+            "color": "#000000",
+            "enabled": true,
+            "fontSize": 36,
+            "height": 43,
+            "italic": false,
+            "opacity": 1,
+            "text": "Slide 2",
+            "type": "StageText",
+            "underline": false,
+            "visible": true,
+            "width": 107.40625,
+            "x": 1653.1353734439833,
+            "y": 971.2577800829877,
             "z": 0
         }
     ]
