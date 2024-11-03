@@ -56,16 +56,10 @@ void DeclarativeDocument::save(QUrl url)
     updateSlideContent(currentSlide);
     file.save(url, m_slideModel);
 }
-void DeclarativeDocument::updateSlideContent(int index) {
-    SlideData slide;
 
-    // Find ApplicationWindow
-    QObject *obj = parent();
-    while (obj->parent()) {
-        obj = obj->parent();
-    }
+QList<QVariantMap>* DeclarativeDocument::contentObjects(QObject* content) {
+    QList<QVariantMap>* list = new QList<QVariantMap>();
 
-    QObject *content = obj->findChild<QObject *>("contentRectangle");
     if (content) {
         for (QObject *object : content->children()) {
             QString className = object->metaObject()->className();
@@ -89,60 +83,33 @@ void DeclarativeDocument::updateSlideContent(int index) {
                                     }
                                 }
                             }
-                            slide.append(properties);
+                            list->append(properties);
                         }
                     }
                 }
             }
         }
     }
-
-    m_slideModel->setSlide(index, slide);
+    return list;
 }
 
 
+void DeclarativeDocument::updateSlideContent(int index) {
+    SlideData slide;
+    QObject *content = contentObject("contentRectangle");
+    slide.setList(contentObjects(content));
+    m_slideModel->setSlide(index, slide);
+}
 
 void DeclarativeDocument::exportSvg(QUrl url)
 {
     SvgExport file(url.toLocalFile());
-
-    // Find ApplicationWindow
-    QObject *obj = parent();
-    while (obj->parent()) {
-        obj = obj->parent();
+    QObject *content = contentObject("m_painter->");
+    QList<QVariantMap>* objectList = contentObjects(content);
+    for (QVariantMap properties : *objectList) {
+        file.addObject(properties);
     }
-
-    QObject *content = obj->findChild<QObject *>("contentRectangle");
-    if (content) {
-        for (QObject *object : content->children()) {
-            QString className = object->metaObject()->className();
-            for (QJsonValue type : types) {
-                if (type.isObject()) {
-                    QJsonObject typeObject = type.toObject();
-                    QJsonValue value = typeObject.value("type");
-                    if (value.isString()) {
-                        QString typeString = value.toString();
-                        if (className.startsWith(typeString)) {
-                            QVariantMap properties;
-                            properties.insert("type", QVariant(typeString));
-                            QJsonValue propertyArray = typeObject.value("properties");
-                            if (propertyArray.isArray()) {
-                                for (auto property : propertyArray.toArray()) {
-                                    if (property.isString()) {
-                                        QString propertyString = property.toString();
-                                        properties.insert(
-                                            propertyString,
-                                            object->property(propertyString.toLatin1().constData()));
-                                    }
-                                }
-                            }
-                            file.addObject(properties);
-                        }
-                    }
-                }
-            }
-        }
-    }
+    delete objectList;
     file.save();
 }
 
@@ -156,20 +123,24 @@ void DeclarativeDocument::showSlide(int index, bool updateCurrent) {
     currentSlide = index;
 }
 
-void DeclarativeDocument::showSlide(SlideData& slide) {
+QObject* DeclarativeDocument::contentObject(QString type) {
     // Find ApplicationWindow
     QObject *obj = parent();
     while (obj->parent()) {
         obj = obj->parent();
     }
 
-    QObject *content = obj->findChild<QObject *>("contentRectangle");
+    QObject *content = obj->findChild<QObject *>(type);
     if (!content)
-        return;
+        return NULL;
+    return content;
+}
+
+void DeclarativeDocument::showSlide(SlideData& slide) {
     QList<QVariantMap> list = slide.list();
     while (!list.isEmpty()) {
         QMetaObject::invokeMethod(
-            content, "addObject", Q_ARG(QVariant, QVariant::fromValue(list.takeFirst())));
+            contentObject("contentRectangle"), "addObject", Q_ARG(QVariant, QVariant::fromValue(list.takeFirst())));
     }
 }
 

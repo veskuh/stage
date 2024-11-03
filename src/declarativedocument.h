@@ -50,8 +50,6 @@ public:
     Q_INVOKABLE void setSlideModel(DeclarativeSlideModel* model);
     Q_INVOKABLE void showSlide(int index, bool updateCurrent = true);
 
-
-
 signals:
     void slideModelChanged();
 
@@ -63,6 +61,8 @@ private:
 
     void showSlide(SlideData& slide);
     void updateSlideContent(int index);
+    QObject* contentObject(QString type);
+    QList<QVariantMap>* contentObjects(QObject* content);
 
     int currentSlide = 0;
 };

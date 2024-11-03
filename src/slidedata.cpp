@@ -26,6 +26,11 @@ QList<QVariantMap> SlideData::list() const {
     return *m_list;
 }
 
+void SlideData::setList(QList<QVariantMap>* list) {
+    delete m_list;
+    m_list = list;
+}
+
 void SlideData::append(QVariantMap properties){
     m_list->append(properties);
 }

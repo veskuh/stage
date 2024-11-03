@@ -22,6 +22,7 @@ public:
 
     QString imageId() const;
 
+    void setList(QList<QVariantMap>* list);
     QList<QVariantMap> list() const;
 
 private:
