@@ -84,23 +84,15 @@ DeclarativeSlideModel* DocumentFile::load(QUrl url)
     for (QJsonValue slideObjects : slideArray) {
 
         SlideData slide;
-        // Create a QImage that is the same size as the window
-        QImage image(1920, 1080, QImage::Format_RGB32);
-        QPainter painter(&image);
-        ObjectRenderer renderer;
-        renderer.setPainter(&painter);
-        renderer.clear();
-
         // For individual slide
         for (QJsonValue value : slideObjects.toArray()) {
             // Add all objects to canvas an
             if (value.isObject()) {
                 QVariantMap object = value.toObject().toVariantMap();
-                renderer.renderObject(object);
                 slide.append(object);
             }
         }
-        slide.setImage(image);
+        slide.createImage();
         model->append(slide);
     }
     return model;

@@ -1,5 +1,8 @@
 #include "slidedata.h"
 #include <QUuid>
+#include <QImage>
+#include <QPainter>
+#include "objectrenderer.h"
 
 void SlideData::setName(QString name) {
     m_name = name;
@@ -8,6 +11,19 @@ void SlideData::setName(QString name) {
 QString SlideData::name() const {
     return m_name;
 }
+
+void SlideData::createImage() {
+    QImage image(1920, 1080, QImage::Format_RGB32);
+    QPainter painter(&image);
+    ObjectRenderer renderer;
+    renderer.setPainter(&painter);
+    renderer.clear();
+    for (QVariantMap object : *m_list) {
+        renderer.renderObject(object);
+    }
+    setImage(image);
+}
+
 
 void SlideData::setImage(QImage image) {
     m_image = image;
@@ -29,6 +45,7 @@ QList<QVariantMap> SlideData::list() const {
 void SlideData::setList(QList<QVariantMap>* list) {
     delete m_list;
     m_list = list;
+    createImage();
 }
 
 void SlideData::append(QVariantMap properties){

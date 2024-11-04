@@ -17,6 +17,7 @@ public:
     void setName(QString name);
     QString name() const;
 
+    void createImage();
     void setImage(QImage image);
     QImage image() const;
 

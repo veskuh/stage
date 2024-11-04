@@ -102,6 +102,10 @@ SlideData DeclarativeSlideModel::getSlide(int index) {
 void DeclarativeSlideModel::setSlide(int index, SlideData slide) {
     if (m_slides.length() > index && index >= 0) {
         m_slides.replace(index, slide);
+        QList<int> rolesList;
+        rolesList.append(0);
+        rolesList.append(1);
+        emit dataChanged(this->index(index,0), this->index(index,0),rolesList);
     }
 }
 

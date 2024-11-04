@@ -137,10 +137,14 @@ QObject* DeclarativeDocument::contentObject(QString type) {
 }
 
 void DeclarativeDocument::showSlide(SlideData& slide) {
+    QObject* content = contentObject("contentRectangle");
+    QMetaObject::invokeMethod(
+        content, "clear");
+
     QList<QVariantMap> list = slide.list();
     while (!list.isEmpty()) {
         QMetaObject::invokeMethod(
-            contentObject("contentRectangle"), "addObject", Q_ARG(QVariant, QVariant::fromValue(list.takeFirst())));
+            content, "addObject", Q_ARG(QVariant, QVariant::fromValue(list.takeFirst())));
     }
 }
 
