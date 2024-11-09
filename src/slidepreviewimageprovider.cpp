@@ -22,9 +22,6 @@ DeclarativeSlideModel* SlidePreviewImageProvider::m_slideModel = nullptr;
 void SlidePreviewImageProvider::setSlideModel(DeclarativeSlideModel *model)
 {
     if (model != m_slideModel) {
-        if (m_slideModel) {
-            delete m_slideModel;
-        }
         m_slideModel = model;
     }
 }

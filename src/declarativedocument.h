@@ -45,6 +45,7 @@ public:
     Q_INVOKABLE void save(QUrl url);
     Q_INVOKABLE void exportSvg(QUrl url);
     Q_INVOKABLE void load(QUrl url);
+    Q_INVOKABLE void newDocument();
 
     Q_INVOKABLE DeclarativeSlideModel* slideModel() const;
     Q_INVOKABLE void setSlideModel(DeclarativeSlideModel* model);

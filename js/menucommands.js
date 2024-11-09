@@ -30,6 +30,7 @@ function close() {
     content.clear()
     content.scale = 1.0
     mainWindow.filepath = ""
+    document.newDocument()
 }
 
 function save() {

@@ -34,20 +34,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 DeclarativeDocument::DeclarativeDocument(QObject *parent)
     : QObject(parent)
 {
+    // We load supported objects & properties from json in the beginning
     QFile file(":/assets/types.json");
     if (!file.open(QIODevice::ReadOnly)) {
         qWarning("failed to create file for reading");
         return;
     }
-
     QJsonDocument document = QJsonDocument::fromJson(file.readAll());
     types = document.array();
 
+    // And set up with a new document
+    newDocument();
+}
+
+
+void DeclarativeDocument::newDocument() {
+    if (m_slideModel) {
+        delete m_slideModel;
+    }
     m_slideModel = new DeclarativeSlideModel();
-    // Always should have at least one slide
-    QImage img;
-    m_slideModel->addSlide("start slide", img);
+
+    // Add empty first slide
+    SlideData slide;
+    slide.setList(new QList<QVariantMap>());
+    m_slideModel->append(slide);
     SlidePreviewImageProvider::setSlideModel(m_slideModel);
+
+    emit slideModelChanged();
 }
 
 void DeclarativeDocument::save(QUrl url)
@@ -61,6 +74,10 @@ QList<QVariantMap>* DeclarativeDocument::contentObjects(QObject* content) {
     QList<QVariantMap>* list = new QList<QVariantMap>();
 
     if (content) {
+        // We go through all child objects under content
+        // check if they are of supported type - e.g StageRect
+        // and then store its properties and the type name in QVariantMap
+        // and append all the QVariantMaps of all supprted objects to QList to be returned
         for (QObject *object : content->children()) {
             QString className = object->metaObject()->className();
             for (QJsonValue type : types) {
