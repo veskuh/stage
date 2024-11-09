@@ -27,15 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QPainter>
 #include <QImage>
 #include "slidedata.h"
-#include "objectrenderer.h"
 #include "slidepreviewimageprovider.h"
 
 DocumentFile::DocumentFile() {}
-
-void DocumentFile::addObject(const QVariantMap &properties)
-{
-    jsonArray.append(QJsonObject::fromVariantMap(properties));
-}
 
 void DocumentFile::save(QUrl url, DeclarativeSlideModel* slideModel)
 {

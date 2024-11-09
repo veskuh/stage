@@ -42,13 +42,46 @@ class DeclarativeDocument : public QObject
 public:
     explicit DeclarativeDocument(QObject *parent = 0);
 
+    /**
+     * @brief save Save current document to a file
+     * @param url
+     */
     Q_INVOKABLE void save(QUrl url);
+
+    /**
+     * @brief exportSvg Save current slide to svg documetn
+     * @param url
+     */
     Q_INVOKABLE void exportSvg(QUrl url);
+
+    /**
+     * @brief load a file as current document
+     * @param url
+     */
     Q_INVOKABLE void load(QUrl url);
+
+    /**
+     * @brief newDocument create a new document with one empty slide
+     */
     Q_INVOKABLE void newDocument();
 
+    /**
+     * @brief slideModel of current docuemtn
+     * @return
+     */
     Q_INVOKABLE DeclarativeSlideModel* slideModel() const;
+
+    /**
+     * @brief setSlideModel for current documetn
+     * @param model
+     */
     Q_INVOKABLE void setSlideModel(DeclarativeSlideModel* model);
+
+    /**
+     * @brief showSlide from current documetn
+     * @param index
+     * @param updateCurrent save state (edits) of current slide before changeing
+     */
     Q_INVOKABLE void showSlide(int index, bool updateCurrent = true);
 
 signals:
@@ -60,9 +93,30 @@ private:
     QJsonArray types;
     DeclarativeSlideModel* m_slideModel;
 
+    /**
+     * @brief showSlide
+     * @param slide
+     */
     void showSlide(SlideData& slide);
+
+    /**
+     * @brief updateSlideContent save state (edits) of current slide and update preview
+     * @param index
+     */
     void updateSlideContent(int index);
+
+    /**
+     * @brief contentObject finds QML object that contains user content
+     * @param type
+     * @return
+     */
     QObject* contentObject(QString type);
+
+    /**
+     * @brief contentObjects returns current slide's content from the view
+     * @param content
+     * @return
+     */
     QList<QVariantMap>* contentObjects(QObject* content);
 
     int currentSlide = 0;

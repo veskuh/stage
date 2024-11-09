@@ -4,6 +4,10 @@
 #include <QPainter>
 #include <QVariantMap>
 
+
+/**
+ * @brief The ObjectRenderer class renders user objects using QPainter
+ */
 class ObjectRenderer
 {
 public:

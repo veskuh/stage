@@ -175,7 +175,7 @@ void DeclarativeDocument::setSlideModel(DeclarativeSlideModel* model) {
     m_slideModel = model;
     SlidePreviewImageProvider::setSlideModel(m_slideModel);
     emit slideModelChanged();
-    // delete tmp; For some reason setSlideModel gets called again if I delete the old one, TOOD figure out why, QML has ownership maybe?
+    delete tmp; // For some reason setSlideModel gets called again if I delete the old one, TOOD figure out why, QML has ownership maybe?
 }
 
 

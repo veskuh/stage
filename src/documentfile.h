@@ -24,20 +24,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QString>
 #include <QUrl>
 #include <QVariantMap>
-#include "slidedata.h"
 #include "declarativeslidemodel.h"
 
+/**
+ * @brief The DocumentFile class handles loading and saving the model that contains the slideset
+ */
 class DocumentFile
 {
 public:
     DocumentFile();
-    void addObject(const QVariantMap &properties);
-    void save(QUrl url, DeclarativeSlideModel* slideModel);
 
+    void save(QUrl url, DeclarativeSlideModel* slideModel);
     static DeclarativeSlideModel* load(QUrl url);
 
-private:
-    QJsonArray jsonArray;
 };
 
 #endif // DOCUMENTFILE_H

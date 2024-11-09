@@ -6,6 +6,9 @@
 #include <QVariantMap>
 #include <QImage>
 
+/**
+ * @brief The SlideData class contains single slide's data (a list of objects) and preview image
+ */
 class SlideData
 {
 public:
