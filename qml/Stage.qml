@@ -72,7 +72,7 @@ ApplicationWindow {
     MacMenu {}
     QmlMenu {
         id: qmlMenu
-        visible: Qt.platform.os !== "osx"
+        visible: Qt.platform.os !== "osx" && mainWindow.visibility !== Window.FullScreen
     }
 
     header: ToolBar {
@@ -194,6 +194,16 @@ ApplicationWindow {
                 property bool drawingItem
                 property bool fitToWindow: true
                 property real userScale: 1.0
+
+                Shortcut {
+                    sequences: [StandardKey.Cancel]
+                    onActivated: {
+                        if (mainWindow.visibility == Window.FullScreen) {
+                            mainWindow.showNormal()
+                        }
+                        mainWindow.presentInWindow = false
+                    }
+                }
 
                 function scaleToFit() {
                     var panelWidth = content.enabled ? 300 : 0

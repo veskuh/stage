@@ -176,6 +176,11 @@ MenuBar {
         }
 
         Action {
+            text: "Present Fullscreen"
+            onTriggered: mainWindow.showFullScreen()
+        }
+
+        Action {
             text: "Present In Window"
             onTriggered: MenuCommands.togglePresent()
             checkable: true
