@@ -174,6 +174,12 @@ MenuBar {
             text: "Actual size"
             onTriggered: MenuCommands.actualSize()
         }
+
+        Action {
+            text: "Present In Window"
+            onTriggered: MenuCommands.togglePresent()
+            checkable: true
+        }
     }
 
     Menu {
