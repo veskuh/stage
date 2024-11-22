@@ -6,7 +6,7 @@
 
 
 /**
- * @brief The ObjectRenderer class renders user objects using QPainter
+ * @brief The ObjectRenderer class renders user objects using QPainter. Backend can be export like SVG or QImage like with slide preview.
  */
 class ObjectRenderer
 {

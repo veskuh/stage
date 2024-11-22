@@ -56,7 +56,7 @@ void DeclarativeDocument::newDocument() {
 
     // Add empty first slide
     SlideData slide;
-    slide.setList(new QList<QVariantMap>());
+    slide.setList(new StageObjectList());
     m_slideModel->append(slide);
     SlidePreviewImageProvider::setSlideModel(m_slideModel);
 
@@ -70,8 +70,8 @@ void DeclarativeDocument::save(QUrl url)
     file.save(url, m_slideModel);
 }
 
-QList<QVariantMap>* DeclarativeDocument::contentObjects(QObject* content) {
-    QList<QVariantMap>* list = new QList<QVariantMap>();
+StageObjectList* DeclarativeDocument::contentObjects(QObject* content) {
+    StageObjectList* list = new StageObjectList();
 
     if (content) {
         // We go through all child objects under content
@@ -122,7 +122,7 @@ void DeclarativeDocument::exportSvg(QUrl url)
 {
     SvgExport file(url.toLocalFile());
     QObject *content = contentObject("m_painter->");
-    QList<QVariantMap>* objectList = contentObjects(content);
+    StageObjectList* objectList = contentObjects(content);
     for (QVariantMap properties : *objectList) {
         file.addObject(properties);
     }
@@ -158,7 +158,7 @@ void DeclarativeDocument::showSlide(SlideData& slide) {
     QMetaObject::invokeMethod(
         content, "clear");
 
-    QList<QVariantMap> list = slide.list();
+    StageObjectList list = slide.list();
     while (!list.isEmpty()) {
         QMetaObject::invokeMethod(
             content, "addObject", Q_ARG(QVariant, QVariant::fromValue(list.takeFirst())));

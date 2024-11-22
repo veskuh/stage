@@ -28,7 +28,7 @@ function open() {
 
 function close() {
     content.clear()
-    content.scale = 1.0
+    content.fitToWindow = true
     mainWindow.filepath = ""
     document.newDocument()
 }

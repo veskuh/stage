@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "declarativeslidemodel.h"
 
+typedef QList<QVariantMap> StageObjectList;
+
 
 class DeclarativeDocument : public QObject
 {
@@ -117,7 +119,7 @@ private:
      * @param content
      * @return
      */
-    QList<QVariantMap>* contentObjects(QObject* content);
+    StageObjectList* contentObjects(QObject* content);
 
     int currentSlide = 0;
 };
