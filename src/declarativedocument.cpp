@@ -63,6 +63,13 @@ void DeclarativeDocument::newDocument() {
     emit slideModelChanged();
 }
 
+void::DeclarativeDocument::addSlide(int index) {
+    SlideData slide;
+    slide.setList(new StageObjectList());
+    m_slideModel->append(slide);
+    emit slideModelChanged();
+}
+
 void DeclarativeDocument::save(QUrl url)
 {
     DocumentFile file;

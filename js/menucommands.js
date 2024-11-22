@@ -63,6 +63,10 @@ function paste() {
     }
 }
 
+function addSlide() {
+    document.addSlide()
+}
+
 
 function exportSvg() {
     openDialog.fileMode = FileDialog.SaveFile

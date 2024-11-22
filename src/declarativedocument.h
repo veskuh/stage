@@ -67,6 +67,13 @@ public:
      */
     Q_INVOKABLE void newDocument();
 
+
+    /**
+     * @brief addSlide new slide
+     * @param index for the new slide, default to the end
+     */
+    Q_INVOKABLE void addSlide(int index=-1);
+
     /**
      * @brief slideModel of current docuemtn
      * @return
