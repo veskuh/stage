@@ -161,7 +161,7 @@ ApplicationWindow {
                 checked: !propertyButton.checked
                 onClicked: {
                     propertyButton.checked = false
-                    loader.setSource("./inspectors/SlidesInspector.qml")
+                    inspectorStack.showSlideList = true
                 }
             }
             StageToolButton {
@@ -171,6 +171,7 @@ ApplicationWindow {
                 checked: true
                 onClicked: {
                     propertyButton.checked = true
+                    inspectorStack.showSlideList = false
                 }
             }
         }
@@ -401,31 +402,45 @@ ApplicationWindow {
             height: mainWindow.height
 
             SplitView.preferredWidth: content.enabled? 250 : 0
-            ScrollView {
-                id: inspectorScrollView
+
+            StackLayout {
+                id: inspectorStack
+                property bool showSlideList: false
+                currentIndex: showSlideList ? 1 : 0
                 anchors.fill: parent
 
-                Loader {
-                    id: loader
-                    anchors.fill: parent
-                    property string sourceUrl: mainWindow.inspectorSource? "./inspectors/" + mainWindow.inspectorSource : ""
-                    property Item currentTarget: mainWindow.target
+                ScrollView {
+                    id: inspectorScrollView
 
-                    onStatusChanged: {
-                        if (loader.status == Loader.Error ) {
-                            console.log("Error in loading" + source)
+                    Loader {
+                        id: loader
+                        width: parent.width
+                        height: parent.height
+                        property string sourceUrl: mainWindow.inspectorSource? "./inspectors/" + mainWindow.inspectorSource : ""
+                        property Item currentTarget: mainWindow.target
+
+                        onStatusChanged: {
+                            if (loader.status == Loader.Error ) {
+                                console.log("Error in loading" + source)
+                            }
+                        }
+
+                        onSourceUrlChanged: {
+                            inspectorScrollView.ScrollBar.vertical.position = 0
+                            setSource(sourceUrl, { "target": currentTarget })
+                        }
+
+                        onCurrentTargetChanged: {
+                            setSource(sourceUrl, { "target": currentTarget })
                         }
                     }
-
-                    onSourceUrlChanged: {
-                        inspectorScrollView.ScrollBar.vertical.position = 0
-                        setSource(sourceUrl, { "target": currentTarget })
-                    }
-
-                    onCurrentTargetChanged: {
-                        setSource(sourceUrl, { "target": currentTarget })
-                    }
                 }
+
+                SlidesInspector {
+                    id: slidesInspector
+                }
+
+
             }
         }
     }
