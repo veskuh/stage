@@ -33,20 +33,13 @@ Item {
     }
 
     Rectangle {
-
         Image {
             id:image
             width: base.width
             height: base.height
             source: "image://slideProvider/" + imageId
             fillMode: Image.PreserveAspectFit
-        } /*
-        Label {
-            id: image
-            text: source
-            property string source: ""
-        }*/
-
+        }
 
         x: theme.largePadding + theme.mediumPadding
         width: parent.width - x
@@ -55,7 +48,6 @@ Item {
         antialiasing: true
         border.width: base.selected ? 3 : 0
         border.color: "grey"
-
     }
 
     MouseArea {

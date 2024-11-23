@@ -55,9 +55,7 @@ void DeclarativeDocument::newDocument() {
     m_slideModel = new DeclarativeSlideModel();
 
     // Add empty first slide
-    SlideData slide;
-    slide.setList(new StageObjectList());
-    m_slideModel->append(slide);
+    addSlide();
     SlidePreviewImageProvider::setSlideModel(m_slideModel);
 
     emit slideModelChanged();
@@ -138,6 +136,8 @@ void DeclarativeDocument::exportSvg(QUrl url)
 }
 
 void DeclarativeDocument::showSlide(int index, bool updateCurrent) {
+    if (index == currentSlide)
+        return;
     SlideData slide = m_slideModel->getSlide(index);
     if (updateCurrent) {
         updateSlideContent(currentSlide);
