@@ -174,6 +174,7 @@ void DeclarativeDocument::showSlide(SlideData& slide) {
 
 void DeclarativeDocument::load(QUrl url) {
     setSlideModel(DocumentFile::load(url));
+    currentSlide = -1; // Otherwise showSlide will skip showing first slide
     showSlide(0, false);
 }
 
