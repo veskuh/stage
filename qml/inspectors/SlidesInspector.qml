@@ -17,26 +17,27 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#ifndef DOCUMENTFILE_H
-#define DOCUMENTFILE_H
-#include <QJsonArray>
-#include <QJsonObject>
-#include <QString>
-#include <QUrl>
-#include <QVariantMap>
-#include "declarativeslidemodel.h"
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Dialogs
+import "../"
 
-/**
- * @brief The DocumentFile class handles loading and saving the model that contains the slideset
- */
-class DocumentFile
-{
-public:
-    DocumentFile();
+Rectangle {
+    id: inspector
+    width: 300
+    color: palette.window
+    property Item target: mainWindow.target
 
-    void save(QUrl url, DeclarativeSlideModel* slideModel);
-    static DeclarativeSlideModel* load(QUrl url);
+    ListView {
+        id: list
+        width: parent.width
+        height: parent.height - 100
+        model: document.slideModel
 
-};
-
-#endif // DOCUMENTFILE_H
+        delegate: SlidePreview {
+            width: list.width
+            source: "image://slideProvider/" + imageId
+            slideTitle: (index+1) + "."
+        }
+    }
+}

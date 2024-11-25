@@ -1,5 +1,5 @@
-QT += core svg widgets gui
-CONFIG += console c++17 testcase
+QT += core svg widgets gui quick
+CONFIG += console c++17 testcase sdk_no_version_check
 TARGET = AutoTests
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 14.0
 
@@ -9,10 +9,21 @@ RESOURCES += \
 SOURCES += test_main.cpp \
            filehandling_tests.cpp \
            ../../src/documentfile.cpp \
-           ../../src/svgexport.cpp
+           ../../src/svgexport.cpp \
+           ../../src/objectrenderer.cpp \
+           ../../src/slidepreviewimageprovider.cpp \
+           ../../src/slidedata.cpp \
+           ../../src/declarativeslidemodel.cpp
+
+
 
 HEADERS += ../../src/documentfile.h \
-           ../../src/svgexport.h
+           ../../src/svgexport.h \
+           ../../src/objectrenderer.h \
+           ../../src/slidepreviewimageprovider.h \
+           ../../src/slidedata.h \
+           ../../src/declarativeslidemodel.h
+
 
 contains(CONFIG, coverage) {
     message("Building with coverage support")

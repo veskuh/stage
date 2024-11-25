@@ -19,10 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "declarativedocument.h"
 #include "declarativeclipboard.h"
+#include "declarativeslidemodel.h"
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
 #include "macsymbolimageprovider.h"
+#include "QQmlContext"
+#include "slidepreviewimageprovider.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -34,7 +38,9 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     qmlRegisterType<DeclarativeDocument>("com.mac.vesku.stage", 1, 0, "Document");
     qmlRegisterType<DeclarativeClipboard>("com.mac.vesku.stage", 1, 0, "Clipboard");
+    qmlRegisterType<DeclarativeSlideModel>("com.mac.vesku.stage", 1, 0, "SlideModel");
 
+    engine.addImageProvider("slideProvider", new SlidePreviewImageProvider());
 
 #ifdef Q_OS_MACOS
     engine.addImageProvider("macSymbol", new MacSymbolImageProvider());

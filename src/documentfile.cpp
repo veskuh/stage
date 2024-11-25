@@ -24,41 +24,70 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
+#include <QPainter>
+#include <QImage>
+#include "slidedata.h"
+#include "slidepreviewimageprovider.h"
 
 DocumentFile::DocumentFile() {}
 
-void DocumentFile::addObject(const QVariantMap &properties)
-{
-    jsonArray.append(QJsonObject::fromVariantMap(properties));
-}
-
-void DocumentFile::save(QUrl url)
+void DocumentFile::save(QUrl url, DeclarativeSlideModel* slideModel)
 {
     QFile file(url.toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
         qWarning("failed to create file for writing");
         return;
     }
-    QJsonDocument document(jsonArray);
-    file.write(document.toJson());
 
-    //tbd Check if I need to clear the JsonArray
+    QJsonArray slides;
+
+    int slideCount = slideModel->rowCount();
+    for (int i = 0; i < slideCount; i++ ) {
+        SlideData slide = slideModel->getSlide(i);
+        QJsonArray slideJson;
+        QList<QVariantMap> objectList  = slide.list();
+        for (QVariantMap slideObject : objectList) {
+            slideJson.append(QJsonObject::fromVariantMap(slideObject));
+        }
+        slides.append(slideJson);
+    }
+
+    QJsonDocument document(slides);
+    file.write(document.toJson());
 }
 
-QList<QVariantMap> DocumentFile::load(QUrl url)
+DeclarativeSlideModel* DocumentFile::load(QUrl url)
 {
-    QList<QVariantMap> list;
+    DeclarativeSlideModel* model = new DeclarativeSlideModel();
+    SlidePreviewImageProvider::setSlideModel(model);
+
+
     QFile file(url.toLocalFile());
     if (!file.open(QIODevice::ReadOnly)) {
         qWarning("failed to create file for reading");
-        return list;
+        return model;
     }
-    QJsonDocument document = QJsonDocument::fromJson(file.readAll());
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(file.readAll());
 
-    for (QJsonValue value : document.array()) {
-        if (value.isObject()) {
-            list.append(value.toObject().toVariantMap());
-        }
+    if (!jsonDoc.isArray()) {
+        qWarning("Not a propertly formatted doc");
+        return model;
     }
-    return list;
+    QJsonArray slideArray = jsonDoc.array();
+
+    for (QJsonValue slideObjects : slideArray) {
+
+        SlideData slide;
+        // For individual slide
+        for (QJsonValue value : slideObjects.toArray()) {
+            // Add all objects to canvas an
+            if (value.isObject()) {
+                QVariantMap object = value.toObject().toVariantMap();
+                slide.append(object);
+            }
+        }
+        slide.createImage();
+        model->append(slide);
+    }
+    return model;
 }

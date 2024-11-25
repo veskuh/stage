@@ -148,6 +148,34 @@ ApplicationWindow {
             }
 
         }
+
+        RowLayout {
+            id: row
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: 125 - (row.width / 2)
+
+            StageToolButton {
+                text: "Slides"
+                icon.source: theme.slidesIcon
+                checked: !propertyButton.checked
+                onClicked: {
+                    propertyButton.checked = false
+                    inspectorStack.showSlideList = true
+                }
+            }
+            StageToolButton {
+                id: propertyButton
+                text: "Item"
+                icon.source: theme.inspectorIcon
+                checked: true
+                onClicked: {
+                    propertyButton.checked = true
+                    inspectorStack.showSlideList = false
+                }
+            }
+        }
+
     }
 
     footer: ToolBar {
@@ -384,31 +412,45 @@ ApplicationWindow {
             height: mainWindow.height
 
             SplitView.preferredWidth: content.enabled? 250 : 0
-            ScrollView {
-                id: inspectorScrollView
+
+            StackLayout {
+                id: inspectorStack
+                property bool showSlideList: false
+                currentIndex: showSlideList ? 1 : 0
                 anchors.fill: parent
 
-                Loader {
-                    id: loader
-                    anchors.fill: parent
-                    property string sourceUrl: mainWindow.inspectorSource? "./inspectors/" + mainWindow.inspectorSource : ""
-                    property Item currentTarget: mainWindow.target
+                ScrollView {
+                    id: inspectorScrollView
 
-                    onStatusChanged: {
-                        if (loader.status == Loader.Error ) {
-                            console.log("Error in loading" + source)
+                    Loader {
+                        id: loader
+                        width: parent.width
+                        height: parent.height
+                        property string sourceUrl: mainWindow.inspectorSource? "./inspectors/" + mainWindow.inspectorSource : ""
+                        property Item currentTarget: mainWindow.target
+
+                        onStatusChanged: {
+                            if (loader.status == Loader.Error ) {
+                                console.log("Error in loading" + source)
+                            }
+                        }
+
+                        onSourceUrlChanged: {
+                            inspectorScrollView.ScrollBar.vertical.position = 0
+                            setSource(sourceUrl, { "target": currentTarget })
+                        }
+
+                        onCurrentTargetChanged: {
+                            setSource(sourceUrl, { "target": currentTarget })
                         }
                     }
-
-                    onSourceUrlChanged: {
-                        inspectorScrollView.ScrollBar.vertical.position = 0
-                        setSource(sourceUrl, { "target": currentTarget })
-                    }
-
-                    onCurrentTargetChanged: {
-                        setSource(sourceUrl, { "target": currentTarget })
-                    }
                 }
+
+                SlidesInspector {
+                    id: slidesInspector
+                }
+
+
             }
         }
     }

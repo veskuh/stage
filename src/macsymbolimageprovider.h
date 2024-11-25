@@ -4,7 +4,9 @@
 #include <QString>
 #include <QImage>
 
-
+/**
+ * @brief The MacSymbolImageProvider class provides icons for tools when run on Mac
+ */
 class MacSymbolImageProvider: public QQuickImageProvider
 {
 public:

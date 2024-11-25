@@ -28,8 +28,9 @@ function open() {
 
 function close() {
     content.clear()
-    content.scale = 1.0
+    content.fitToWindow = true
     mainWindow.filepath = ""
+    document.newDocument()
 }
 
 function save() {
@@ -60,6 +61,10 @@ function paste() {
     } else {
         content.paste()
     }
+}
+
+function addSlide() {
+    document.addSlide()
 }
 
 

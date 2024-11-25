@@ -131,6 +131,14 @@ Labs.MenuBar {
     }
 
     Labs.Menu {
+        title: "Slide"
+        Labs.MenuItem {
+            text: "Add slide"
+            onTriggered: MenuCommands.addSlide()
+        }
+    }
+
+    Labs.Menu {
         title: "Arrange"
         Labs.MenuItem {
             text: "Hide"
