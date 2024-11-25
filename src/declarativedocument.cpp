@@ -147,6 +147,19 @@ void DeclarativeDocument::showSlide(int index, bool updateCurrent) {
     currentSlide = index;
 }
 
+void DeclarativeDocument:: nextSlide() {
+    if (currentSlide < (m_slideModel->rowCount()-1)) {
+        showSlide(currentSlide+1);
+    }
+}
+
+void DeclarativeDocument::previousSlide() {
+    if (currentSlide > 0) {
+        showSlide(currentSlide-1);
+    }
+}
+
+
 QObject* DeclarativeDocument::contentObject(QString type) {
     // Find ApplicationWindow
     QObject *obj = parent();

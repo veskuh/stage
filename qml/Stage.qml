@@ -233,6 +233,20 @@ ApplicationWindow {
                     }
                 }
 
+                Shortcut {
+                    sequences: [StandardKey.MoveToNextPage]
+                    onActivated: {
+                        document.nextSlide()
+                    }
+                }
+
+                Shortcut {
+                    sequences: [StandardKey.MoveToPreviousPage]
+                    onActivated: {
+                        document.previousSlide()
+                    }
+                }
+
                 function scaleToFit() {
                     var panelWidth = content.enabled ? 300 : 0
                     var verticalPadding = content.enabled ? 50 : 0

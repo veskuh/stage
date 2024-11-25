@@ -92,6 +92,9 @@ public:
      * @param updateCurrent save state (edits) of current slide before changeing
      */
     Q_INVOKABLE void showSlide(int index, bool updateCurrent = true);
+    Q_INVOKABLE void nextSlide();
+    Q_INVOKABLE void previousSlide();
+
 
 signals:
     void slideModelChanged();
