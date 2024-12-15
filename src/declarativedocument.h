@@ -25,7 +25,7 @@ class DeclarativeDocument : public QObject
      */
     // Q_PROPERTY(QString clipboardText READ clipboardText WRITE setClipboardText NOTIFY clipboardTextChanged)
     Q_PROPERTY(DeclarativeSlideModel* slideModel READ slideModel WRITE setSlideModel NOTIFY slideModelChanged)
-
+    Q_PROPERTY(int currentSlideIndex READ currentSlideIndex NOTIFY currentSlideIndexChanged)
 public:
     explicit DeclarativeDocument(QObject *parent = 0);
 
@@ -79,10 +79,12 @@ public:
     Q_INVOKABLE void showSlide(int index, bool updateCurrent = true);
     Q_INVOKABLE void nextSlide();
     Q_INVOKABLE void previousSlide();
+    Q_INVOKABLE int currentSlideIndex();
 
 
 signals:
     void slideModelChanged();
+    void currentSlideIndexChanged();
 
 public slots:
 

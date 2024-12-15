@@ -130,6 +130,7 @@ void DeclarativeDocument::showSlide(int index, bool updateCurrent) {
     }
     showSlide(slide);
     currentSlide = index;
+    emit currentSlideIndexChanged();
 }
 
 void DeclarativeDocument:: nextSlide() {
@@ -142,6 +143,11 @@ void DeclarativeDocument::previousSlide() {
     if (currentSlide > 0) {
         showSlide(currentSlide-1);
     }
+}
+
+int DeclarativeDocument::currentSlideIndex()
+{
+    return currentSlide;
 }
 
 
