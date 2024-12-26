@@ -48,13 +48,27 @@ void ObjectRenderer::renderObject(QVariantMap& properties)
         m_painter->setPen(pen);
         m_painter->drawText(bounds, text);
     } else if (type == "StageImage") {
-        QString path = properties.value("url").toUrl().toLocalFile();
-        QImage img(path);
+        if(properties.value("url").toString().startsWith("data:image/png;base64,")) {
+            // URL contains base64 encoded image
+            QByteArray data = QByteArray::fromBase64(properties.value("url").toString().mid(22).toLatin1());
+            QImage img;
+            img.loadFromData(data);
+            if (img.isNull()) {
+                qWarning() << "Can't load: base64 data in url is malformed";
+            } else {
+                m_painter->drawImage(bounds, img);
+            }
 
-        if (img.isNull()) {
-            qWarning() << "Can't load: " << path;
         } else {
-            m_painter->drawImage(bounds, img);
+            // URL is a file referehce
+            QString path = properties.value("url").toUrl().toLocalFile();
+            QImage img(path);
+
+            if (img.isNull()) {
+                qWarning() << "Can't load: " << path;
+            } else {
+                m_painter->drawImage(bounds, img);
+            }
         }
     } else if (type== "StageLine") {
         QPen pen = m_painter->pen();
