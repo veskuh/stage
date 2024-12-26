@@ -10,8 +10,8 @@ StageBase {
     property alias dialog: fileDialog
     property alias url: image.source
     type: "StageImage"
-    width: image.width
-    height: image.height
+    width: image.status==Image.Ready? image.width : 32
+    height: image.status==Image.Ready? image.height : 32
     inspectorSource: "ImageInspector.qml"
 
     FileDialog {
@@ -27,7 +27,9 @@ StageBase {
 
     Image {
         id: image
-        scale: Math.min(parent.width / paintedWidth, parent.height / paintedHeight)
+        asynchronous: false
+        scale: image.status==Image.Ready?
+                   Math.min(parent.width / paintedWidth, parent.height / paintedHeight) : 1.0
         transformOrigin: "TopLeft"
     }
 

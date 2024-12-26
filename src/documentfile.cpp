@@ -11,8 +11,12 @@
 #include <QJsonValue>
 #include <QPainter>
 #include <QImage>
+#include <QImage>
+#include <QByteArray>
+#include <QBuffer>
 #include "slidedata.h"
 #include "slidepreviewimageprovider.h"
+
 
 DocumentFile::DocumentFile() {}
 
@@ -32,6 +36,20 @@ void DocumentFile::save(QUrl url, DeclarativeSlideModel* slideModel)
         QJsonArray slideJson;
         QList<QVariantMap> objectList  = slide.list();
         for (QVariantMap slideObject : objectList) {
+            // For StageImage we will not store the URL
+            // we will just save the data as base64 encoded in field imgData
+            if (slideObject["type"]=="StageImage") {
+                qDebug() << "Saving stageimage";
+                QString urlString = slideObject["url"].toString();
+                // We'll store base64 string in the url if not yet done
+                if (!urlString.startsWith("data:image/png;base64,")) {
+                    QImage img(slideObject["url"].toUrl().toLocalFile());
+                    QBuffer buffer;
+                    buffer.open(QIODevice::WriteOnly);
+                    img.save(&buffer, "PNG");
+                    slideObject["url"] = "data:image/png;base64," + buffer.data().toBase64();
+                }
+            }
             slideJson.append(QJsonObject::fromVariantMap(slideObject));
         }
         slides.append(slideJson);
