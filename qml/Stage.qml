@@ -219,14 +219,14 @@ ApplicationWindow {
                 }
 
                 Shortcut {
-                    sequences: [StandardKey.MoveToNextPage]
+                    sequences: [StandardKey.MoveToNextPage, "Down"]
                     onActivated: {
                         document.nextSlide()
                     }
                 }
 
                 Shortcut {
-                    sequences: [StandardKey.MoveToPreviousPage]
+                    sequences: [StandardKey.MoveToPreviousPage,"Up"]
                     onActivated: {
                         document.previousSlide()
                     }
