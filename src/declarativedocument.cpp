@@ -150,6 +150,11 @@ int DeclarativeDocument::currentSlideIndex()
     return currentSlide;
 }
 
+void DeclarativeDocument::updateCurrentSlide()
+{
+    updateSlideContent(currentSlideIndex());
+}
+
 
 QObject* DeclarativeDocument::contentObject(QString type) {
     // Find ApplicationWindow

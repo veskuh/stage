@@ -81,6 +81,11 @@ public:
     Q_INVOKABLE void previousSlide();
     Q_INVOKABLE int currentSlideIndex();
 
+    /**
+     * @brief updateCurrentSlide data (for preview)
+     */
+    Q_INVOKABLE void updateCurrentSlide();
+
 
 signals:
     void slideModelChanged();

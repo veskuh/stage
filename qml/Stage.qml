@@ -373,11 +373,13 @@ ApplicationWindow {
                                         content.select(selectionArea)
                                         selectionArea.width = 2
                                         selectionArea.height = 2
+                                        return
                                     } else if (content.drawingItem) {
                                         factory = null
                                         mainWindow.state = "Select"
                                         target = null
                                     }
+                                    document.updateCurrentSlide()
                                 }
 
                     onPositionChanged: (mouse) => {

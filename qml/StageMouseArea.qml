@@ -67,6 +67,7 @@ MouseArea {
                     parent.y = anchor.location - parent.height/2
                 }
             }
+            document.updateCurrentSlide()
             mainWindow.draggedObject = null
             parent.anchorLinesEnabled = true
         }

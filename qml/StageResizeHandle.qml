@@ -47,6 +47,12 @@ Item {
                 handle.parent.height = y + handle.height/2
             }
         }
+
+        onDraggingChanged: {
+            if (!dragging) {
+                document.updateCurrentSlide()
+            }
+        }
     }
     z: parent.z + 1
 }
