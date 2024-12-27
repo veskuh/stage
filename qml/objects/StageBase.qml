@@ -21,6 +21,18 @@ Item {
 
     property alias baseDragAreaEnabled : dragArea.enabled
 
+    Menu {
+        id: contextMenu
+        MenuItem {
+            text: "Delete"
+            onTriggered: base.destroy()
+        }
+        MenuItem {
+            text: "Duplicate"
+            onTriggered: base.duplicate()
+        }
+    }
+
     StageMouseArea {
         id: dragArea
         anchors.fill: parent

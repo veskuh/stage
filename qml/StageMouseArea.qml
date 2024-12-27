@@ -3,6 +3,7 @@
 // Copyright (C) Vesa-Matti Hartikainen <vesku.h@gmail.com>
 
 import QtQuick
+import QtQuick.Controls
 
 MouseArea {
     id: root
@@ -10,6 +11,7 @@ MouseArea {
     property string source: ""
     property bool dragging: drag.active
 
+    acceptedButtons: Qt.LeftButton | Qt.RightButton
     enabled: mainWindow.select
 
     onClicked: (mouse) => {
@@ -28,6 +30,8 @@ MouseArea {
                 mainWindow.inspectorSource = group.inspectorSource
             } // Just ignore if not different
 
+        } if (mouse.button == Qt.RightButton) {
+            contextMenu.popup()
         } else {
             mainWindow.target = target
             mainWindow.inspectorSource = source
