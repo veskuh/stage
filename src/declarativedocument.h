@@ -86,6 +86,17 @@ public:
      */
     Q_INVOKABLE void updateCurrentSlide();
 
+    /**
+     * @brief detelte slide
+     * @param index of slide to delete
+     */
+    Q_INVOKABLE void deleteSlide(int index);
+
+    /**
+     * @brief slideCount
+     * @return number of slides
+     */
+    Q_INVOKABLE int slideCount();
 
 signals:
     void slideModelChanged();

@@ -155,6 +155,25 @@ void DeclarativeDocument::updateCurrentSlide()
     updateSlideContent(currentSlideIndex());
 }
 
+void DeclarativeDocument::deleteSlide(int index)
+{
+    if (index >= 0 && index<slideCount()) {
+        if (index == currentSlide && slideCount() > 1) {
+            if (index == 0) {
+                nextSlide();
+            } else {
+                previousSlide();
+            }
+        }
+        m_slideModel->removeSlide(index);
+    }
+}
+
+int DeclarativeDocument::slideCount()
+{
+    return m_slideModel->rowCount();
+}
+
 
 QObject* DeclarativeDocument::contentObject(QString type) {
     // Find ApplicationWindow

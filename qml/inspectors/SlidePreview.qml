@@ -38,10 +38,25 @@ Item {
 
     MouseArea {
         anchors.fill: parent
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
         onEntered: opacity = 0.5
         onExited: opacity = 1.0
-        onClicked: {
-            document.showSlide(index)
+        onClicked: (mouse) => {
+            if (mouse.button == Qt.RightButton) {
+                contextMenu.popup()
+            } else {
+                document.showSlide(index)
+            }
+        }
+
+        Menu {
+            id: contextMenu
+
+            MenuItem {
+                enabled: base.model.count > 1
+                text: "Delete"
+                onTriggered: document.deleteSlide(index)
+            }
         }
     }
 }
