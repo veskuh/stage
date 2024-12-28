@@ -47,11 +47,40 @@ Rectangle {
                 opacity: ref && ref.visible? 1.0 : 0.5
 
                 MouseArea {
+                    acceptedButtons: Qt.RightButton | Qt.LeftButton
                     onClicked: {
-                        mainWindow.target = ref
-                        list.lastSelection = index
+                        if (mouse.button == Qt.RightButton) {
+                            contextMenu.popup()
+                        } else {
+                            mainWindow.target = ref
+                            list.lastSelection = index
+                        }
                     }
                     anchors.fill: parent
+                }
+
+                Menu {
+                    id: contextMenu
+                    MenuItem {
+                        text: "Hide"
+                        enabled: ref.visible
+                        onTriggered: ref.visible = false
+                    }
+                    MenuItem {
+                        text: "Unhide"
+                        enabled: !ref.visible
+                        onTriggered: ref.visible = true
+                    }
+                    MenuItem {
+                        text: "Lock"
+                        enabled: ref.enabled
+                        onTriggered: ref.enabled = false
+                    }
+                    MenuItem {
+                        text: "Unlock"
+                        enabled: !ref.enabled
+                        onTriggered: ref.enabled = true
+                    }
                 }
 
                 function lockedSymbol() {
