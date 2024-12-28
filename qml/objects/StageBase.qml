@@ -31,6 +31,22 @@ Item {
             text: "Duplicate"
             onTriggered: base.duplicate()
         }
+        MenuItem {
+            text: "Hide"
+            onTriggered: base.visible = false
+        }
+        MenuItem {
+            text: "Lock"
+            onTriggered: base.enabled = false
+        }
+        MenuItem {
+            text: "Bring forward"
+            onTriggered: base.z+=1
+        }
+        MenuItem {
+            text: "Send backward"
+            onTriggered: base.z-=1
+        }
     }
 
     StageMouseArea {
