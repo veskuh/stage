@@ -33,14 +33,6 @@ StageBase {
         member = []
     }
 
-    function duplicate() {
-        for(var member in members){
-            if (members[member]!=null) {
-               members[member].duplicate()
-            }
-        }
-    }
-
     function iterateMembers(callback) {
         for(var member in members){
             if (members[member]!=null) {
@@ -63,6 +55,10 @@ StageBase {
 
     function backward() {
         iterateMembers( member => member.backward() )
+    }
+
+    function duplicate() {
+        iterateMembers( member => member.duplicate() )
     }
 
     Component.onDestruction: {
