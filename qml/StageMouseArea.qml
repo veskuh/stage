@@ -31,7 +31,7 @@ MouseArea {
             } // Just ignore if not different
 
         } if (mouse.button == Qt.RightButton) {
-            contextMenu.popup()
+            activeObject().contextMenu.popup()
         } else {
             mainWindow.target = target
             mainWindow.inspectorSource = source
