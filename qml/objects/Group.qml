@@ -12,7 +12,7 @@ StageBase {
 
     type:"Group"
 
-    visible: false
+    visible: true
 
     property list<StageBase> members
     property bool activeSelection: mainWindow.target === root
@@ -39,6 +39,30 @@ StageBase {
                members[member].duplicate()
             }
         }
+    }
+
+    function iterateMembers(callback) {
+        for(var member in members){
+            if (members[member]!=null) {
+                callback(members[member])
+            }
+        }
+    }
+
+    onVisibleChanged: {
+        iterateMembers( member => member.visible = root.visible )
+    }
+
+    onEnabledChanged: {
+        iterateMembers( member => member.enabled = root.enabled )
+    }
+
+    function forward() {
+        iterateMembers( member => member.forward() )
+    }
+
+    function backward() {
+        iterateMembers( member => member.backward() )
     }
 
     Component.onDestruction: {

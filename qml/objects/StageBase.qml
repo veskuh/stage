@@ -23,29 +23,30 @@ Item {
 
     Menu {
         id: contextMenu
+
         MenuItem {
             text: "Delete"
-            onTriggered: base.destroy()
+            onTriggered: base.activeObject().destroy()
         }
         MenuItem {
             text: "Duplicate"
-            onTriggered: base.duplicate()
+            onTriggered: base.activeObject().duplicate()
         }
         MenuItem {
             text: "Hide"
-            onTriggered: base.visible = false
+            onTriggered: base.activeObject().visible = false
         }
         MenuItem {
             text: "Lock"
-            onTriggered: base.enabled = false
+            onTriggered: base.activeObject().enabled = false
         }
         MenuItem {
             text: "Bring forward"
-            onTriggered: base.z+=1
+            onTriggered: base.activeObject().forward()
         }
         MenuItem {
             text: "Send backward"
-            onTriggered: base.z-=1
+            onTriggered: base.activeObject().backward()
         }
     }
 
@@ -140,4 +141,21 @@ Item {
     function duplicate() {
         console.log("Warning: duplicate not implemented")
     }
+
+    /**
+      * @return group if base object is in group
+      */
+    function activeObject() {
+        return group? group : base
+    }
+
+    function forward() {
+        base.z = base.z + 1
+    }
+
+    function backward() {
+        base.z = base.z - 1
+    }
+
+
 }
