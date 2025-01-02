@@ -5,6 +5,8 @@
 #include "macsymbolimageprovider.h"
 #include <QImage>
 #include <QDebug>
+#include <QGuiApplication>
+#include <QStyleHints>
 #ifdef Q_OS_MACOS
 #import <Cocoa/Cocoa.h>
 #endif
@@ -79,7 +81,11 @@ QImage MacSymbolImageProvider::requestImage(const QString &name, QSize *size, co
                       bitmapRep.bytesPerRow,
                       QImage::Format_ARGB32_Premultiplied);
 
-        qImage.invertPixels();
+        auto style = QGuiApplication::styleHints();
+        if (style->colorScheme() == Qt::ColorScheme::Dark)
+        {
+            qImage.invertPixels();
+        }
         QImage copiedImage = qImage.copy(); // Ensure the image data is retained
 
         if (size) {
