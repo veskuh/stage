@@ -516,7 +516,14 @@ ApplicationWindow {
         }
 
         if (path!="") {
-            mainWindow.title = path + " - Stage"
+            var urlParts = path.split("/")
+            var filenameWithExtension = urlParts[urlParts.length - 1]
+            var filename = filenameWithExtension.substring(0, filenameWithExtension.lastIndexOf("."))
+
+            if (filename!=="")
+                mainWindow.title = filename + " - Stage"
+            else
+                mainWindow.title = "Stage"
         }
     }
 }
