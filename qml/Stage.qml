@@ -326,9 +326,12 @@ ApplicationWindow {
                 }
 
                 function paste() {
-                    var text = clipboard.clipboardText
-                    addObject({"type":"StageText","x":50,"y":50,"text":text})
-
+                    if (clipboard.hasImage()) {
+                        addObject({"type":"StageImage","x":50,"y":50,"url":clipboard.imageData()})
+                    } else {
+                        var text = clipboard.clipboardText
+                        addObject({"type":"StageText","x":50,"y":50,"text":text})
+                    }
                 }
 
                 onEnabledChanged: {

@@ -27,6 +27,19 @@ public:
      */
     Q_INVOKABLE void setClipboardText(const QString &text);
 
+    /**
+     * @brief imageData returns base64 encoded string to be used in QML Image url
+     * @return
+     */
+    Q_INVOKABLE QString imageData();
+
+    /**
+     * @brief hasImage true if clipboard has an image
+     * @return
+     */
+    Q_INVOKABLE bool hasImage();
+
+
 signals:
     void clipboardTextChanged();
 

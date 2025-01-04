@@ -111,7 +111,7 @@ Labs.MenuBar {
         }
         Labs.MenuItem {
             text: "Paste"
-            enabled: clipboard.clipboardText!=""
+            enabled: clipboard.clipboardText!="" || clipboard.hasImage()
             shortcut: StandardKey.Paste
             onTriggered: MenuCommands.paste()
         }
