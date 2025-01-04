@@ -39,10 +39,12 @@ ApplicationWindow {
     }
 
     Settings {
+        id: settings
         property alias x: mainWindow.x
         property alias y: mainWindow.y
         property alias width: mainWindow.width
         property alias height: mainWindow.height
+        property list<string> recents
     }
 
     Document {
@@ -54,7 +56,9 @@ ApplicationWindow {
     }
 
     menuBar: Qt.platform.os == "osx" ? null : qmlMenu
-    MacMenu {}
+    MacMenu {
+        recents: settings.recents
+    }
     QmlMenu {
         id: qmlMenu
         visible: Qt.platform.os !== "osx" && mainWindow.visibility !== Window.FullScreen
@@ -502,6 +506,17 @@ ApplicationWindow {
                 }
                 thisItem = thisItem.parent
             }
+        }
+    }
+
+    onFilepathChanged: {
+        var path = filepath.toString()
+        if (settings.recents.indexOf(path) < 0) {
+            settings.recents.push(path)
+        }
+
+        if (path!="") {
+            mainWindow.title = path + " - Stage"
         }
     }
 }

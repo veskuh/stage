@@ -9,6 +9,8 @@ import "../js/menucommands.js" as MenuCommands
 import "../js/utils.js" as Utils
 
 Labs.MenuBar {
+    id: menu
+    property list<string> recents
     Labs.Menu {
         Labs.MenuItem {
             text: "About Stage"
@@ -36,6 +38,33 @@ Labs.MenuBar {
             shortcut: StandardKey.Open
             onTriggered: MenuCommands.open()
         }
+        Labs.Menu {
+            id: recentMenu
+            title: "Recents"
+
+            Instantiator {
+                model: menu.recents
+                Labs.MenuItem {
+                    text: " " + modelData
+                    onTriggered: {
+                        mainWindow.filepath = modelData
+                        document.load(modelData)
+                    }
+                }
+
+                onObjectAdded: recentMenu.insertItem(index, object)
+
+            }
+            Labs.MenuSeparator { }
+
+            Labs.MenuItem {
+                text: "Clear"
+                onTriggered: settings.recents.length = 0
+            }
+
+        }
+
+
         Labs.MenuSeparator { }
 
         Labs.MenuItem {
