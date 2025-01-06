@@ -91,7 +91,7 @@ Rectangle {
         }
     }
 
-    Component.onCompleted: {
+    function refresh() {
         model.clear()
         var group = content.getGroup()
         var members = group.members
@@ -102,5 +102,11 @@ Rectangle {
                 model.append({"name" : name, "ref": member})
             }
         }
+    }
+
+    Component.onCompleted: {
+        refresh()
+        var group = content.getGroup()
+        group.memberAdded.connect(refresh)
     }
 }

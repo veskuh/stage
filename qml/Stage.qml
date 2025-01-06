@@ -38,6 +38,23 @@ ApplicationWindow {
 
     }
 
+
+    function addToGroup(stageObject) {
+        console.log("Shift click")
+        // setup a multiselect
+        // If target changes, check if currently already in multiselection
+        // and add to existing multiselection
+        // Otherwise create a new multiselection with previously selected object and
+        // this one
+        if (mainWindow.target !== stageObject) {
+            var group = content.getGroup()
+            group.add(stageObject)
+            mainWindow.target = group
+            mainWindow.inspectorSource = group.inspectorSource
+        } // Just ignore if not different
+    }
+
+
     function selectObject(stageObject, source) {
         mainWindow.target = stageObject
         mainWindow.inspectorSource = source

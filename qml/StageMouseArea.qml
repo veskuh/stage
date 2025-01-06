@@ -16,21 +16,8 @@ MouseArea {
 
     onClicked: (mouse) => {
         if (mouse.modifiers & Qt.ShiftModifier) {
-            console.log("Shift click")
-            // setup a multiselect
-            // If target changes, check if currently already in multiselection
-            // and add to existing multiselection
-            // Otherwise create a new multiselection with previously selected object and
-            // this one
-            if (mainWindow.target !== target) {
-                var group = content.getGroup()
-                group.add(target)
-                console.log("activate group")
-                mainWindow.target = group
-                mainWindow.inspectorSource = group.inspectorSource
-            } // Just ignore if not different
-
-        } if (mouse.button == Qt.RightButton) {
+            mainWindow.addToGroup(target)
+        } else if (mouse.button == Qt.RightButton) {
             activeObject().contextMenu.popup()
         } else {
             mainWindow.selectObject(target,source)

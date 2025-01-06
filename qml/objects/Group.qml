@@ -19,6 +19,8 @@ StageBase {
     property list<StageBase> members
     property bool activeSelection: mainWindow.target === base
 
+    signal memberAdded()
+
     ContextMenuCommon {
         id: groupMenu
 
@@ -74,6 +76,7 @@ StageBase {
     function add(target) {
         members.push(target)
         target.group = base
+        base.memberAdded()
     }
 
     function clear() {
