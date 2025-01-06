@@ -33,9 +33,7 @@ MouseArea {
         } if (mouse.button == Qt.RightButton) {
             activeObject().contextMenu.popup()
         } else {
-            mainWindow.target = target
-            mainWindow.inspectorSource = source
-            content.selectionGroup = null
+            mainWindow.selectObject(target,source)
         }
     }
 

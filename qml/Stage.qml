@@ -38,6 +38,17 @@ ApplicationWindow {
 
     }
 
+    function selectObject(stageObject, source) {
+        mainWindow.target = stageObject
+        mainWindow.inspectorSource = source
+        content.selectionGroup = null
+
+        if (inspectorStack.showSlideList) {
+            inspectorStack.showSlideList = false
+        }
+    }
+
+
     Settings {
         id: settings
         property alias x: mainWindow.x
@@ -147,9 +158,8 @@ ApplicationWindow {
             StageToolButton {
                 text: "Slides"
                 icon.source: theme.slidesIcon
-                checked: !propertyButton.checked
+                checked: inspectorStack.showSlideList
                 onClicked: {
-                    propertyButton.checked = false
                     inspectorStack.showSlideList = true
                 }
             }
@@ -157,9 +167,8 @@ ApplicationWindow {
                 id: propertyButton
                 text: "Item"
                 icon.source: theme.inspectorIcon
-                checked: true
+                checked: !inspectorStack.showSlideList
                 onClicked: {
-                    propertyButton.checked = true
                     inspectorStack.showSlideList = false
                 }
             }
@@ -225,6 +234,7 @@ ApplicationWindow {
                 Shortcut {
                     sequences: [StandardKey.MoveToNextPage, "Down"]
                     onActivated: {
+                        inspectorStack.showSlideList = true
                         document.nextSlide()
                     }
                 }
@@ -232,6 +242,7 @@ ApplicationWindow {
                 Shortcut {
                     sequences: [StandardKey.MoveToPreviousPage,"Up"]
                     onActivated: {
+                        inspectorStack.showSlideList = true
                         document.previousSlide()
                     }
                 }
