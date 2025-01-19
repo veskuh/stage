@@ -52,8 +52,12 @@ Labs.MenuBar {
                     }
                 }
 
-                onObjectAdded: (index, object) => { recentMenu.insertItem(index, object) }
-
+                onObjectAdded: (index, object) => {
+                                   if (object!=null && object!="") {
+                                       console.log(""+object)
+                                       recentMenu.insertItem(index, object)
+                                   }
+                               }
             }
             Labs.MenuSeparator { }
 

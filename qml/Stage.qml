@@ -542,19 +542,23 @@ ApplicationWindow {
 
     onFilepathChanged: {
         var path = filepath.toString()
+
+        if (path==null || path=="") {
+            return
+        }
+
         if (settings.recents.indexOf(path) < 0) {
             settings.recents.push(path)
         }
 
-        if (path!="") {
-            var urlParts = path.split("/")
-            var filenameWithExtension = urlParts[urlParts.length - 1]
-            var filename = filenameWithExtension.substring(0, filenameWithExtension.lastIndexOf("."))
+        var urlParts = path.split("/")
+        var filenameWithExtension = urlParts[urlParts.length - 1]
+        var filename = filenameWithExtension.substring(0, filenameWithExtension.lastIndexOf("."))
 
-            if (filename!=="")
-                mainWindow.title = filename + " - Stage"
-            else
-                mainWindow.title = "Stage"
+        if (filename!=="") {
+            mainWindow.title = filename + " - Stage"
+        } else {
+            mainWindow.title = "Stage"
         }
     }
 }
