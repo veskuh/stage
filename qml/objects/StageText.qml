@@ -28,7 +28,9 @@ StageBase {
     }
 
     function duplicate() {
-        content.addObject({"type":"StageText","x": x + 10,"y": y + 10,"width":width,"height":height,"color":color,"text":text})
+        content.addObject({"type":"StageText","x": x + 10,"y": y + 10,"width":width,"height":height,
+                              "color":color,"text":text,"underline":underline,"bold":bold,
+                              "italic":italic,"fontSize":fontSize})
         content.deselect()
     }
 }
