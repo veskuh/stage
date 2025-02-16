@@ -33,6 +33,25 @@ StageBase {
         transformOrigin: "TopLeft"
     }
 
+    function updateDimensions(scale) {
+        height = scale * image.paintedHeight
+        width = scale * image.paintedWidth
+    }
+
+    function setWidth(w) {
+        var scale = w / image.paintedWidth
+        updateDimensions(scale)
+    }
+
+    function setHeight(h) {
+        var scale = h / image.paintedHeight
+        updateDimensions(scale)
+    }
+
+    function checkDimensions() {
+        updateDimensions(image.scale)
+    }
+
     Component.onCompleted: {
         if (url == "") {
             fileDialog.visible = true

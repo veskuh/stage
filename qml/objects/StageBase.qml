@@ -134,5 +134,7 @@ Item {
         base.z = base.z - 1
     }
 
+    function checkDimensions() {
+    }
 
 }

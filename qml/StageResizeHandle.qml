@@ -51,6 +51,7 @@ Item {
         onDraggingChanged: {
             if (!dragging) {
                 document.updateCurrentSlide()
+                handle.parent.checkDimensions()
             }
         }
     }

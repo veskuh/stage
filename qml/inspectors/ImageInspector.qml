@@ -14,29 +14,40 @@ Rectangle {
     Column {
         id:column
         padding: mainWindow.theme.mediumPadding
-        spacing: mainWindow.theme.mediumPadding * 2
+        spacing: mainWindow.theme.mediumPadding
 
         InspectorCommon {
             title: "Image"
+            showSize: false
         }
-
         SeparatorLine {
             width: inspector.width - 2 * mainWindow.theme.mediumPadding
         }
 
         SectionHeader {
-            text: "Source file"
-        }
-
-        Label {
-            text: inspector.target? inspector.target.url : "No source"
-            elide: Text.ElideLeft
+            text: "Size"
             width: inspector.width - 2 * mainWindow.theme.mediumPadding
         }
-        Button {
-            text: "Change source.."
-            onClicked: {
-                inspector.target.dialog.visible = true
+
+        NumberInput {
+            width: inspector.width - 2 * mainWindow.theme.mediumPadding
+            labelText: "Width:"
+            enabled: inspector.target
+            valueText: inspector.target? inspector.target.width.toFixed(0) : ""
+
+            onAccepted: (text) =>  {
+                inspector.target.setWidth(text)
+            }
+        }
+
+        NumberInput {
+            width: inspector.width - 2 * mainWindow.theme.mediumPadding
+            labelText: "Height:"
+            enabled: inspector.target
+            valueText: inspector.target? inspector.target.height.toFixed(0) : ""
+
+            onAccepted: (text) =>  {
+                inspector.target.setHeight(text)
             }
         }
     }
