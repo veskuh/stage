@@ -67,6 +67,9 @@ function deleteTarget() {
 }
 
 function selectAll() {
+    // When selecting all items, we hide the slide list to focus on displaying
+    // and potentially inspecting the selected objects themselves.
+    mainWindow.showSlideList = false
     content.selectAll()
 }
 

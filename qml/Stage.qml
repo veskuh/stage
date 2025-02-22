@@ -29,6 +29,7 @@ ApplicationWindow {
     property url filepath
     property Item editItem
     property bool presentInWindow
+    property bool showSlideList: false
 
     width: 1024
     height: 768
@@ -175,18 +176,18 @@ ApplicationWindow {
             StageToolButton {
                 text: "Slides"
                 icon.source: theme.slidesIcon
-                checked: inspectorStack.showSlideList
+                checked: mainWindow.showSlideList
                 onClicked: {
-                    inspectorStack.showSlideList = true
+                    mainWindow.showSlideList = true
                 }
             }
             StageToolButton {
                 id: propertyButton
                 text: "Item"
                 icon.source: theme.inspectorIcon
-                checked: !inspectorStack.showSlideList
+                checked: !mainWindow.showSlideList
                 onClicked: {
-                    inspectorStack.showSlideList = false
+                    mainWindow.showSlideList  = false
                 }
             }
         }
@@ -251,7 +252,7 @@ ApplicationWindow {
                 Shortcut {
                     sequences: [StandardKey.MoveToNextPage, "Down"]
                     onActivated: {
-                        inspectorStack.showSlideList = true
+                        mainWindow.showSlideList = true
                         document.nextSlide()
                     }
                 }
@@ -259,7 +260,7 @@ ApplicationWindow {
                 Shortcut {
                     sequences: [StandardKey.MoveToPreviousPage,"Up"]
                     onActivated: {
-                        inspectorStack.showSlideList = true
+                        mainWindow.showSlideList = true
                         document.previousSlide()
                     }
                 }
@@ -451,7 +452,7 @@ ApplicationWindow {
 
             StackLayout {
                 id: inspectorStack
-                property bool showSlideList: false
+                property bool showSlideList: mainWindow.showSlideList
                 currentIndex: showSlideList ? 1 : 0
                 anchors.fill: parent
 
