@@ -15,6 +15,7 @@ Item {
     property QtObject group
     property bool selected: mainWindow.target === base || group && group.activeSelection
 
+    property bool resizeEnabled: true
     property bool anchorLinesEnabled: true
     property string type: ""
     opacity: dragArea.drag.active? 0.5 : 1.0
@@ -106,6 +107,7 @@ Item {
     }
 
     StageResizeHandle {
+        visible: parent.resizeEnabled && parent.selected && parent.visible && !parent.group
     }
 
     SelectionHighlight {

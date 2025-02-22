@@ -15,6 +15,7 @@ StageBase {
 
     visible: true
     contextMenu: groupMenu
+    resizeEnabled: false
 
     property list<StageBase> members
     property bool activeSelection: mainWindow.target === base

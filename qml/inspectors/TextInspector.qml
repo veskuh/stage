@@ -17,6 +17,7 @@ Rectangle {
 
         InspectorCommon {
             title: "Text"
+            showSize: false
         }
 
         SeparatorLine {

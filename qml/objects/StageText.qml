@@ -18,6 +18,7 @@ StageBase {
 
     width: label.implicitWidth
     height: label.implicitHeight
+    resizeEnabled: false
 
     Label {
         id:label
