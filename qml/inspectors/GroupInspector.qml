@@ -12,7 +12,15 @@ Rectangle {
 
     property Item target: mainWindow.target
 
+    Label {
+        visible: !column.visible
+        text : "No items selected"
+        anchors.centerIn: parent
+    }
+
     Column {
+        id: column
+        visible: list.model.count > 0
         padding: mainWindow.theme.mediumPadding
         spacing: mainWindow.theme.mediumPadding
 
