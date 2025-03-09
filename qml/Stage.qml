@@ -61,8 +61,8 @@ ApplicationWindow {
         mainWindow.inspectorSource = source
         content.selectionGroup = null
 
-        if (inspectorStack.showSlideList) {
-            inspectorStack.showSlideList = false
+        if (mainWindow.showSlideList) {
+            mainWindow.showSlideList = false
         }
     }
 
@@ -182,7 +182,6 @@ ApplicationWindow {
                 }
             }
             StageToolButton {
-                id: propertyButton
                 text: "Item"
                 icon.source: theme.inspectorIcon
                 checked: !mainWindow.showSlideList
@@ -452,8 +451,7 @@ ApplicationWindow {
 
             StackLayout {
                 id: inspectorStack
-                property bool showSlideList: mainWindow.showSlideList
-                currentIndex: showSlideList ? 1 : 0
+                currentIndex: mainWindow.showSlideList ? 1 : 0
                 anchors.fill: parent
 
                 ScrollView {
@@ -463,7 +461,7 @@ ApplicationWindow {
                         id: loader
                         width: parent.width
                         height: parent.height
-                        property string sourceUrl: mainWindow.inspectorSource? "./inspectors/" + mainWindow.inspectorSource : ""
+                        property string sourceUrl: mainWindow.inspectorSource? "./inspectors/" + mainWindow.inspectorSource : "./inspectors/GroupInspector.qml"
                         property Item currentTarget: mainWindow.target
 
                         onStatusChanged: {

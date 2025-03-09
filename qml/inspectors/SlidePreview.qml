@@ -53,7 +53,7 @@ Item {
             id: contextMenu
 
             MenuItem {
-                enabled: base.model && base.model.count > 1
+                enabled: base.model != undefined && (base.model.count > 1)
                 text: "Delete"
                 onTriggered: document.deleteSlide(index)
             }
