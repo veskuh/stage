@@ -197,7 +197,7 @@ ApplicationWindow {
         visible: content.enabled
 
         RowLayout {
-            Label { text: mainWindow.state }
+            Label { text: "Slide: " + (document.currentSlideIndex+1) + "/" + document.slideCount}
         }
 
         RowLayout {

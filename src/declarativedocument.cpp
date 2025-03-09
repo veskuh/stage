@@ -44,6 +44,9 @@ void DeclarativeDocument::newDocument() {
     SlidePreviewImageProvider::setSlideModel(m_slideModel);
 
     emit slideModelChanged();
+    emit slideCountChanged();
+    currentSlide = 0;
+    emit currentSlideIndexChanged();
 }
 
 void::DeclarativeDocument::addSlide(int index) {
@@ -51,6 +54,7 @@ void::DeclarativeDocument::addSlide(int index) {
     slide.setList(new StageObjectList());
     m_slideModel->append(slide);
     emit slideModelChanged();
+    emit slideCountChanged();
 }
 
 void DeclarativeDocument::save(QUrl url)
@@ -166,6 +170,7 @@ void DeclarativeDocument::deleteSlide(int index)
             }
         }
         m_slideModel->removeSlide(index);
+        emit slideCountChanged();
     }
 }
 
@@ -211,6 +216,7 @@ void DeclarativeDocument::setSlideModel(DeclarativeSlideModel* model) {
     m_slideModel = model;
     SlidePreviewImageProvider::setSlideModel(m_slideModel);
     emit slideModelChanged();
+    emit slideCountChanged();
     delete tmp; // For some reason setSlideModel gets called again if I delete the old one, TOOD figure out why, QML has ownership maybe?
 }
 
