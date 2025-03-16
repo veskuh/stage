@@ -4,6 +4,7 @@
 
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Dialogs
 
 Rectangle {
     id: inspector
@@ -43,10 +44,14 @@ Rectangle {
 
             TextField {
                 width: inspector.width - 2 * mainWindow.theme.mediumPadding
-                text: enabled ? inspector.target.fontName : ""
-                enabled: inspector.target && target.inspectorSource == "TextInspector.qml"
-                onAccepted: {
-                    if (enabled) inspector.target.fontName = text
+                text: inspector.target && target.inspectorSource == "TextInspector.qml" ? inspector.target.fontName : ""
+                enabled: false
+            }
+
+            Button {
+                text: "Select Font.."
+                onClicked: {
+                    fontDialog.open()
                 }
             }
 
@@ -89,7 +94,6 @@ Rectangle {
         SectionHeader {
             text: "Font color"
         }
-
 
         ColorPicker {
             width: inspector.width

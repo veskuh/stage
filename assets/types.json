@@ -9,7 +9,7 @@
 },
 {
     "type":"StageText",
-    "properties": ["x","y","z","width","height","text","color","bold","italic","underline","fontSize","opacity","visible","enabled"]
+    "properties": ["x","y","z","width","height","text","color","bold","italic","underline","fontSize","opacity","visible","enabled","fontName"]
 },
 {
     "type":"StageImage",

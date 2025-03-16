@@ -84,6 +84,11 @@ ApplicationWindow {
         id: clipboard
     }
 
+    FontPicker {
+        id: fontDialog
+        target: mainWindow.target
+    }
+
     menuBar: Qt.platform.os == "osx" ? null : qmlMenu
     MacMenu {
         recents: settings.recents

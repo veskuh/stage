@@ -39,5 +39,6 @@
         <file>qml/inspectors/SlidesInspector.qml</file>
         <file>qml/inspectors/SlidePreview.qml</file>
         <file>qml/objects/ContextMenuCommon.qml</file>
+        <file>qml/FontPicker.qml</file>
     </qresource>
 </RCC>
