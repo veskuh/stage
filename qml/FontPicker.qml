@@ -26,9 +26,11 @@ FontDialog {
     }
 
     onTargetChanged: {
-        if (visible) {
+        if (target && target.type == "StageText") {
             visible = false
             visible = true
+        } else {
+            visible = false
         }
     }
 

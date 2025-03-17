@@ -84,6 +84,11 @@ ApplicationWindow {
         id: clipboard
     }
 
+    onActiveChanged: {
+        if (active)
+            fontDialog.visible = false
+    }
+
     FontPicker {
         id: fontDialog
         target: mainWindow.target
