@@ -23,6 +23,7 @@ Rectangle {
             width: list.width
             source: "image://slideProvider/" + imageId
             slideTitle: (index+1) + "."
+            canDelete: list.count > 1
         }
     }
 }

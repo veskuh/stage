@@ -11,6 +11,7 @@ Item {
     property alias slideTitle: slideNumber.text
     property bool selected: document.currentSlideIndex == index
     property alias source: preview.source
+    property bool canDelete
 
     Label {
         id: slideNumber
@@ -53,7 +54,7 @@ Item {
             id: contextMenu
 
             MenuItem {
-                enabled: base.model != undefined && (base.model.count > 1)
+                enabled: canDelete
                 text: "Delete"
                 onTriggered: document.deleteSlide(index)
             }
