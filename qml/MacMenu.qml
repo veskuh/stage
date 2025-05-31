@@ -47,8 +47,7 @@ Labs.MenuBar {
                 Labs.MenuItem {
                     text: " " + modelData
                     onTriggered: {
-                        mainWindow.filepath = modelData
-                        document.load(modelData)
+                        mainWindow.openFile(modelData)
                     }
                 }
 

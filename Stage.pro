@@ -13,6 +13,7 @@ SOURCES += \
     src/slidedata.cpp \
     src/slidepreviewimageprovider.cpp \
     src/stage.cpp \
+    src/stageapplication.cpp \
     src/svgexport.cpp
 
 HEADERS += \
@@ -24,6 +25,7 @@ HEADERS += \
     src/objectrenderer.h \
     src/slidedata.h \
     src/slidepreviewimageprovider.h \
+    src/stageapplication.h \
     src/svgexport.h
 
 RESOURCES += \

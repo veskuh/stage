@@ -11,11 +11,12 @@
 #include "macsymbolimageprovider.h"
 #include "QQmlContext"
 #include "slidepreviewimageprovider.h"
+#include "stageapplication.h"
 
 
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+    StageApplication app(argc, argv);
     app.setOrganizationName("Stage");
     app.setOrganizationDomain("veskuh.net");
     app.setApplicationName("Stage");
@@ -38,6 +39,10 @@ int main(int argc, char *argv[])
         qWarning("Root has to be a Window");
         return -1;
     }
+
+    QObject::connect(&app, &StageApplication::openUrl, [topLevel](const QUrl url){
+        QMetaObject::invokeMethod(topLevel, "openFile", Q_ARG(QVariant, url));
+    });
 
     window->show();
     return app.exec();

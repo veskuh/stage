@@ -500,6 +500,10 @@ ApplicationWindow {
         }
     }
 
+    function openFile(path) {
+        mainWindow.filepath = path
+        document.load(mainWindow.filepath)
+    }
 
     onTargetChanged: {
         if (!target) {
@@ -512,14 +516,13 @@ ApplicationWindow {
         title: "Choose file"
         fileMode: FileDialog.OpenFile
         property bool exportSvg: false
-        nameFilters: exportSvg? ["svg files (*.svg)"] : [ "json files (*.json)"]
+        nameFilters: exportSvg? ["svg files (*.svg)"] : [ "stage files (*.stage)" ]
 
         onAccepted: {
-            filepath = openDialog.currentFile
             if (fileMode==FileDialog.OpenFile) {
-                document.load(filepath)
-
+                mainWindow.openFile(openDialog.currentFile)
             } else {
+                filepath = openDialog.currentFile
                 if (!exportSvg) {
                     document.save(filepath)
                 } else {

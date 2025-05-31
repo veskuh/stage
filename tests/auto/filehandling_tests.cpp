@@ -30,17 +30,17 @@ TEST_CASE("Initialize", "[DocumentFile]") {
     REQUIRE(1==1); // empty map
 }
 
-TEST_CASE("Load and save shapes.json", "[DocumentFile]") {
+TEST_CASE("Load and save shapes.stage", "[DocumentFile]") {
     DocumentFile file;
 
     /* TODO
-    auto path = QFileInfo("../manual/shapes.json").absoluteFilePath();
+    auto path = QFileInfo("../manual/shapes.stage").absoluteFilePath();
 
     // Crashes
     auto data = file.load(QUrl::fromLocalFile(path));
-    REQUIRE(data->rowCount() > 0); // JSON file objects
+    REQUIRE(data->rowCount() > 0); // stage file objects
 
-    auto newPath = QFileInfo("./out.json").absoluteFilePath();
+    auto newPath = QFileInfo("./out.stage").absoluteFilePath();
 
     file.save(QUrl::fromLocalFile(newPath), data);
     auto newData = file.load(QUrl::fromLocalFile(newPath));
@@ -79,14 +79,14 @@ TEST_CASE("Export single rect SVG", "[SvgExport]") {
     file2.remove();
 }
 
-TEST_CASE("Read shapes.json and export as SVG", "[SvgExport]") {
+TEST_CASE("Read shapes.stage and export as SVG", "[SvgExport]") {
     char* argv[] = {(char*)"AutoTests" };
     int argc = 1;
     QGuiApplication app(argc, argv);
     // Single Rect
     SvgExport exporter("shapes.svg");    
     DocumentFile file;
-    auto path = QFileInfo("all-shapes.json").absoluteFilePath();
+    auto path = QFileInfo("all-shapes.stage").absoluteFilePath();
     auto data = file.load(QUrl::fromLocalFile(path));
 
     /* TODO
