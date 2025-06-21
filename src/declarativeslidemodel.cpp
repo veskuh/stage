@@ -30,6 +30,7 @@ void DeclarativeSlideModel::append(SlideData slide) {
 
 void DeclarativeSlideModel::insertSlide(int index, const QString &name, const QImage &image) {
     if (index < 0 || index > rowCount()) {
+        qWarning() << "Invalid index" << index << "for insertSlide";
         return;  // Invalid index, do nothing
     }
     SlideData slide;
@@ -43,11 +44,14 @@ void DeclarativeSlideModel::insertSlide(int index, const QString &name, const QI
 
 void DeclarativeSlideModel::removeSlide(int index) {
     if (index < 0 || index >= rowCount()) {
+        qWarning() << "DeclarativeSlideModel::removeSlide - Invalid index:" << index << "Valid range: 0 to" << (rowCount() - 1);
         return;  // Invalid index, do nothing
     }
+    qDebug() << "DeclarativeSlideModel::removeSlide - Removing slide at index:" << index << "with name:" << m_slides.at(index).name();
     beginRemoveRows(QModelIndex(), index, index);
     m_slides.removeAt(index);
     endRemoveRows();
+    qDebug() << "DeclarativeSlideModel::removeSlide - Slide removed successfully. New slide count:" << rowCount();
 }
 
 void DeclarativeSlideModel::moveSlide(int from, int to) {
@@ -86,6 +90,7 @@ QHash<int, QByteArray> DeclarativeSlideModel::roleNames() const  {
     return roles;
 }
 
+[[nodiscard]]
 QImage DeclarativeSlideModel::getImageById(const QString &id) const {
     for (const SlideData &slide : m_slides) {
         if (slide.imageId() == id) {
@@ -95,6 +100,7 @@ QImage DeclarativeSlideModel::getImageById(const QString &id) const {
     return QImage();
 }
 
+[[nodiscard]]
 SlideData DeclarativeSlideModel::getSlide(int index) {
     if (m_slides.length() > index && index >= 0)
         return m_slides.at(index);

@@ -115,7 +115,7 @@ void DeclarativeDocument::updateSlideContent(int index) {
 void DeclarativeDocument::exportSvg(QUrl url)
 {
     SvgExport file(url.toLocalFile());
-    QObject *content = contentObject("m_painter->");
+    QObject *content = contentObject("contentRectangle");
     StageObjectList* objectList = contentObjects(content);
     for (QVariantMap properties : *objectList) {
         file.addObject(properties);
